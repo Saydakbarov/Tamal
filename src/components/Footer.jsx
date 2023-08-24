@@ -15,7 +15,7 @@ export default function Footer() {
         }}
         gap={2}
       >
-        <Grid item lg={5.5}>
+        <Grid item lg={5.5} md={5.5} sm={8} xs={11}>
           <Box
             sx={{
               display: "flex",
@@ -39,7 +39,7 @@ export default function Footer() {
             </Typography>
           </Box>
         </Grid>
-        <Grid item lg={5.5}>
+        <Grid item lg={5.5} md={5.5} sm={8} xs={11}>
           <Box sx={{ display: "flex", gap: "30px", justifyContent: "center" }}>
             <Facebook sx={{ color: "gray" }} />
             <Twitter sx={{ color: "gray" }} />

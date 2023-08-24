@@ -18,12 +18,13 @@ export default function HomeContact() {
       <Box
         sx={{
           border: "1px solid #ced4da",
-          width: "600px",
+          width: { xs: "300px", sm: "300px", md: "500px", lg: "600px" },
           p: 2,
           display: "flex",
           justifyContent: "space-around",
           margin: "0 auto",
           mt: 5,
+          flexWrap: "wrap",
         }}
       >
         <input
