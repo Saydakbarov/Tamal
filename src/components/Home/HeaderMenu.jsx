@@ -78,7 +78,7 @@ export default function HeaderMenu() {
                     </Button>
                   ))}
                 </Box>
-                <Box sx={{}}>
+                <Box sx={{display:{md:"none", lg:"block"}}}>
                   <img
                     style={{
                       width: "90px",

@@ -5,10 +5,13 @@ import {
   Drawer,
   IconButton,
   List,
-
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { MenuData } from "../../data";
 // import "./Styles/Drawer.css";
 
 export default function DrawerCom() {
@@ -16,6 +19,17 @@ export default function DrawerCom() {
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <React.Fragment>
+      <Box>
+        <img
+          style={{
+            width: "90px",
+            cursor: "pointer",
+            marginLeft: "-230px",
+          }}
+          src="https://htmldemo.net/eposi/eposi/assets/img/logo.webp"
+          alt=""
+        />
+      </Box>
       <Drawer
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
@@ -32,12 +46,12 @@ export default function DrawerCom() {
             }}
           >
             <img
-              style={{ width: "150px", cursor: "pointer" }}
-              src="https://www.linkpicture.com/q/logo-removebg-preview-2_1.png"
+              style={{ width: "90px", cursor: "pointer" }}
+              src="https://htmldemo.net/eposi/eposi/assets/img/logo.webp"
               alt=""
             />
           </Box>
-          {/* {PAGES.map((page, i) => (
+          {MenuData.map((page, i) => (
             <ListItemButton key={i} onClick={() => setOpenDrawer(false)}>
               <ListItemIcon onClick={() => navigate(page.path)}>
                 <ListItemText sx={{ color: "black !important" }} key={i}>
@@ -45,7 +59,7 @@ export default function DrawerCom() {
                 </ListItemText>
               </ListItemIcon>
             </ListItemButton>
-          ))} */}
+          ))}
         </List>
       </Drawer>
 
