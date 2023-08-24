@@ -1,0 +1,25 @@
+.swiper-button-next{
+    color:black !important;
+    background-color: #fffd;
+    font-size: 14px !important;
+    border-radius: 50%;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after{
+    font-size: 18px !important;
+}
+
+.swiper-button-prev{
+    color:black !important;
+    background-color: #fffd;
+    font-size: 14px !important;
+    border-radius: 50%;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.swiper-button-prev:after, .swiper-rtl .swiper-button-prev:after{
+    font-size: 18px !important;
+}

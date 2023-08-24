@@ -1,0 +1,32 @@
+.css-aish52-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #252525 !important;
+}
+
+.swiperSlideBox {
+  cursor: pointer;
+  position: relative;
+
+  .changeCard {
+    opacity: 0;
+    background-color: white;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transition: all 0.7s ease-in-out;
+
+    .productCardIconsHome {
+      color: black;
+      :hover {
+        color: red;
+      }
+    }
+  }
+
+  :hover {
+    .changeCard {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+  }
+}
