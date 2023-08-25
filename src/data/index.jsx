@@ -23,19 +23,19 @@ export const MenuData = [
   },
   {
     title: "About Us",
-    path: "/",
+    path: "/about",
   },
   {
     title: "Category",
-    path: "/",
+    path: "/category",
   },
   {
     title: "News",
-    path: "/",
+    path: "/news",
   },
   {
     title: "Contact",
-    path: "/",
+    path: "/contact",
   },
 ];
 
@@ -630,5 +630,23 @@ export const BlogPostsData = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod alias ducimus repudiandae sed porro incidunt! ",
     month: "Oct",
     day: "23",
+  },
+];
+
+export const AboutPageProductData = [
+  {
+    img: "https://htmldemo.net/eposi/eposi/assets/img/banners/banner7.webp",
+    title: "OUR VISSION",
+    text: "posi provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend",
+  },
+  {
+    img: "https://htmldemo.net/eposi/eposi/assets/img/banners/banner8.webp",
+    title: "OUR MISSION",
+    text: "posi provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend",
+  },
+  {
+    img: "https://htmldemo.net/eposi/eposi/assets/img/banners/banner9.webp",
+    title: "OUR GOAL",
+    text: "posi provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth, the mer of human tas assumenda est, omnis dolor repellend",
   },
 ];

@@ -1,4 +1,4 @@
-import { Box, Grid, Rating, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Rating, Typography } from "@mui/material";
 import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,12 +9,25 @@ import "./styles/ProductCard.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Favorite, IosShare, ShoppingBag } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../redux/ProductReducer";
 
 export default function ProductsCard({ data }) {
   const [ratingValue, setRatingValue] = useState(0);
+  const [productData, setProductData] = useState([]);
 
-  const Price = data.map((v) => v.price * (v.percentage / 100));
-  console.log(Price);
+  console.log(productData);
+
+  const dataProduct = useSelector((state) => state.products);
+
+  const dispatch = useDispatch();
+  const getProductData = (v) => {
+    setProductData(v);
+    dataProduct.filter((el) => (el.img !== v.img ? setProductData(v) : null));
+    // console.log(dataProduct);
+
+    dispatch(addProduct(productData));
+  };
 
   return (
     <Box sx={{}}>
@@ -112,7 +125,14 @@ export default function ProductsCard({ data }) {
                               justifyContent: "center",
                             }}
                           >
-                            <ShoppingBag className="productCardIconsHome" />
+                            <IconButton
+                              onClick={() => {
+                                getProductData(v);
+                              }}
+                            >
+                              <ShoppingBag className="productCardIconsHome" />
+                            </IconButton>
+
                             <Favorite className="productCardIconsHome" />
                             <ShoppingBag className="productCardIconsHome" />
 

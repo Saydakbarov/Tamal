@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import FormContact from "../Contact/FormContact";
 
 export default function HomeContact() {
   return (
@@ -15,34 +16,11 @@ export default function HomeContact() {
         collections, the latest lookbooks and exclusive offers.
       </Typography>
 
+    
       <Box
-        sx={{
-          border: "1px solid #ced4da",
-          width: { xs: "300px", sm: "300px", md: "500px", lg: "600px" },
-          p: 2,
-          display: "flex",
-          justifyContent: "space-around",
-          margin: "0 auto",
-          mt: 5,
-          flexWrap: "wrap",
-        }}
+        sx={{ minWidth: "300px", maxWidth: "500px", margin: "0 auto", mt: 3 }}
       >
-        <input
-          style={{ border: "none", outline: "none", width: "60%" }}
-          type="text"
-          placeholder="Enter Your Email Address here...."
-        />
-        <button
-          style={{
-            border: "none",
-            fontSize: "18px",
-            background: "none",
-            borderLeft: "1px solid #ced4da",
-            paddingLeft: "10px",
-          }}
-        >
-          Subscribe
-        </button>
+        <FormContact />
       </Box>
     </Box>
   );

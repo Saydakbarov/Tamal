@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import DrawerCom from "./DrawerCom";
 import { Menu, Search, Shop } from "@mui/icons-material";
 import { MenuData } from "../../data";
+import SearchBox from "./SearchBox";
+import BasketBox from "./BasketBox";
 
 export default function HeaderMenu() {
   const navigate = useNavigate();
@@ -78,7 +80,7 @@ export default function HeaderMenu() {
                     </Button>
                   ))}
                 </Box>
-                <Box sx={{display:{md:"none", lg:"block"}}}>
+                <Box sx={{ display: { md: "none", lg: "block" } }}>
                   <img
                     style={{
                       width: "90px",
@@ -92,10 +94,10 @@ export default function HeaderMenu() {
 
                 <Box sx={{ color: "black" }}>
                   <IconButton sx={{ color: "black" }}>
-                    <Search />
+                    <SearchBox />
                   </IconButton>
                   <IconButton sx={{ color: "black" }}>
-                    <Shop />
+                    <BasketBox/>
                   </IconButton>
                   <IconButton sx={{ color: "black" }}>
                     <Menu />
