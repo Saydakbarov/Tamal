@@ -14,19 +14,13 @@ import { addProduct } from "../../redux/ProductReducer";
 
 export default function ProductsCard({ data }) {
   const [ratingValue, setRatingValue] = useState(0);
-  const [productData, setProductData] = useState([]);
-
-  console.log(productData);
-
-  const dataProduct = useSelector((state) => state.products);
+  // const [productData, setProductData] = useState([]);
 
   const dispatch = useDispatch();
   const getProductData = (v) => {
-    setProductData(v);
-    dataProduct.filter((el) => (el.img !== v.img ? setProductData(v) : null));
-    // console.log(dataProduct);
+    // setProductData(v);
 
-    dispatch(addProduct(productData));
+    dispatch(addProduct(v));
   };
 
   return (

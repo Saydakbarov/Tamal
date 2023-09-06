@@ -12,45 +12,42 @@ import {
 import { Menu } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { MenuData } from "../../data";
-// import "./Styles/Drawer.css";
+
+import TamalLogo from "../../tamalLogo.png";
+import SearchBox from "./SearchBox";
 
 export default function DrawerCom() {
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <React.Fragment>
-      <Box>
-        <img
-          style={{
-            width: "90px",
-            cursor: "pointer",
-            marginLeft: "-230px",
-          }}
-          src="https://htmldemo.net/eposi/eposi/assets/img/logo.webp"
-          alt=""
-        />
-      </Box>
       <Drawer
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
         anchor="top"
       >
-        <List sx={{ width: "240px", p: 2 }}>
-          <Box
-            sx={{
-              display: "flex",
-              gap: "8px",
-              alignItems: "center",
-              pb: 1,
-              zIndex: "9999",
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            p:2
+          }}
+        >
+          <img
+            style={{
+              width: "150px",
+              cursor: "pointer",
             }}
-          >
-            <img
-              style={{ width: "90px", cursor: "pointer" }}
-              src="https://htmldemo.net/eposi/eposi/assets/img/logo.webp"
-              alt=""
-            />
-          </Box>
+            onClick={() => navigate("/")}
+            src={TamalLogo}
+            alt=""
+          />
+
+          <SearchBox />
+        </Box>
+        <List sx={{ width: "240px", p: 2 }}>
           {MenuData.map((page, i) => (
             <ListItemButton key={i} onClick={() => setOpenDrawer(false)}>
               <ListItemIcon onClick={() => navigate(page.path)}>

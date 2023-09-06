@@ -4,7 +4,7 @@ import React from "react";
 export default function HomeCategory() {
   return (
     <Box>
-      <Grid container justifyContent={"center"} gap={3} sx={{ mt: 8 }}>
+      <Grid container justifyContent={"center"} gap={4} sx={{ mt: 8 }}>
         <Grid item lg={2} md={4} sm={5.5} xs={10}>
           <Box
             sx={{

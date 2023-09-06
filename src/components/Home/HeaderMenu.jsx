@@ -17,6 +17,8 @@ import { MenuData } from "../../data";
 import SearchBox from "./SearchBox";
 import BasketBox from "./BasketBox";
 
+import TamalLogo from "../../tamalLogo.png";
+
 export default function HeaderMenu() {
   const navigate = useNavigate();
 
@@ -52,7 +54,24 @@ export default function HeaderMenu() {
         >
           {isMatch ? (
             <>
-              <DrawerCom />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <img
+                  style={{
+                    width: "150px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate("/")}
+                  src={TamalLogo}
+                  alt=""
+                />
+                <DrawerCom />
+              </Box>
             </>
           ) : (
             <>
@@ -80,14 +99,15 @@ export default function HeaderMenu() {
                     </Button>
                   ))}
                 </Box>
-                <Box sx={{ display: { md: "none", lg: "block" } }}>
+                <Box sx={{ display: { xs:"none", sm:"none",md: "none", lg: "block" } }}>
                   <img
                     style={{
-                      width: "90px",
+                      width: "150px",
                       cursor: "pointer",
                       marginLeft: "-230px",
                     }}
-                    src="https://htmldemo.net/eposi/eposi/assets/img/logo.webp"
+                    onClick={() => navigate("/")}
+                    src={TamalLogo}
                     alt=""
                   />
                 </Box>
@@ -97,7 +117,7 @@ export default function HeaderMenu() {
                     <SearchBox />
                   </IconButton>
                   <IconButton sx={{ color: "black" }}>
-                    <BasketBox/>
+                    <BasketBox />
                   </IconButton>
                   <IconButton sx={{ color: "black" }}>
                     <Menu />

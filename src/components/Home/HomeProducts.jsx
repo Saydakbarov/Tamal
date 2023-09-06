@@ -52,7 +52,12 @@ export default function HomeProducts() {
             variant="contained"
             value={v.title}
             onClick={(e) => setProductTitle(e.target.value)}
-            sx={{ background: v.title === productTitle ? "black" : "gray" }}
+            sx={{
+              background: v.title === productTitle ? "black" : "gray",
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
           >
             {v.title}
           </Button>

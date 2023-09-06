@@ -1,4 +1,4 @@
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, Typography } from "@mui/material";
 import React from "react";
 import Modal from "@mui/material/Modal";
 import { Shop } from "@mui/icons-material";
@@ -23,6 +23,9 @@ export default function BasketBox() {
   const handleClose = () => setOpen(false);
 
   const productData = useSelector((state) => state.products);
+
+   localStorage.setItem("data", JSON.stringify(productData))
+
   return (
     <Box>
       <IconButton onClick={handleOpen}>
@@ -37,7 +40,13 @@ export default function BasketBox() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ProductsCard data={productData} />
+          {productData.length === 0 ? (
+            <Typography sx={{ fontSize: "34px", textAlign: "center" }}>
+              Ma'lumot Yo'q
+            </Typography>
+          ) : (
+            <ProductsCard data={productData} />
+          )}
         </Box>
       </Modal>
     </Box>

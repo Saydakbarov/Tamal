@@ -2,7 +2,6 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { TypeSpecimen } from "@mui/icons-material";
 
 export default function FormContact() {
   const [formData, setFormData] = useState({
