@@ -11,10 +11,13 @@ import "swiper/css/pagination";
 import { Favorite, IosShare, ShoppingBag } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../redux/ProductReducer";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductsCard({ data }) {
   const [ratingValue, setRatingValue] = useState(0);
-  // const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState([]);
+
+  const navigate = useNavigate("");
 
   const dispatch = useDispatch();
   const getProductData = (v) => {
@@ -22,6 +25,8 @@ export default function ProductsCard({ data }) {
 
     dispatch(addProduct(v));
   };
+
+  console.log(productData);
 
   return (
     <Box sx={{}}>
@@ -63,7 +68,10 @@ export default function ProductsCard({ data }) {
               {data.map((v, i) => (
                 <Grid item key={i}>
                   <SwiperSlide className="swiperSlideBox">
-                    <Box>
+                    <Box
+                      component={"div"}
+                      // onClick={() => navigate("/singleproduct")}
+                    >
                       <Box
                         sx={{
                           width: "100%",
@@ -121,16 +129,16 @@ export default function ProductsCard({ data }) {
                           >
                             <IconButton
                               onClick={() => {
-                                getProductData(v);
+                                setProductData((state) => [...state, v]);
+                                localStorage.setItem(
+                                  "data",
+                                  JSON.stringify(productData)
+                                );
                               }}
+                              sx={{ width: "100%", height: "100%" }}
                             >
                               <ShoppingBag className="productCardIconsHome" />
                             </IconButton>
-
-                            <Favorite className="productCardIconsHome" />
-                            <ShoppingBag className="productCardIconsHome" />
-
-                            <IosShare className="productCardIconsHome" />
                           </Box>
                         </Box>
                       </Box>

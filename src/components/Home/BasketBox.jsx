@@ -24,12 +24,15 @@ export default function BasketBox() {
 
   const productData = useSelector((state) => state.products);
 
-   localStorage.setItem("data", JSON.stringify(productData))
+  const data = JSON.parse(localStorage.getItem("data"));
 
   return (
     <Box>
       <IconButton onClick={handleOpen}>
-        <Badge badgeContent={productData.length} color="primary">
+        <Badge
+          badgeContent={data.length !== 0 ? data.length : 0}
+          color="primary"
+        >
           <Shop color="action" />
         </Badge>
       </IconButton>
@@ -40,13 +43,13 @@ export default function BasketBox() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {productData.length === 0 ? (
-            <Typography sx={{ fontSize: "34px", textAlign: "center" }}>
-              Ma'lumot Yo'q
-            </Typography>
-          ) : (
-            <ProductsCard data={productData} />
-          )}
+          {/* {data.length === 0 ? ( */}
+          <Typography sx={{ fontSize: "34px", textAlign: "center" }}>
+            Ma'lumot Yo'q
+          </Typography>
+          {/* ) : ( */}
+          <ProductsCard data={data} />
+          {/* )} */}
         </Box>
       </Modal>
     </Box>

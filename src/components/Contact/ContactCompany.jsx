@@ -2,8 +2,9 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import FormContact from "./FormContact";
 import { Business, Email, Phone } from "@mui/icons-material";
+import content from "../../Locolization/content";
 
-export default function ContactCompany() {
+export default function ContactCompany({ lang }) {
   return (
     <Container
       sx={{
@@ -34,51 +35,59 @@ export default function ContactCompany() {
         <Grid item lg={6} md={6} sm={10} xs={11}>
           <Typography sx={{ fontSize: "24px" }}>
             {" "}
-            Tell Us Your Message
+            {content[lang].contact.contact_form_text}
           </Typography>
-          <FormContact />
+          <FormContact lang={lang} />
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={11} sx={{ background: "#F2F2F2" }}>
           <Box sx={{ p: 3 }}>
-            <Typography sx={{ fontSize: "24px" }}>Contact Us</Typography>
+            <Typography sx={{ fontSize: "24px" }}>
+              {content[lang].contact.contact_card_title}
+            </Typography>
             <Typography sx={{ color: "gray", fontSize: "14px", mt: 3 }}>
-              Claritas est etiam processus dynamicus, qui sequitur mutationem
-              consuetudium lectorum. Mirum est notare quam littera gothica, quam
-              nunc putamus parum claram anteposuerit litterarum formas human.
+              {content[lang].contact.contact_card_text}
             </Typography>
             <Box sx={{ mt: 3 }}>
               <Box sx={{ display: "flex", gap: "5px" }}>
                 <Business />
-                <Typography sx={{ fontWeight: "600" }}>Address</Typography>
+                <Typography sx={{ fontWeight: "600" }}>
+                  {content[lang].contact.contact_card_address}
+                </Typography>
               </Box>
               <Typography sx={{ mt: 2, color: "gray", fontSize: "14px" }}>
-                123 Main Street, Anytown, CA 12345 - USA
+                {content[lang].contact.contact_card_address_text}
               </Typography>
             </Box>
 
             <Box sx={{ mt: 3 }}>
               <Box sx={{ display: "flex", gap: "5px" }}>
                 <Phone />
-                <Typography sx={{ fontWeight: "600" }}>Phone</Typography>
+                <Typography sx={{ fontWeight: "600" }}>
+                  {content[lang].contact.contact_card_phone}
+                </Typography>
               </Box>
               <Typography sx={{ mt: 2, color: "gray", fontSize: "14px" }}>
-                Mobile: (08) 123 456 789
+                {content[lang].contact.contact_card_phone_number}
               </Typography>
               <Typography sx={{ mt: 1, color: "gray", fontSize: "14px" }}>
-                Hotline: 1009 678 456
+                <span style={{ fontWeight: "bold", color: "black" }}>
+                  {" "}
+                  {content[lang].contact.contact_card_phone_office}:
+                </span>{" "}
+                <br />
+                {content[lang].contact.contact_card_phone_office_number}
               </Typography>
             </Box>
 
             <Box sx={{ mt: 3 }}>
               <Box sx={{ display: "flex", gap: "5px" }}>
                 <Email />
-                <Typography sx={{ fontWeight: "600" }}>Email</Typography>
+                <Typography sx={{ fontWeight: "600" }}>
+                  {content[lang].contact.contact_card_email}
+                </Typography>
               </Box>
               <Typography sx={{ mt: 2, color: "gray", fontSize: "14px" }}>
-                yourmail@domain.com
-              </Typography>
-              <Typography sx={{ mt: 1, color: "gray", fontSize: "14px" }}>
-                support@hastech.company
+                {content[lang].contact.contact_card_email_title}
               </Typography>
             </Box>
           </Box>

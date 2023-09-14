@@ -8,17 +8,17 @@ import BlogPosts from "../components/Home/BlogPosts";
 import HomeContact from "../components/Home/HomeContact";
 import Footer from "../components/Footer";
 
-export default function Home() {
+export default function Home({ lang, setLang }) {
   return (
     <div>
-      <Header />
-      <HomeCategory />
-      <HomeProducts />
-      <HomeTeam />
-      <LastestArrivals />
-      <BlogPosts />
-      <HomeContact />
-      <Footer />
+      <Header lang={lang} setLang={setLang} />
+      <HomeCategory lang={lang} />
+      <HomeProducts lang={lang} />
+      {/* <HomeTeam lang={lang} /> */}
+      {/* <LastestArrivals lang={lang} /> */}
+      <BlogPosts lang={lang} />
+      <HomeContact lang={lang} />
+      <Footer lang={lang} />
     </div>
   );
 }

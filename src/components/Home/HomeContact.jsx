@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import FormContact from "../Contact/FormContact";
 
-export default function HomeContact() {
+export default function HomeContact({ lang }) {
   return (
     <Box sx={{ textAlign: "center" }}>
       <Typography sx={{ fontSize: "14px", color: "gray" }}>
@@ -16,11 +16,10 @@ export default function HomeContact() {
         collections, the latest lookbooks and exclusive offers.
       </Typography>
 
-    
       <Box
         sx={{ minWidth: "300px", maxWidth: "500px", margin: "0 auto", mt: 3 }}
       >
-        <FormContact />
+        <FormContact lang={lang} />
       </Box>
     </Box>
   );

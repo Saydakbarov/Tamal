@@ -1,19 +1,22 @@
 import React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
+import content from "../../Locolization/content";
+import NewsProductCard from "./NewsProductCard";
 
-export default function NewsProducts() {
+export default function NewsProducts({ lang }) {
   return (
-    <Container
+    <Box
       sx={{
         p: 2,
         background: "white",
-        marginTop: "-100px",
+        width: "95%",
+        margin: "0 auto",
       }}
     >
-      <Typography sx={{ fontSize: "40px", textAlign: "center" }}>
-        Information
+      <Typography sx={{ fontSize: "40px", textAlign: "center", mt: 4 }}>
+        {content[lang].news.title}
       </Typography>
-      <Grid container justifyContent={"center"} gap={8}></Grid>
-    </Container>
+      <NewsProductCard lang={lang} />
+    </Box>
   );
 }

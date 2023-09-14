@@ -90,7 +90,7 @@ export default function HeaderMain() {
 
                   <Box
                     sx={{
-                      width: { xs: "100%", sm: "100%", md: "50%", lg: "50%" },
+                      width: { xs: "100%", sm: "100%", md: "55%", lg: "55%" },
                       textAlign: "start",
                     }}
                   >

@@ -15,8 +15,9 @@ import { MenuData } from "../../data";
 
 import TamalLogo from "../../tamalLogo.png";
 import SearchBox from "./SearchBox";
+import content from "../../Locolization/content";
 
-export default function DrawerCom() {
+export default function DrawerCom({ lang }) {
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
@@ -32,7 +33,7 @@ export default function DrawerCom() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            p:2
+            p: 2,
           }}
         >
           <img
@@ -48,7 +49,7 @@ export default function DrawerCom() {
           <SearchBox />
         </Box>
         <List sx={{ width: "240px", p: 2 }}>
-          {MenuData.map((page, i) => (
+          {content[lang].header.links.map((page, i) => (
             <ListItemButton key={i} onClick={() => setOpenDrawer(false)}>
               <ListItemIcon onClick={() => navigate(page.path)}>
                 <ListItemText sx={{ color: "black !important" }} key={i}>

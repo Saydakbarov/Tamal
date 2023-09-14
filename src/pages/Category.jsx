@@ -5,12 +5,12 @@ import Footer from "../components/Footer";
 import CategoryMain from "../components/Category/CategoryMain";
 import CategoryProduct from "../components/Category/CategoryProduct";
 
-export default function Category() {
+export default function Category({ lang, setLang }) {
   return (
     <Box>
-      <HeaderMenu />
-      <CategoryMain />
-      <CategoryProduct />
+      <HeaderMenu lang={lang} setLang={setLang} />
+      <CategoryMain lang={lang} />
+      <CategoryProduct lang={lang} />
       <Footer />
     </Box>
   );

@@ -14,7 +14,7 @@ export default function AboutCompany() {
         <Grid
           item
           lg={4.3}
-          md={4.3}
+          md={8}
           sm={10}
           xs={12}
           sx={{

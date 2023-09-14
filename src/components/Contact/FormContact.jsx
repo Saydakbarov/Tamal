@@ -1,9 +1,10 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import content from "../../Locolization/content";
 
-export default function FormContact() {
+export default function FormContact({ lang }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,10 +30,9 @@ export default function FormContact() {
 
   return (
     <Box>
-     
       <form onSubmit={handleSubmit}>
         <TextField
-          label="Name"
+          label={content[lang].contact.contact_form_input_name}
           name="name"
           value={formData.name}
           onChange={handleInputChange}
@@ -41,7 +41,7 @@ export default function FormContact() {
           sx={{ mt: 2 }}
         />
         <TextField
-          label="Email"
+          label={content[lang].contact.contact_card_email}
           type="email"
           name="email"
           value={formData.email}
@@ -51,7 +51,7 @@ export default function FormContact() {
           sx={{ mt: 2 }}
         />
         <TextField
-          label="Phone Number"
+          label={content[lang].contact.contact_card_phone}
           name="phone"
           value={formData.phone}
           onChange={handleInputChange}
@@ -67,7 +67,7 @@ export default function FormContact() {
           sx={{ mt: 2 }}
           fullWidth
         >
-          Send
+          {content[lang].button.send}
         </Button>
       </form>
     </Box>

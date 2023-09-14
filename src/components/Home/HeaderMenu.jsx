@@ -18,8 +18,9 @@ import SearchBox from "./SearchBox";
 import BasketBox from "./BasketBox";
 
 import TamalLogo from "../../tamalLogo.png";
+import content from "../../Locolization/content";
 
-export default function HeaderMenu() {
+export default function HeaderMenu({ lang, setLang }) {
   const navigate = useNavigate();
 
   //   Responsive Menu
@@ -70,7 +71,7 @@ export default function HeaderMenu() {
                   src={TamalLogo}
                   alt=""
                 />
-                <DrawerCom />
+                <DrawerCom lang={lang} />
               </Box>
             </>
           ) : (
@@ -84,7 +85,7 @@ export default function HeaderMenu() {
                 }}
               >
                 <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                  {MenuData.map((item) => (
+                  {content[lang].header.links.map((item) => (
                     <Button
                       key={item}
                       sx={{
@@ -99,7 +100,16 @@ export default function HeaderMenu() {
                     </Button>
                   ))}
                 </Box>
-                <Box sx={{ display: { xs:"none", sm:"none",md: "none", lg: "block" } }}>
+                <Box
+                  sx={{
+                    display: {
+                      xs: "none",
+                      sm: "none",
+                      md: "none",
+                      lg: "block",
+                    },
+                  }}
+                >
                   <img
                     style={{
                       width: "150px",
@@ -119,9 +129,20 @@ export default function HeaderMenu() {
                   <IconButton sx={{ color: "black" }}>
                     <BasketBox />
                   </IconButton>
-                  <IconButton sx={{ color: "black" }}>
-                    <Menu />
-                  </IconButton>
+                  <select
+                  defaultValue={lang}
+                    onChange={(e) => {
+                      setLang(e.target.value);
+                      localStorage.setItem(
+                        "lang",
+                        JSON.stringify(e.target.value)
+                      );
+                    }}
+                  >
+                    <option value="ru">ru</option>
+                    <option value="en">en</option>
+                    <option value="uz">uz</option>
+                  </select>
                 </Box>
               </Box>
             </>

@@ -1,7 +1,7 @@
 import { Facebook, Google, Twitter, YouTube } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import TamalLogo from "../tamalLogo.png";
 
@@ -41,8 +41,17 @@ export default function Footer() {
               alt=""
             />
             <Typography sx={{ color: "gray" }}>
-              Copyright © 2022 <span style={{ color: "red" }}>Tamal</span>. All
-              Rights Reserved.
+              Copyright © 2023{" "}
+              <Link
+                style={{
+                  color: "black",
+                  marginLeft: "6px",
+                  paddingRight: "6px",
+                }}
+                to="https://spaceteam.uz/"
+              >
+                spaceteam.uz
+              </Link>
             </Typography>
           </Box>
         </Grid>

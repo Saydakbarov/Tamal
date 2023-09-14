@@ -2,8 +2,9 @@ import { ArrowRight, KeyboardArrowRight } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import content from "../../Locolization/content";
 
-export default function ContactMain() {
+export default function ContactMain({ lang }) {
   return (
     <Box
       sx={{
@@ -20,7 +21,9 @@ export default function ContactMain() {
           textAlign: "center",
         }}
       >
-        <Typography sx={{ fontSize: "30px" }}>Contact</Typography>
+        <Typography sx={{ fontSize: "30px" }}>
+          {content[lang].contact.title}
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -31,11 +34,11 @@ export default function ContactMain() {
           }}
         >
           <Link to="/" style={{ color: "gray", textDecoration: "none" }}>
-            Home
+            {content[lang].home.title}
           </Link>
           <KeyboardArrowRight />
           <Link to="/contact" style={{ color: "red", textDecoration: "none" }}>
-            Contact Us
+            {content[lang].contact.title}
           </Link>
         </Box>
       </Box>

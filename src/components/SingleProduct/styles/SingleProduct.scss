@@ -1,0 +1,9 @@
+.Image {
+  transition: transform 0.7s;
+  width: 100%;
+  cursor: crosshair;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

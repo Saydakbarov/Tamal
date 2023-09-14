@@ -7,7 +7,7 @@ export default function AboutProduct() {
     <Box sx={{ mt: 3 }}>
       <Grid container justifyContent={"center"} gap={5}>
         {AboutPageProductData.map((v, i) => (
-          <Grid key={i} item lg={3}>
+          <Grid key={i} item lg={3} md={5} sm={8}>
             <Box sx={{ width: "100%", minHeight: "300px" }}>
               <img style={{ width: "100%" }} src={v.img} alt="" />
               <Typography sx={{ mt: 1, fontWeight: "bold" }}>

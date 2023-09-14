@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { KeyboardArrowRight } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Grade, KeyboardArrowRight } from "@mui/icons-material";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import BASE_URL from "../../Server";
+import axios from "axios";
 
-export default function SubCategory1() {
+export default function SubCategory1({ lang }) {
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
@@ -17,7 +19,7 @@ export default function SubCategory1() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/subcategories/" + id, {
+    fetch(`${BASE_URL}api/v1/subcategories/` + id, {
       method: "GET",
       headers: {},
     })
@@ -27,25 +29,22 @@ export default function SubCategory1() {
   }, [id]);
 
   useEffect(() => {
-    fetch("https://tamal.onrender.com/api/v1/products?limit=10&offset=0", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify({
-        category_id: subCategoryId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setSubProductData(data.data))
-      .catch((e) => console.log(e));
-  }, [subCategoryId]);
-
-  console.log(subCategory);
+    async function postId() {
+      try {
+        const res = await axios.get(
+          `${BASE_URL}api/v1/products?limit=10&offset=0&category_id=${id}`
+        );
+        return setSubProductData(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    postId();
+  }, [id]);
 
   return (
     <>
-      <HeaderMenu />
+      <HeaderMenu lang={lang} />
       <Box
         sx={{
           backgroundImage:
@@ -113,9 +112,95 @@ export default function SubCategory1() {
               navigate("/category/subcategory/sub/" + v.sub_category_id);
             }}
           >
-            {v.sub_category_name_en}
+            {v.sub_category_name_ru}
           </Button>
         ))}
+      </Box>
+
+      <Box>
+        {/* Sub Category Product List Start */}
+        <Grid container justifyContent={"center"} gap={4} mt={8}>
+          {subproductData?.map((v, i) => (
+            <Grid
+              item
+              lg={2.6}
+              md={5}
+              sm={8}
+              xs={11}
+              sx={{
+                boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                p: 2,
+                borderRadius: "6px",
+                position: "relative",
+              }}
+            >
+              <Box>
+                <Box
+                  sx={{
+                    width: "100%",
+                  }}
+                >
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                    }}
+                    src={v.product_image_url}
+                    alt=""
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ fontWeight: "600", fontSize: "18px", mt: 2 }}
+                  >
+                    {lang == "ru"
+                      ? v.product_information_ru?.split(" ").length > 10
+                        ? v.product_information_ru
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_ru
+                      : lang == "uz"
+                      ? v.product_information_uz?.split(" ").length > 10
+                        ? v.product_information_uz
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_uz
+                      : lang == "en"
+                      ? v.product_information_en?.split(" ").length > 10
+                        ? v.product_information_en
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_en
+                      : ""}
+                  </Typography>
+                  <Typography sx={{ mt: 2, fontSize: "14px" }}>
+                    {lang == "ru"
+                      ? v.product_information_ru
+                      : lang == "uz"
+                      ? v.product_information_uz
+                      : lang == "en"
+                      ? v.product_information_en
+                      : ""}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
+                  <Button
+                    variant="contained"
+                    sx={{ position: "absolute", top: "90%" }}
+                  >
+                    Add to Card
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Sub Category Product List End */}
       </Box>
       <Footer />
     </>

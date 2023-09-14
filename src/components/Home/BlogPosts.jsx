@@ -11,7 +11,7 @@ import { BlogPostsData } from "../../data";
 export default function BlogPosts() {
   return (
     <Box>
-      <Grid container justifyContent={"center"} gap={5} mt={16}>
+      {/* <Grid container justifyContent={"center"} gap={5} mt={16}>
         <Grid item lg={3} md={3} sm={5} xs={10} sx={{ textAlign: "center" }}>
           <img
             src="https://htmldemo.net/eposi/eposi/assets/img/icons/free_shipping.webp"
@@ -54,7 +54,7 @@ export default function BlogPosts() {
             We offer free shipping via Standard Shipping on orders over $200.00
           </Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Box sx={{ textAlign: "center", mt: 16 }}>
         <Typography sx={{ fontSize: "26px", fontWeight: "600" }}>

@@ -1,10 +1,10 @@
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { ArrowRight, KeyboardArrowRight } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import content from "../../Locolization/content";
 
-export default function NewsMain({ lang }) {
+export default function SingleMain({ lang }) {
   return (
     <Box
       sx={{
@@ -21,9 +21,7 @@ export default function NewsMain({ lang }) {
           textAlign: "center",
         }}
       >
-        <Typography sx={{ fontSize: "30px" }}>
-          {content[lang].news.title}
-        </Typography>
+        <Typography sx={{ fontSize: "30px" }}>Single Product</Typography>
         <Box
           sx={{
             display: "flex",
@@ -33,13 +31,11 @@ export default function NewsMain({ lang }) {
             mt: 2,
           }}
         >
-          <Link to="/" style={{ color: "gray", textDecoration: "none" }}>
-            {content[lang].home.title}
-          </Link>
+          {/* <Link>{content[lang].home.title}</Link> */}
           <KeyboardArrowRight />
-          <Link to="/news" style={{ color: "red", textDecoration: "none" }}>
-            {content[lang].news.title}
-          </Link>
+          {/* <Link style={{ color: "red", textDecoration: "none" }}>
+            SIngle Product
+          </Link> */}
         </Box>
       </Box>
     </Box>

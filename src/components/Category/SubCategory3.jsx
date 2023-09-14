@@ -7,13 +7,13 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
 
-export default function SubCategory2({ lang }) {
+export default function SubCategory3({ lang }) {
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
   const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
 
-  const [secondSubCategoryData, setSecondSubCategoryData] = useState([]);
+  const [thirdSubCategoryData, setThirdSubCategoryData] = useState([]);
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function SubCategory2({ lang }) {
     async function getData() {
       try {
         const res = await axios.get(
-          `${BASE_URL}api/v1/secondsubcategories/` + id
+          `${BASE_URL}api/v1/thirdsubcategories/` + id
         );
         return setSubCategory(res.data.data);
       } catch (error) {
@@ -36,10 +36,10 @@ export default function SubCategory2({ lang }) {
     async function getData() {
       try {
         const res = await axios.get(
-          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&subcategory_id=" +
+          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&secondsubcategory_id=" +
             id
         );
-        return setSecondSubCategoryData(res.data.data);
+        return setThirdSubCategoryData(res.data.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -47,7 +47,7 @@ export default function SubCategory2({ lang }) {
     getData();
   }, [id]);
 
-  console.log(secondSubCategoryId);
+  console.log(thirdSubCategoryData);
 
   return (
     <>
@@ -106,30 +106,31 @@ export default function SubCategory2({ lang }) {
           <Button
             key={i}
             variant="contained"
-            value={v.second_sub_category_name_en}
+            value={v.third_sub_category_name_en}
             sx={{
               background:
-                v.second_sub_category_name_en === title ? "black" : "gray",
+                v.third_sub_category_name_en === title ? "black" : "gray",
               "&:hover": {
                 backgroundColor: "black",
               },
             }}
             onClick={() => {
-              setSecondSubCategoryId(v.second_sub_category_id);
-              setTitle(v.second_sub_category_name_en);
+              setSecondSubCategoryId(v.third_sub_category_id);
+              setTitle(v.third_sub_category_name_en);
               navigate(
-                "/category/subcategory/sub/third/" + v.second_sub_category_id
+                "/category/subcategory/sub/third/product/" +
+                  v.third_sub_category_id
               );
             }}
           >
-            {v.second_sub_category_name_ru}
+            {v.third_sub_category_name_en}
           </Button>
         ))}
       </Box>
 
       {/* Sub Category Product List Start */}
       <Grid container justifyContent={"center"} gap={4} mt={8}>
-        {secondSubCategoryData?.map((v, i) => (
+        {thirdSubCategoryData?.map((v, i) => (
           <Grid
             item
             lg={2.6}

@@ -2,8 +2,9 @@ import { ArrowRight, KeyboardArrowRight } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import content from "../../Locolization/content";
 
-export default function CategoryMain() {
+export default function CategoryMain({ lang }) {
   return (
     <Box
       sx={{
@@ -20,7 +21,9 @@ export default function CategoryMain() {
           textAlign: "center",
         }}
       >
-        <Typography sx={{ fontSize: "30px" }}>Category</Typography>
+        <Typography sx={{ fontSize: "30px" }}>
+          {content[lang].category.title}
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -31,11 +34,11 @@ export default function CategoryMain() {
           }}
         >
           <Link to="/" style={{ color: "gray", textDecoration: "none" }}>
-            Home
+            {content[lang].home.title}
           </Link>
           <KeyboardArrowRight />
           <Link to="/category" style={{ color: "red", textDecoration: "none" }}>
-            Category
+            {content[lang].category.title}
           </Link>
         </Box>
       </Box>
