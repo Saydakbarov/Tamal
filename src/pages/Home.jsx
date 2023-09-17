@@ -8,12 +8,19 @@ import BlogPosts from "../components/Home/BlogPosts";
 import HomeContact from "../components/Home/HomeContact";
 import Footer from "../components/Footer";
 
-export default function Home({ lang, setLang }) {
+export default function Home({
+  lang,
+  setLang,
+  value,
+  setValue,
+  basket,
+  setBasket,
+}) {
   return (
     <div>
-      <Header lang={lang} setLang={setLang} />
+      <Header lang={lang} setLang={setLang} value={value} setValue={setValue} />
       <HomeCategory lang={lang} />
-      <HomeProducts lang={lang} />
+      <HomeProducts lang={lang} basket={basket} setBasket={setBasket} />
       {/* <HomeTeam lang={lang} /> */}
       {/* <LastestArrivals lang={lang} /> */}
       <BlogPosts lang={lang} />

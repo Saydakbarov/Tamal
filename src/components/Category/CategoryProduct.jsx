@@ -4,16 +4,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../Server";
 
-export default function CategoryProduct({ lang }) {
+export default function CategoryProduct({ lang, value, basket, setBasket }) {
   const [category, setCategory] = useState([]);
 
   const [productData, setProductData] = useState([]);
 
-  const [categoryId, setCategoryId] = useState(1);
+  const [basketData, setBasketData] = useState([]);
 
   const [title, setTitle] = useState("");
 
   const navigate = useNavigate();
+
+  console.log(value);
 
   useEffect(() => {
     fetch(`${BASE_URL}api/v1/categories`, {
@@ -29,7 +31,7 @@ export default function CategoryProduct({ lang }) {
     async function getData() {
       try {
         const res = await axios.get(
-          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0"
+          `https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&search_${lang}=${value}`
         );
         return setProductData(res.data.data);
       } catch (error) {
@@ -37,14 +39,14 @@ export default function CategoryProduct({ lang }) {
       }
     }
     getData();
-  }, []);
+  }, [value, lang]);
 
   console.log(productData);
 
   return (
     <>
       <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "26px", fontWeight: "600" }}>
+        <Typography sx={{ fontSize: "26px", fontWeight: "600", mt: 4 }}>
           Our Products
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
@@ -59,6 +61,7 @@ export default function CategoryProduct({ lang }) {
           overflowX: "scroll",
           whiteSpace: "nowrap",
           scrollbarWidth: "none",
+          mt: 2,
         }}
       >
         {category.map((v, i) => (
@@ -75,7 +78,6 @@ export default function CategoryProduct({ lang }) {
               margin: "5px",
             }}
             onClick={() => {
-              setCategoryId(v.category_id);
               setTitle(v.category_name_ru);
               navigate("/category/subcategory/" + v.category_id);
             }}
@@ -105,7 +107,11 @@ export default function CategoryProduct({ lang }) {
               p: 2,
               borderRadius: "6px",
               position: "relative",
+              cursor: "pointer",
             }}
+            key={v.product_id}
+            component={"div"}
+            onClick={() => navigate("/singleproduct/" + v.product_id)}
           >
             <Box sx={{}}>
               <Box
@@ -161,6 +167,10 @@ export default function CategoryProduct({ lang }) {
                 <Button
                   variant="contained"
                   sx={{ position: "absolute", top: "90%" }}
+                  onClick={() => {
+                    setBasket((prevData) => [v, ...prevData]);
+                    localStorage.setItem("data", JSON.stringify(basket));
+                  }}
                 >
                   Add to Card
                 </Button>

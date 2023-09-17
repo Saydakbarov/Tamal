@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import ProductsCard from "./ProductsCard";
 import { HomeProductsData, LastestArrivalsData } from "../../data";
+import axios from "axios";
+import BASE_URL from "../../Server";
 
 export default function LastestArrivals() {
+  const [newsData, setNewsData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await axios.get(
+          `${BASE_URL}api/v1/news?limit=100&offset=0`
+        );
+        return setNewsData(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <Box sx={{ mt: 8 }}>
       <Box sx={{ textAlign: "center", pb: 4 }}>
@@ -16,8 +34,8 @@ export default function LastestArrivals() {
         </Typography>
       </Box>
 
-      <ProductsCard data={LastestArrivalsData} />
-
+      {/* <ProductsCard data={LastestArrivalsData} /> */}
+{/* 
       <Grid container justifyContent={"center"} gap={5} mt={7}>
         <Grid item lg={5.4} md={5.4} sm={8} xs={10}>
           <Box
@@ -100,7 +118,7 @@ export default function LastestArrivals() {
             </a>
           </Box>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
   );
 }

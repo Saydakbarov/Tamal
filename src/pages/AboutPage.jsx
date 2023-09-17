@@ -6,7 +6,7 @@ import AboutMain from "../components/About/AboutMain";
 import AboutCompany from "../components/About/AboutCompany";
 import AboutProduct from "../components/About/AboutProduct";
 
-export default function AboutPage({ lang, setLang }) {
+export default function AboutPage({ lang, setLang, value, setValue }) {
   return (
     <Box
       sx={{
@@ -18,7 +18,12 @@ export default function AboutPage({ lang, setLang }) {
         },
       }}
     >
-      <HeaderMenu lang={lang} setLang={setLang} />
+      <HeaderMenu
+        lang={lang}
+        setLang={setLang}
+        value={value}
+        setValue={setValue}
+      />
       <AboutMain lang={lang} />
       <AboutCompany />
       <AboutProduct />

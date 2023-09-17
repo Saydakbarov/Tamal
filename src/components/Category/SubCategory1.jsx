@@ -7,7 +7,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
 
-export default function SubCategory1({ lang }) {
+export default function SubCategory1({ lang, basket, setBasket }) {
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
@@ -87,12 +87,11 @@ export default function SubCategory1({ lang }) {
       <Box
         sx={{
           width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          mt: 6,
-          pb: 7,
-          overflow: "auto",
+          textAlign: "center",
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
+          scrollbarWidth: "none",
+          mt: 2,
         }}
       >
         {subCategory.map((v, i) => (
@@ -105,6 +104,7 @@ export default function SubCategory1({ lang }) {
               "&:hover": {
                 backgroundColor: "black",
               },
+              margin: "5px",
             }}
             onClick={() => {
               setCategoryId(v.sub_category_id);
@@ -191,6 +191,11 @@ export default function SubCategory1({ lang }) {
                   <Button
                     variant="contained"
                     sx={{ position: "absolute", top: "90%" }}
+                    onClick={() => {
+                        setBasket((prevData) => [v, ...prevData]);
+                        localStorage.setItem("data", JSON.stringify(basket));
+                      }}
+
                   >
                     Add to Card
                   </Button>

@@ -1,9 +1,10 @@
-import { Badge, Box, IconButton, Typography } from "@mui/material";
+import { Badge, Box, Button, IconButton, Typography } from "@mui/material";
 import React from "react";
 import Modal from "@mui/material/Modal";
-import { Shop } from "@mui/icons-material";
+import { Close, Shop } from "@mui/icons-material";
 import ProductsCard from "./ProductsCard";
-import { useSelector } from "react-redux";
+import BasketCard from "./BasketBoxCard";
+import ShopButton from "../SingleProduct/ShopButton";
 
 const style = {
   position: "absolute",
@@ -17,14 +18,12 @@ const style = {
   border: "none",
   borderRadius: "4px",
 };
-export default function BasketBox() {
+export default function BasketBox({ lang }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const productData = useSelector((state) => state.products);
-
-  const data = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(localStorage.getItem("data")) || [];
 
   return (
     <Box>
@@ -43,13 +42,40 @@ export default function BasketBox() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* {data.length === 0 ? ( */}
-          <Typography sx={{ fontSize: "34px", textAlign: "center" }}>
-            Ma'lumot Yo'q
-          </Typography>
-          {/* ) : ( */}
-          <ProductsCard data={data} />
-          {/* )} */}
+          <Box
+            sx={{ textAlign: "end", cursor: "pointer" }}
+            component={"div"}
+            onClick={handleClose}
+          >
+            <Close />
+          </Box>
+
+          {data.length === 0 ? (
+            <Typography sx={{ fontSize: "34px", textAlign: "center" }}>
+              Ma'lumot Yo'q
+            </Typography>
+          ) : (
+            <BasketCard data={data} lang={lang} />
+          )}
+
+          <Box sx={{ textAlign: "end" }}>
+            {/* <Button
+              sx={{
+                background: "#01466A",
+                "&:hover": {
+                  backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
+                  color: "black",
+                },
+                display: "inline-block",
+                margin: "5px",
+                fontSize: "12px",
+                color: "white",
+              }}
+            >
+              send
+            </Button> */}
+            <ShopButton />
+          </Box>
         </Box>
       </Modal>
     </Box>

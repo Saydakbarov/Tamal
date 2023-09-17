@@ -18,7 +18,7 @@ import "swiper/css/pagination";
 
 import { Link, useNavigate } from "react-router-dom";
 
-export default function ProductsCard({ data, lang, basket, setBasket }) {
+export default function BasketCard({ data, lang }) {
   // const [basketData, setBasketData] = useState([]);
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                 spaceBetween: 20,
               },
               768: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 40,
               },
               1024: {
@@ -50,7 +50,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                 spaceBetween: 50,
               },
               1500: {
-                slidesPerView: 3,
+                slidesPerView: 4,
                 spaceBetween: 50,
               },
             }}
@@ -63,7 +63,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                 <Box
                   sx={{
                     boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                    height: "470px",
+                    height: "450px",
                     p: 2,
                   }}
                   component={"div"}
@@ -84,12 +84,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                   </Box>
                   <Box>
                     <Typography
-                      sx={{
-                        fontWeight: "600",
-                        fontSize: "18px",
-                        mt: 2,
-                        color: "#01466A",
-                      }}
+                      sx={{ fontWeight: "600", fontSize: "18px", mt: 2 }}
                     >
                       {lang == "ru"
                         ? v.product_title_ru
@@ -99,7 +94,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                         ? v.product_title_en
                         : ""}
                     </Typography>
-                    <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
+                    <Typography sx={{ mt: 2, fontSize: "14px" }}>
                       {lang == "ru"
                         ? v.product_information_ru?.split(" ").length > 10
                           ? v.product_information_ru
@@ -123,21 +118,6 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                           : v.product_information_en
                         : ""}
                     </Typography>
-                  </Box>
-                  <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
-                    <Button
-                      variant="contained"
-                      sx={{ position: "absolute", top: "90%" }}
-                      onClick={() => {
-                        let a = v;
-                        a["count"] = 1;
-                        setBasket((prevData) => [a, ...prevData]);
-                        localStorage.setItem("data", JSON.stringify(basket));
-                        navigate("/singleproduct/" + v.product_id);
-                      }}
-                    >
-                      Add to Card
-                    </Button>
                   </Box>
                 </Box>
               </SwiperSlide>

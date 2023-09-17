@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
@@ -7,8 +7,30 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { BlogPostsData } from "../../data";
+import axios from "axios";
+import BASE_URL from "../../Server";
+import { useNavigate } from "react-router-dom";
 
-export default function BlogPosts() {
+export default function BlogPosts({ lang }) {
+  const navigate = useNavigate();
+
+  const [newsData, setNewsData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await axios.get(
+          `${BASE_URL}api/v1/news?limit=100&offset=0`
+        );
+        return setNewsData(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
+
+  console.log(newsData);
   return (
     <Box>
       {/* <Grid container justifyContent={"center"} gap={5} mt={16}>
@@ -57,8 +79,10 @@ export default function BlogPosts() {
       </Grid> */}
 
       <Box sx={{ textAlign: "center", mt: 16 }}>
-        <Typography sx={{ fontSize: "26px", fontWeight: "600" }}>
-          Latest Blog Posts
+        <Typography
+          sx={{ fontSize: "26px", fontWeight: "600", color: "#01466A" }}
+        >
+          New Products
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram
@@ -104,63 +128,44 @@ export default function BlogPosts() {
               style={{ paddingBottom: "70px" }}
             >
               <Grid container justifyContent={"center"} gap={3}>
-                {BlogPostsData.map((v, i) => (
-                  <Grid item key={i}>
+                {newsData.map((v, i) => (
+                  <Grid item key={v.new_id}>
                     <SwiperSlide>
                       <Box>
                         <Box
                           sx={{
                             width: "100%",
                             p: 3,
-                            backgroundImage: `url(${v.img})`,
+                            backgroundImage: `url(${v.new_img})`,
                             backgroundPosition: "center",
                             height: "260px",
                             backgroundRepeat: "no-repeat",
+                            backgroundSize: "100%",
                           }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "end",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: "60px",
-                                height: "60px",
-                                borderRadius: "1px",
-                                background: "white",
-                                color: "#3333",
-                                textAlign: "center",
-                                lineHeight: "50px",
-                                mt: 1,
-                              }}
-                            >
-                              <Typography sx={{ color: "gray" }}>
-                                {v.month}
-                              </Typography>
-                              <Typography
-                                sx={{
-                                  color: "black",
-                                  fontWeight: "600",
-                                  fontSize: "20px",
-                                }}
-                              >
-                                {v.day}
-                              </Typography>
-                            </Box>
-                          </Box>
-                        </Box>
+                        ></Box>
                         <Box sx={{ textAlign: "start" }}>
                           <Typography
-                            sx={{ fontSize: "16px", fontWeight: "600", mt: 1 }}
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "600",
+                              mt: 1,
+                              color: "#01466A",
+                            }}
                           >
-                            {v.title}
+                            {lang == "ru"
+                              ? v.new_title_ru
+                              : lang == "uz"
+                              ? v.new_title_uz
+                              : v.new_title_en}
                           </Typography>
                           <Typography
                             sx={{ fontSize: "13px", color: "gray", mt: 1 }}
                           >
-                            {v.text1}
+                            {lang == "ru"
+                              ? v.new_description_ru
+                              : lang == "uz"
+                              ? v.new_description_uz
+                              : v.new_description_en}
                           </Typography>
                           <Typography
                             sx={{ fontSize: "12px", color: "gray", mt: 1 }}
@@ -168,7 +173,14 @@ export default function BlogPosts() {
                             {v.text2}
                           </Typography>
                           <Typography
-                            sx={{ fontSize: "16px", color: "black", mt: 3 }}
+                            sx={{
+                              fontSize: "16px",
+                              color: "blue",
+                              mt: 3,
+                              cursor: "pointer",
+                            }}
+                            component={"div"}
+                            onClick={() => navigate("/news")}
                           >
                             Read More
                           </Typography>

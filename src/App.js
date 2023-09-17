@@ -15,47 +15,136 @@ function App() {
   const [lang, setLang] = useState(
     JSON.parse(window.localStorage.getItem("lang")) || "ru"
   );
+  const [basket, setBasket] = useState(
+    JSON.parse(window.localStorage.getItem("data")) || []
+  );
+  const [value, setValue] = useState("");
 
   return (
     <div className="App globalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
+          />
           <Route
             path="/about"
-            element={<AboutPage lang={lang} setLang={setLang} />}
+            element={
+              <AboutPage
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+              />
+            }
           />
           <Route
             path="/category"
-            element={<Category lang={lang} setLang={setLang} />}
+            element={
+              <Category
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
           />
           <Route
             path="/category/subcategory/:id"
-            element={<SubCategory1 lang={lang} setLang={setLang} />}
+            element={
+              <SubCategory1
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
           />
           <Route
             path="/category/subcategory/sub/:id"
-            element={<SubCategory2 lang={lang} setLang={setLang} />}
+            element={
+              <SubCategory2
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
           />
           <Route
             path="/category/subcategory/sub/third/:id"
-            element={<SubCategory3 lang={lang} setLang={setLang} />}
+            element={
+              <SubCategory3
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
           />
           <Route
             path="/category/subcategory/sub/third/product/:id"
-            element={<ThirdProduct lang={lang} setLang={setLang} />}
+            element={
+              <ThirdProduct
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                setBasket={setBasket}
+                basket={basket}
+              />
+            }
           />
           <Route
             path="/news"
-            element={<NewsPage lang={lang} setLang={setLang} />}
+            element={
+              <NewsPage
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+              />
+            }
           />
           <Route
             path="/contact"
-            element={<ContactPage lang={lang} setLang={setLang} />}
+            element={
+              <ContactPage
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+              />
+            }
           />
           <Route
-            path="/singleproduct"
-            element={<SingleProduct lang={lang} setLang={setLang} />}
+            path="/singleproduct/:id"
+            element={
+              <SingleProduct
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>

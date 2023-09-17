@@ -1,9 +1,11 @@
 import { Box, IconButton, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Search } from "@mui/icons-material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -18,16 +20,35 @@ const style = {
   borderRadius: "4px",
 };
 
-export default function SearchBox() {
+export default function SearchBox({ lang, value, setValue }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+  const navigate = useNavigate();
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
+      navigate("/category");
       handleClose();
     }
   };
+
+  useEffect(() => {
+    async function getData() {
+      const res = axios.get(
+        `https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&${
+          lang == "uz"
+            ? "search_uz="
+            : lang === "en"
+            ? "search_en="
+            : "search_ru"
+        }=${value}`
+      );
+    }
+    getData();
+  }, [value]);
   return (
     <Box>
       <IconButton onClick={handleOpen}>
@@ -46,6 +67,9 @@ export default function SearchBox() {
             label="Search"
             variant="filled"
             onKeyPress={handleKeyPress}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
           />
         </Box>
       </Modal>

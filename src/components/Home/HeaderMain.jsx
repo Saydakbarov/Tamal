@@ -60,7 +60,7 @@ export default function HeaderMain() {
                         },
                         fontFamily: "Inter",
                         fontWeight: "600",
-                        color: "#333",
+                        color: "#01466A",
                       }}
                     >
                       {v.title}
@@ -81,7 +81,7 @@ export default function HeaderMain() {
 
                     <Button
                       variant="outlined"
-                      sx={{ borderColor: "black", color: "black", mt: 5 }}
+                      sx={{ borderColor: "#01466A", color: "#01466A", mt: 5 }}
                       className="animate__animated animate__bounceInUp"
                     >
                       + Shop Now

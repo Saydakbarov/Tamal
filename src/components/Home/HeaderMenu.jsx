@@ -20,7 +20,7 @@ import BasketBox from "./BasketBox";
 import TamalLogo from "../../tamalLogo.png";
 import content from "../../Locolization/content";
 
-export default function HeaderMenu({ lang, setLang }) {
+export default function HeaderMenu({ lang, setLang, value, setValue }) {
   const navigate = useNavigate();
 
   //   Responsive Menu
@@ -124,19 +124,26 @@ export default function HeaderMenu({ lang, setLang }) {
 
                 <Box sx={{ color: "black" }}>
                   <IconButton sx={{ color: "black" }}>
-                    <SearchBox />
+                    <SearchBox lang={lang} value={value} setValue={setValue} />
                   </IconButton>
                   <IconButton sx={{ color: "black" }}>
-                    <BasketBox />
+                    <BasketBox lang={lang} />
                   </IconButton>
                   <select
-                  defaultValue={lang}
+                    defaultValue={lang}
                     onChange={(e) => {
                       setLang(e.target.value);
                       localStorage.setItem(
                         "lang",
                         JSON.stringify(e.target.value)
                       );
+                    }}
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      padding: "5px 10px",
+                      textTransform: "uppercase",
+                      background: "none",
                     }}
                   >
                     <option value="ru">ru</option>

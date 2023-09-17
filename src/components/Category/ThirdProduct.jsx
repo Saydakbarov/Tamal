@@ -7,7 +7,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
 
-export default function ThirdProduct({ lang }) {
+export default function ThirdProduct({ lang, basket, setBasket }) {
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
@@ -92,39 +92,6 @@ export default function ThirdProduct({ lang }) {
           </Box>
         </Box>
       </Box>
-      {/* 
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          mt: 6,
-          pb: 7,
-          overflow: "auto",
-        }}
-      >
-        {subCategory.map((v, i) => (
-          <Button
-            key={i}
-            variant="contained"
-            value={v.third_sub_category_name_en}
-            sx={{
-              background:
-                v.third_sub_category_name_en === title ? "black" : "gray",
-              "&:hover": {
-                backgroundColor: "black",
-              },
-            }}
-            onClick={() => {
-              setSecondSubCategoryId(v.third_sub_category_id);
-              setTitle(v.third_sub_category_name_en);
-            }}
-          >
-            {v.third_sub_category_name_en}
-          </Button>
-        ))}
-      </Box> */}
 
       {/* Sub Category Product List Start */}
       <Grid container justifyContent={"center"} gap={4} mt={8}>
@@ -197,6 +164,10 @@ export default function ThirdProduct({ lang }) {
                 <Button
                   variant="contained"
                   sx={{ position: "absolute", top: "90%" }}
+                  onClick={() => {
+                    setBasket((prevData) => [v, ...prevData]);
+                    localStorage.setItem("data", JSON.stringify(basket));
+                  }}
                 >
                   Add to Card
                 </Button>
