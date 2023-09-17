@@ -46,6 +46,7 @@ export default function ShopButton({ data }) {
 		name.value = null;
 		phone.value = null;
 		handleClose();
+    localStorage.removeItem('data')
 	};
 
 	return (
