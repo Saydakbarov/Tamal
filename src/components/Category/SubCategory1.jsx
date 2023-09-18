@@ -3,11 +3,28 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
 import { Grade, KeyboardArrowRight } from "@mui/icons-material";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
+import CategoryButtonBox from "../Home/CategoryButtonBox";
+import SubCategoryButton from "./ResponsiveCategoryBox/SubCategoryButtonBox";
 
-export default function SubCategory1({ lang, basket, setBasket }) {
+export default function SubCategory1({
+  lang,
+  basket,
+  setBasket,
+  value,
+  setValue,
+}) {
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
@@ -42,9 +59,13 @@ export default function SubCategory1({ lang, basket, setBasket }) {
     postId();
   }, [id]);
 
+  console.log(id);
+
+  console.log(subCategory);
+
   return (
     <>
-      <HeaderMenu lang={lang} />
+      <HeaderMenu lang={lang} value={value} setValue={setValue} />
       <Box
         sx={{
           backgroundImage:
@@ -84,57 +105,94 @@ export default function SubCategory1({ lang, basket, setBasket }) {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          width: "100%",
-          textAlign: "center",
-          overflowX: "scroll",
-          whiteSpace: "nowrap",
-          scrollbarWidth: "none",
-          mt: 2,
-        }}
-      >
-        {subCategory.map((v, i) => (
-          <Button
-            key={i}
-            variant="contained"
-            value={v.sub_category_name_en}
-            sx={{
-              background: v.sub_category_name_en === title ? "black" : "gray",
-              "&:hover": {
-                backgroundColor: "black",
-              },
-              margin: "5px",
-            }}
-            onClick={() => {
-              setCategoryId(v.sub_category_id);
-              setTitle(v.sub_category_name_en);
-              navigate("/category/subcategory/sub/" + v.sub_category_id);
-            }}
-          >
-            {v.sub_category_name_ru}
-          </Button>
-        ))}
-      </Box>
-
       <Box>
         {/* Sub Category Product List Start */}
         <Grid container justifyContent={"center"} gap={4} mt={8}>
-          {subproductData?.map((v, i) => (
-            <Grid
-              item
-              lg={2.6}
-              md={5}
-              sm={8}
-              xs={11}
-              sx={{
-                boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                p: 2,
-                borderRadius: "6px",
-                position: "relative",
-              }}
-            >
-              <Box>
+          <Grid
+            item
+            lg={2.4}
+            md={3}
+            sm={10}
+            xs={10}
+            sx={{
+              p: 2,
+              borderRadius: "6px",
+            }}
+          >
+            {isMatch ? (
+              <SubCategoryButton data={subCategory} lang={lang} />
+            ) : (
+              <>
+                <Typography sx={{ fontSize: "22px" }}>Category</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    mt: 3,
+                  }}
+                >
+                  {subCategory.map((v, i) => (
+                    <Button
+                      key={i}
+                      variant="contained"
+                      value={v.sub_category_name_en}
+                      sx={{
+                        background:
+                          v.category_id === subCategoryId
+                            ? "#E2FF7F"
+                            : "#01466A",
+                        "&:hover": {
+                          backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
+                          color: "black",
+                        },
+                        display: "inline-block",
+                        margin: "5px",
+                        fontSize: "12px",
+                        color:
+                          v.sub_category_id === subCategoryId
+                            ? "black"
+                            : "white",
+                      }}
+                      onClick={() => {
+                        setCategoryId(v.sub_category_id);
+                        setTitle(v.sub_category_name_en);
+                        navigate(
+                          "/category/subcategory/sub/" + v.sub_category_id
+                        );
+                      }}
+                    >
+                      {v.sub_category_name_ru}
+                    </Button>
+                  ))}
+                </Box>
+              </>
+            )}
+          </Grid>
+          <Grid
+            item
+            lg={8}
+            md={8}
+            sm={8}
+            xs={11}
+            sx={{
+              p: 2,
+              borderRadius: "6px",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "15px",
+              justifyContent: "center",
+            }}
+          >
+            {subproductData?.map((v, i) => (
+              <Box
+                sx={{
+                  width: { xs: "430px", sm: "350px", md: "300px" },
+                  position: "relative",
+                  height: "580px",
+                  p: 2,
+                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                }}
+              >
                 <Box
                   sx={{
                     width: "100%",
@@ -153,6 +211,15 @@ export default function SubCategory1({ lang, basket, setBasket }) {
                   <Typography
                     sx={{ fontWeight: "600", fontSize: "18px", mt: 2 }}
                   >
+                    {lang == "ru"
+                      ? v.product_title_ru
+                      : lang == "uz"
+                      ? v.product_title_uz
+                      : lang == "en"
+                      ? v.product_title_en
+                      : ""}
+                  </Typography>
+                  <Typography sx={{ fontSize: "14px", mt: 2, color: "gray" }}>
                     {lang == "ru"
                       ? v.product_information_ru?.split(" ").length > 10
                         ? v.product_information_ru
@@ -176,33 +243,31 @@ export default function SubCategory1({ lang, basket, setBasket }) {
                         : v.product_information_en
                       : ""}
                   </Typography>
-                  <Typography sx={{ mt: 2, fontSize: "14px" }}>
-                    {lang == "ru"
-                      ? v.product_information_ru
-                      : lang == "uz"
-                      ? v.product_information_uz
-                      : lang == "en"
-                      ? v.product_information_en
-                      : ""}
-                  </Typography>
                 </Box>
 
-                <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
+                <Box
+                  sx={{
+                    mt: 4,
+                    pt: 5,
+                    width: "100%",
+                    position: "absolute",
+                    bottom: "4%",
+                  }}
+                >
                   <Button
                     variant="contained"
                     sx={{ position: "absolute", top: "90%" }}
                     onClick={() => {
-                        setBasket((prevData) => [v, ...prevData]);
-                        localStorage.setItem("data", JSON.stringify(basket));
-                      }}
-
+                      setBasket((prevData) => [v, ...prevData]);
+                      localStorage.setItem("data", JSON.stringify(basket));
+                    }}
                   >
                     Add to Card
                   </Button>
                 </Box>
               </Box>
-            </Grid>
-          ))}
+            ))}
+          </Grid>
         </Grid>
 
         {/* Sub Category Product List End */}

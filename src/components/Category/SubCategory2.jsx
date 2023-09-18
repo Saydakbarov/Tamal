@@ -3,11 +3,28 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
 import { KeyboardArrowRight } from "@mui/icons-material";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
+import SecondCategoryButton from "./ResponsiveCategoryBox/SecondCategoryButtonBox";
 
-export default function SubCategory2({ lang, basket, setBasket }) {
+export default function SubCategory2({
+  lang,
+  basket,
+  setBasket,
+  value,
+  setValue,
+}) {
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
   const [title, setTitle] = useState("");
   const [subCategory, setSubCategory] = useState([]);
 
@@ -51,7 +68,7 @@ export default function SubCategory2({ lang, basket, setBasket }) {
 
   return (
     <>
-      <HeaderMenu lang={lang} />
+      <HeaderMenu lang={lang} value={value} setValue={setValue} />
       <Box
         sx={{
           backgroundImage:
@@ -91,59 +108,95 @@ export default function SubCategory2({ lang, basket, setBasket }) {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          width: "100%",
-          textAlign: "center",
-          overflowX: "scroll",
-          whiteSpace: "nowrap",
-          scrollbarWidth: "none",
-          mt: 2,
-        }}
-      >
-        {subCategory.map((v, i) => (
-          <Button
-            key={i}
-            variant="contained"
-            value={v.second_sub_category_name_en}
-            sx={{
-              background:
-                v.second_sub_category_name_en === title ? "black" : "gray",
-              "&:hover": {
-                backgroundColor: "black",
-              },
-              margin: "5px",
-            }}
-            onClick={() => {
-              setSecondSubCategoryId(v.second_sub_category_id);
-              setTitle(v.second_sub_category_name_en);
-              navigate(
-                "/category/subcategory/sub/third/" + v.second_sub_category_id
-              );
-            }}
-          >
-            {v.second_sub_category_name_ru}
-          </Button>
-        ))}
-      </Box>
-
       {/* Sub Category Product List Start */}
       <Grid container justifyContent={"center"} gap={4} mt={8}>
-        {secondSubCategoryData?.map((v, i) => (
-          <Grid
-            item
-            lg={2.6}
-            md={5}
-            sm={8}
-            xs={11}
-            sx={{
-              boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-              p: 2,
-              borderRadius: "6px",
-              position: "relative",
-            }}
-          >
-            <Box>
+        <Grid
+          item
+          lg={2.4}
+          md={8}
+          sm={11}
+          xs={11}
+          sx={{
+            p: 2,
+            borderRadius: "6px",
+          }}
+        >
+          {isMatch ? (
+            <SecondCategoryButton data={subCategory} lang={lang} />
+          ) : (
+            <>
+              <Typography sx={{ fontSize: "22px" }}>Category</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  mt: 3,
+                }}
+              >
+                {subCategory.map((v, i) => (
+                  <Button
+                    key={i}
+                    variant="contained"
+                    value={v.second_sub_category_name_en}
+                    sx={{
+                      background:
+                        v.second_sub_category_id === secondSubCategoryId
+                          ? "#E2FF7F"
+                          : "#01466A",
+                      "&:hover": {
+                        backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
+                        color: "black",
+                      },
+                      display: "inline-block",
+                      margin: "5px",
+                      fontSize: "12px",
+                      color:
+                        v.second_sub_category_id === secondSubCategoryId
+                          ? "black"
+                          : "white",
+                    }}
+                    onClick={() => {
+                      setSecondSubCategoryId(v.second_sub_category_id);
+                      setTitle(v.second_sub_category_name_en);
+                      navigate(
+                        "/category/subcategory/sub/third/" +
+                          v.second_sub_category_id
+                      );
+                    }}
+                  >
+                    {v.second_sub_category_name_ru}
+                  </Button>
+                ))}
+              </Box>
+            </>
+          )}
+        </Grid>
+
+        <Grid
+          item
+          lg={8}
+          md={8}
+          sm={8}
+          xs={11}
+          sx={{
+            p: 2,
+            borderRadius: "6px",
+            display: "flex",
+            gap: "15px",
+            justifyContent: "center",
+            flexWrap: "wrap ",
+          }}
+        >
+          {secondSubCategoryData?.map((v, i) => (
+            <Box
+              sx={{
+                width: { xs: "430px", sm: "350px", md: "300px" },
+                position: "relative",
+                height: "580px",
+                p: 2,
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+              }}
+            >
               <Box
                 sx={{
                   width: "100%",
@@ -207,8 +260,8 @@ export default function SubCategory2({ lang, basket, setBasket }) {
                 </Button>
               </Box>
             </Box>
-          </Grid>
-        ))}
+          ))}
+        </Grid>
       </Grid>
 
       {/* Sub Category Product List End */}

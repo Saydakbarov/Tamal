@@ -12,6 +12,7 @@ import { HomeProductsData } from "../../data";
 import axios from "axios";
 import BASE_URL from "../../Server";
 import CategoryButtonBox from "./CategoryButtonBox";
+import content from "../../Locolization/content";
 
 const ProductCategory = [
   {
@@ -72,7 +73,9 @@ export default function HomeProducts({ lang, basket, setBasket }) {
         <Typography
           sx={{ fontSize: "26px", fontWeight: "600", color: "#01466A" }}
         >
-          Our Products
+          {
+            content[lang].home.home_product_title
+          }
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram
@@ -80,21 +83,36 @@ export default function HomeProducts({ lang, basket, setBasket }) {
         </Typography>
       </Box>
 
-      <Grid container justifyContent={"center"} gap={3} mt={7}>
+      <Grid
+        container
+        justifyContent={"center"}
+        gap={3}
+        sx={{
+          boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+          width: "96%",
+          margin: "0 auto",
+          borderRadius: "8px",
+          mt: 8,
+        }}
+      >
         <Grid
           item
           lg={2.4}
           md={2.8}
-          sm={10}
-          xs={10}
+          sm={11}
+          xs={11}
           sx={{
-            boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
             p: 2,
             borderRadius: "6px",
           }}
         >
           {isMatch ? (
-            <CategoryButtonBox lang={lang} />
+            <CategoryButtonBox
+              data={categoryButton}
+              lang={lang}
+              setCategoryId={setCategoryId}
+              categoryId={categoryId}
+            />
           ) : (
             <>
               <Typography sx={{ fontSize: "22px" }}>Category</Typography>

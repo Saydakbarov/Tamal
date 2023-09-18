@@ -29,6 +29,8 @@ const content = {
     },
     home: {
       title: "Asosiy",
+      home_product_title: "Bizning Mahsulotlar",
+      home_news_title: "Oxirgi Mahsulotlar",
     },
     category: {
       title: "Kategoriya",
@@ -55,6 +57,13 @@ const content = {
       contact_card_email_title: "tamal.info.mailbox@gmail.com",
       contact_form_text: "Bizga xabaringizni yuboring",
       contact_form_input_name: "Ism",
+    },
+
+    singlePage: {
+      country_title: "Mamlakat",
+      attention_title: "Diqqat",
+      model_title: "Model",
+      information_title:"Ma'lumot"
     },
   },
   ru: {
@@ -87,6 +96,8 @@ const content = {
     },
     home: {
       title: "Главный",
+      home_product_title: "Наши продукты",
+      home_news_title: "Последние продукты",
     },
     category: {
       title: "Категория",
@@ -112,6 +123,13 @@ const content = {
     },
     button: {
       send: "Отправлять",
+    },
+    singlePage: {
+      country_title: "Страна",
+      attention_title: "Внимание",
+      model_title: "Модель",
+      information_title:"Информация"
+      
     },
   },
   en: {
@@ -144,6 +162,8 @@ const content = {
     },
     home: {
       title: "Home",
+      home_product_title: "Our Products",
+      home_news_title: "Latest News",
     },
     category: {
       title: "Category",
@@ -170,6 +190,12 @@ const content = {
 
     button: {
       send: "Send",
+    },
+    singlePage: {
+      country_title: "Country",
+      attention_title: "Attention",
+      model_title: "Model",
+      information_title:"Information"
     },
   },
 };

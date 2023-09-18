@@ -8,14 +8,17 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import BASE_URL from "../../Server";
 import { ExpandMore } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-export default function CategoryButtonBox({ lang, data, setCategoryId, categoryId }) {
+export default function SubCategoryButton({ lang, data }) {
   const [categoryButton, setCategoryButton] = useState([]);
 
+  const navigate = useNavigate();
 
-  
+  const [categoryId, setCategoryId] = useState(1);
+
+  console.log(categoryButton);
 
   return (
     <Accordion>
@@ -24,7 +27,7 @@ export default function CategoryButtonBox({ lang, data, setCategoryId, categoryI
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography sx={{ fontSize: "22px" }}>Category</Typography>
+        <Typography sx={{ fontSize: "22px" }}>Sub Category</Typography>
       </AccordionSummary>
 
       <Box
@@ -42,9 +45,10 @@ export default function CategoryButtonBox({ lang, data, setCategoryId, categoryI
           <Button
             key={i}
             variant="contained"
-            value={v.category_name_ru}
+            value={v.sub_category_name_ru}
             sx={{
-              background: v.category_id === categoryId ? "#E2FF7F" : "#01466A",
+              background:
+                v.sub_category_id === categoryId ? "#E2FF7F" : "#01466A",
               "&:hover": {
                 backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
                 color: "black",
@@ -52,18 +56,19 @@ export default function CategoryButtonBox({ lang, data, setCategoryId, categoryI
               display: "inline-block",
               margin: "5px",
               fontSize: "12px",
-              color: v.category_id === categoryId ? "black" : "white",
+              color: v.sub_category_id === categoryId ? "black" : "white",
             }}
             onClick={() => {
-              setCategoryId(v.category_id);
+              setCategoryId(v.sub_category_id);
+              navigate("/category/subcategory/sub/" + v.sub_category_id);
             }}
           >
             {lang == "ru"
-              ? v.category_name_ru
+              ? v.sub_category_name_ru
               : lang == "uz"
-              ? v.category_name_uz
+              ? v.sub_category_name_uz
               : lang == "en"
-              ? v.category_name_en
+              ? v.sub_category_name_en
               : ""}
           </Button>
         ))}

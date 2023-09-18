@@ -6,9 +6,10 @@ import Header_Category_3 from "../../images/headerCategory/Кровля.png";
 import Header_Category_4 from "../../images/headerCategory/Маталлопрокат.png";
 import Header_Category_5 from "../../images/headerCategory/Окнарамы.png";
 import Header_Category_6 from "../../images/headerCategory/Электростанция.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function HomeCategory() {
+  const navigate = useNavigate();
   return (
     <Box>
       <Grid container justifyContent={"center"} gap={4} sx={{ mt: 8 }}>
@@ -23,7 +24,10 @@ export default function HomeCategory() {
               borderRadius: "3px",
               backgroundPosition: "center",
               backgroundSize: "100%",
+              cursor:"pointer"
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600" }}>
               Бетонформирующие <br /> материалы
@@ -41,7 +45,10 @@ export default function HomeCategory() {
               borderRadius: "3px",
               backgroundSize: "100%",
               backgroundPosition: "center",
+              cursor: "pointer",
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600", color: "white" }}>
               Окна рамы
@@ -58,7 +65,10 @@ export default function HomeCategory() {
               backgroundSize: "100%",
               backgroundPosition: "center",
               mt: 3,
+              cursor: "pointer",
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600" }}>Электростанция</Typography>
           </Box>
@@ -74,7 +84,10 @@ export default function HomeCategory() {
               p: 2,
               backgroundPosition: "bottom",
               backgroundSize: "80%",
+              cursor: "pointer",
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600" }}>Генераторы</Typography>
           </Box>
@@ -88,9 +101,12 @@ export default function HomeCategory() {
               p: 2,
               backgroundPosition: "bottom",
               backgroundSize: "80%",
+              cursor: "pointer",
 
               mt: 3,
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600" }}>Кровля</Typography>
           </Box>
@@ -107,7 +123,10 @@ export default function HomeCategory() {
               borderRadius: "3px",
               backgroundPosition: "bottom",
               backgroundSize: "100%",
+              cursor: "pointer",
             }}
+            component={"div"}
+            onClick={() => navigate("/category")}
           >
             <Typography sx={{ fontWeight: "600" }}>Маталлопрокат</Typography>
           </Box>

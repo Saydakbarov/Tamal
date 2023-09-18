@@ -10,6 +10,7 @@ import { BlogPostsData } from "../../data";
 import axios from "axios";
 import BASE_URL from "../../Server";
 import { useNavigate } from "react-router-dom";
+import content from "../../Locolization/content";
 
 export default function BlogPosts({ lang }) {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ export default function BlogPosts({ lang }) {
         <Typography
           sx={{ fontSize: "26px", fontWeight: "600", color: "#01466A" }}
         >
-          New Products
+          {content[lang].home.home_news_title}
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram

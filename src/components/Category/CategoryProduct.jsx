@@ -1,15 +1,28 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../Server";
+import CategoryButtonBox from "../Home/CategoryButtonBox";
+import CategoryPageButton from "./ResponsiveCategoryBox/CategoryPageButton";
+import content from "../../Locolization/content";
 
 export default function CategoryProduct({ lang, value, basket, setBasket }) {
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
   const [category, setCategory] = useState([]);
 
   const [productData, setProductData] = useState([]);
 
-  const [basketData, setBasketData] = useState([]);
+  const [categoryId, setCategoryId] = useState(1);
 
   const [title, setTitle] = useState("");
 
@@ -47,7 +60,9 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
     <>
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontSize: "26px", fontWeight: "600", mt: 4 }}>
-          Our Products
+          {
+            content[lang].home.home_product_title
+          }
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram
@@ -55,65 +70,102 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
         </Typography>
       </Box>
 
-      <Box
+      {/* Category Product List Start */}
+      <Grid
+        container
+        justifyContent={"center"}
+        gap={4}
         sx={{
-          textAlign: "center",
-          overflowX: "scroll",
-          whiteSpace: "nowrap",
-          scrollbarWidth: "none",
-          mt: 2,
+          mt: 8,
         }}
       >
-        {category.map((v, i) => (
-          <Button
-            key={i}
-            variant="contained"
-            value={v.category_name_ru}
-            sx={{
-              background: v.title === title ? "black" : "gray",
-              "&:hover": {
-                backgroundColor: "black", // Yoki kerakli rangni qo'shishingiz mumkin
-              },
-              display: "inline-block",
-              margin: "5px",
-            }}
-            onClick={() => {
-              setTitle(v.category_name_ru);
-              navigate("/category/subcategory/" + v.category_id);
-            }}
-          >
-            {lang == "ru"
-              ? v.category_name_ru
-              : lang == "uz"
-              ? v.category_name_uz
-              : lang == "en"
-              ? v.category_name_en
-              : ""}
-          </Button>
-        ))}
-      </Box>
-
-      {/* Category Product List Start */}
-      <Grid container justifyContent={"center"} gap={4} mt={8}>
-        {productData.map((v, i) => (
-          <Grid
-            item
-            lg={2.6}
-            md={5}
-            sm={8}
-            xs={11}
-            sx={{
-              boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-              p: 2,
-              borderRadius: "6px",
-              position: "relative",
-              cursor: "pointer",
-            }}
-            key={v.product_id}
-            component={"div"}
-            onClick={() => navigate("/singleproduct/" + v.product_id)}
-          >
-            <Box sx={{}}>
+        <Grid
+          item
+          lg={2.4}
+          md={3}
+          sm={10}
+          xs={10}
+          sx={{
+            p: 2,
+            borderRadius: "6px",
+          }}
+        >
+          {isMatch ? (
+            <CategoryPageButton data={category} lang={lang} />
+          ) : (
+            <>
+              <Typography sx={{ fontSize: "22px" }}>Category</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  mt: 3,
+                }}
+              >
+                {category.map((v, i) => (
+                  <Button
+                    key={i}
+                    variant="contained"
+                    value={v.category_name_ru}
+                    sx={{
+                      background:
+                        v.category_id === categoryId ? "#E2FF7F" : "#01466A",
+                      "&:hover": {
+                        backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
+                        color: "black",
+                      },
+                      display: "inline-block",
+                      margin: "5px",
+                      fontSize: "12px",
+                      color: v.category_id === categoryId ? "black" : "white",
+                    }}
+                    onClick={() => {
+                      setCategoryId(v.category_id);
+                      navigate("/category/subcategory/" + v.category_id);
+                    }}
+                  >
+                    {lang == "ru"
+                      ? v.category_name_ru
+                      : lang == "uz"
+                      ? v.category_name_uz
+                      : lang == "en"
+                      ? v.category_name_en
+                      : ""}
+                  </Button>
+                ))}
+              </Box>
+            </>
+          )}
+        </Grid>
+        <Grid
+          item
+          lg={8}
+          md={8}
+          sm={11}
+          xs={11}
+          sx={{
+            borderRadius: "6px",
+            cursor: "pointer",
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            p: 2,
+            justifyContent: "center",
+          }}
+          // key={v.product_id}
+          component={"div"}
+        >
+          {productData.map((v, i) => (
+            <Box
+              sx={{
+                width: { xs: "430px", sm: "350px", md: "300px" },
+                position: "relative",
+                height: "580px",
+                p: 2,
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+              }}
+              component={"div"}
+            >
               <Box
                 sx={{
                   width: "100%",
@@ -163,21 +215,30 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                     : ""}
                 </Typography>
               </Box>
-              <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
+
+              <Box
+                sx={{
+                  mt: 4,
+                  pt: 5,
+                  width: "100%",
+                  position: "absolute",
+                  bottom: "4%",
+                }}
+              >
                 <Button
                   variant="contained"
-                  sx={{ position: "absolute", top: "90%" }}
                   onClick={() => {
                     setBasket((prevData) => [v, ...prevData]);
                     localStorage.setItem("data", JSON.stringify(basket));
+                    navigate("/singleproduct/" + v.product_id);
                   }}
                 >
                   Add to Card
                 </Button>
               </Box>
             </Box>
-          </Grid>
-        ))}
+          ))}
+        </Grid>
       </Grid>
 
       {/* Category Product List End */}

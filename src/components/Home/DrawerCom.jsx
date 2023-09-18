@@ -16,8 +16,9 @@ import { MenuData } from "../../data";
 import TamalLogo from "../../tamalLogo.png";
 import SearchBox from "./SearchBox";
 import content from "../../Locolization/content";
+import BasketBox from "./BasketBox";
 
-export default function DrawerCom({ lang }) {
+export default function DrawerCom({ lang, setLang }) {
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
@@ -48,6 +49,7 @@ export default function DrawerCom({ lang }) {
 
           <SearchBox />
         </Box>
+
         <List sx={{ width: "240px", p: 2 }}>
           {content[lang].header.links.map((page, i) => (
             <ListItemButton key={i} onClick={() => setOpenDrawer(false)}>
@@ -59,6 +61,31 @@ export default function DrawerCom({ lang }) {
             </ListItemButton>
           ))}
         </List>
+
+        <Box sx={{ display: "flex", justifyContent: "space-between", p: 2 }}>
+          <BasketBox />
+
+          <Box>
+            <select
+              defaultValue={lang}
+              onChange={(e) => {
+                setLang(e.target.value);
+                localStorage.setItem("lang", JSON.stringify(e.target.value));
+              }}
+              style={{
+                border: "none",
+                outline: "none",
+                padding: "5px 10px",
+                textTransform: "uppercase",
+                background: "none",
+              }}
+            >
+              <option value="ru">ru</option>
+              <option value="en">en</option>
+              <option value="uz">uz</option>
+            </select>
+          </Box>
+        </Box>
       </Drawer>
 
       <Box sx={{ marginLeft: "auto" }}>

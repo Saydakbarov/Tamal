@@ -8,14 +8,17 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import BASE_URL from "../../Server";
 import { ExpandMore } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-export default function CategoryButtonBox({ lang, data, setCategoryId, categoryId }) {
+export default function CategoryPageButton({ lang, data }) {
   const [categoryButton, setCategoryButton] = useState([]);
 
+  const navigate = useNavigate();
 
-  
+  const [categoryId, setCategoryId] = useState(1);
+
+  console.log(categoryButton);
 
   return (
     <Accordion>
@@ -56,6 +59,7 @@ export default function CategoryButtonBox({ lang, data, setCategoryId, categoryI
             }}
             onClick={() => {
               setCategoryId(v.category_id);
+              navigate("/category/subcategory/" + v.category_id);
             }}
           >
             {lang == "ru"
