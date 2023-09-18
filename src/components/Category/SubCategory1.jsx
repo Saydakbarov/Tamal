@@ -251,7 +251,7 @@ export default function SubCategory1({
                     pt: 5,
                     width: "100%",
                     position: "absolute",
-                    bottom: "4%",
+                    bottom: "8%",
                   }}
                 >
                   <Button
