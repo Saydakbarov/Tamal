@@ -14,6 +14,8 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
   const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
 
   const [thirdProductData, setThirdProductData] = useState([]);
+
+  const [offset, setOffset] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
     async function getData() {
       try {
         const res = await axios.get(
-          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&thirdsubcategory_id=" +
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&thirdsubcategory_id=` +
             id
         );
         return setThirdProductData(res.data.data);
@@ -175,7 +177,65 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
             </Box>
           </Grid>
         ))}
+
+        {thirdProductData?.length === 0 ? (
+          <Typography
+            sx={{
+              textAlign: "center",
+              color: "red",
+              fontSize: "20px",
+              fontFamily: "Inter",
+            }}
+          >
+            No result
+          </Typography>
+        ) : (
+          ""
+        )}
       </Grid>
+
+      <div
+        style={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "center",
+          marginLeft: "auto",
+        }}
+      >
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 6)}
+          disabled={offset === 0 ? true : false}
+          style={{
+            background: offset === 0 ? "gray" : "#01466A",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 6)}
+          disabled={thirdProductData?.length >= 6 ? false : true}
+          style={{
+            background: offset === 0 ? "#01466A" : "gray",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+            marginLeft: "10px",
+          }}
+        >
+          Next
+        </button>
+      </div>
 
       {/* Sub Category Product List End */}
       <Footer />

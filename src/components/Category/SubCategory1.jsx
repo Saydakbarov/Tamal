@@ -35,6 +35,8 @@ export default function SubCategory1({
 
   const navigate = useNavigate();
 
+  const [offset, setOffset] = useState(0);
+
   useEffect(() => {
     fetch(`${BASE_URL}api/v1/subcategories/` + id, {
       method: "GET",
@@ -49,7 +51,7 @@ export default function SubCategory1({
     async function postId() {
       try {
         const res = await axios.get(
-          `${BASE_URL}api/v1/products?limit=10&offset=0&category_id=${id}`
+          `${BASE_URL}api/v1/products?limit=6&offset=${offset}&category_id=${id}`
         );
         return setSubProductData(res.data.data);
       } catch (error) {
@@ -57,7 +59,7 @@ export default function SubCategory1({
       }
     }
     postId();
-  }, [id]);
+  }, [id, offset]);
 
   console.log(id);
 
@@ -157,7 +159,7 @@ export default function SubCategory1({
                         setCategoryId(v.sub_category_id);
                         setTitle(v.sub_category_name_en);
                         navigate(
-                          "/category/subcategory/sub/" + v.sub_category_id
+                          "/product/subcategory/sub/" + v.sub_category_id
                         );
                       }}
                     >
@@ -267,8 +269,66 @@ export default function SubCategory1({
                 </Box>
               </Box>
             ))}
+
+            {subproductData?.length === 0 ? (
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "20px",
+                fontFamily: "Inter",
+              }}
+            >
+              No result
+            </Typography>
+          ) : (
+            ""
+          )}
           </Grid>
         </Grid>
+
+        <div
+          style={{
+            width: "30%",
+            display: "flex",
+            justifyContent: "center",
+            marginLeft: "auto",
+          }}
+        >
+          <button
+            className="prev_btn add__btn"
+            onClick={() => setOffset(Number(offset) - 6)}
+            disabled={offset === 0 ? true : false}
+            style={{
+              background: offset === 0 ? "gray" : "#01466A",
+              color: "white",
+
+              width: "90px",
+              padding: "5px",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Prev
+          </button>
+          <button
+            className="next_btn add__btn"
+            onClick={() => setOffset(Number(offset) + 6)}
+            disabled={subproductData?.length >= 6 ? false : true}
+            style={{
+              background: offset === 0 ? "#01466A" : "gray",
+              color: "white",
+
+              width: "90px",
+              padding: "5px",
+              border: "none",
+              cursor: "pointer",
+              marginLeft: "10px",
+            }}
+          >
+            Next
+          </button>
+        </div>
 
         {/* Sub Category Product List End */}
       </Box>

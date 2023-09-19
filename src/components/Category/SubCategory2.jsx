@@ -31,6 +31,8 @@ export default function SubCategory2({
   const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
 
   const [secondSubCategoryData, setSecondSubCategoryData] = useState([]);
+
+  const [offset, setOffset] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export default function SubCategory2({
     async function getData() {
       try {
         const res = await axios.get(
-          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&subcategory_id=" +
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&subcategory_id=` +
             id
         );
         return setSecondSubCategoryData(res.data.data);
@@ -62,7 +64,7 @@ export default function SubCategory2({
       }
     }
     getData();
-  }, [id]);
+  }, [id, offset]);
 
   console.log(secondSubCategoryId);
 
@@ -159,7 +161,7 @@ export default function SubCategory2({
                       setSecondSubCategoryId(v.second_sub_category_id);
                       setTitle(v.second_sub_category_name_en);
                       navigate(
-                        "/category/subcategory/sub/third/" +
+                        "/product/subcategory/sub/third/" +
                           v.second_sub_category_id
                       );
                     }}
@@ -261,8 +263,66 @@ export default function SubCategory2({
               </Box>
             </Box>
           ))}
+
+          {secondSubCategoryData?.length === 0 ? (
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "20px",
+                fontFamily: "Inter",
+              }}
+            >
+              No result
+            </Typography>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
+
+      <div
+        style={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "center",
+          marginLeft: "auto",
+        }}
+      >
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 6)}
+          disabled={offset === 0 ? true : false}
+          style={{
+            background: offset === 0 ? "gray" : "#01466A",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 6)}
+          disabled={secondSubCategoryData?.length >= 6 ? false : true}
+          style={{
+            background: offset === 0 ? "#01466A" : "gray",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+            marginLeft: "10px",
+          }}
+        >
+          Next
+        </button>
+      </div>
 
       {/* Sub Category Product List End */}
       <Footer />

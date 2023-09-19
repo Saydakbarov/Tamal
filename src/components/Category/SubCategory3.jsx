@@ -15,7 +15,13 @@ import BASE_URL from "../../Server";
 import axios from "axios";
 import ThirdCategoryButton from "./ResponsiveCategoryBox/ThirdCategoryButtonBox";
 
-export default function SubCategory3({ lang, basket, setBasket, value, setValue}) {
+export default function SubCategory3({
+  lang,
+  basket,
+  setBasket,
+  value,
+  setValue,
+}) {
   const theme = useTheme();
 
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -27,6 +33,8 @@ export default function SubCategory3({ lang, basket, setBasket, value, setValue}
   const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
 
   const [thirdSubCategoryData, setThirdSubCategoryData] = useState([]);
+
+  const [offset, setOffset] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -49,7 +57,7 @@ export default function SubCategory3({ lang, basket, setBasket, value, setValue}
     async function getData() {
       try {
         const res = await axios.get(
-          "https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&secondsubcategory_id=" +
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&secondsubcategory_id=` +
             id
         );
         return setThirdSubCategoryData(res.data.data);
@@ -136,7 +144,9 @@ export default function SubCategory3({ lang, basket, setBasket, value, setValue}
                     value={v.third_sub_category_name_en}
                     sx={{
                       background:
-                        v.third_sub_category_id === secondSubCategoryId ? "#E2FF7F" : "#01466A",
+                        v.third_sub_category_id === secondSubCategoryId
+                          ? "#E2FF7F"
+                          : "#01466A",
                       "&:hover": {
                         backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
                         color: "black",
@@ -145,13 +155,15 @@ export default function SubCategory3({ lang, basket, setBasket, value, setValue}
                       margin: "5px",
                       fontSize: "12px",
                       color:
-                        v.third_sub_category_id === secondSubCategoryId ? "black" : "white",
+                        v.third_sub_category_id === secondSubCategoryId
+                          ? "black"
+                          : "white",
                     }}
                     onClick={() => {
                       setSecondSubCategoryId(v.third_sub_category_id);
                       setTitle(v.third_sub_category_name_en);
                       navigate(
-                        "/category/subcategory/sub/third/product/" +
+                        "/product/subcategory/sub/third/product/" +
                           v.third_sub_category_id
                       );
                     }}
@@ -253,8 +265,66 @@ export default function SubCategory3({ lang, basket, setBasket, value, setValue}
               </Box>
             </Box>
           ))}
+
+          {thirdSubCategoryData?.length === 0 ? (
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "20px",
+                fontFamily: "Inter",
+              }}
+            >
+              No result
+            </Typography>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
+
+      <div
+        style={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "center",
+          marginLeft: "auto",
+        }}
+      >
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 6)}
+          disabled={offset === 0 ? true : false}
+          style={{
+            background: offset === 0 ? "gray" : "#01466A",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 6)}
+          disabled={thirdSubCategoryData?.length >= 6 ? false : true}
+          style={{
+            background: offset === 0 ? "#01466A" : "gray",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+            marginLeft: "10px",
+          }}
+        >
+          Next
+        </button>
+      </div>
 
       {/* Sub Category Product List End */}
       <Footer />

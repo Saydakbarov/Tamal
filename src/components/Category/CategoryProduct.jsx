@@ -26,6 +26,8 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
 
   const [title, setTitle] = useState("");
 
+  const [offset, setOffset] = useState(0);
+
   const navigate = useNavigate();
 
   console.log(value);
@@ -44,7 +46,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&search_${lang}=${value}`
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&search_${lang}=${value}`
         );
         return setProductData(res.data.data);
       } catch (error) {
@@ -52,7 +54,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
       }
     }
     getData();
-  }, [value, lang]);
+  }, [value, lang, offset]);
 
   console.log(productData);
 
@@ -60,9 +62,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
     <>
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontSize: "26px", fontWeight: "600", mt: 4 }}>
-          {
-            content[lang].home.home_product_title
-          }
+          {content[lang].home.home_product_title}
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram
@@ -121,7 +121,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                     }}
                     onClick={() => {
                       setCategoryId(v.category_id);
-                      navigate("/category/subcategory/" + v.category_id);
+                      navigate("/product/subcategory/" + v.category_id);
                     }}
                   >
                     {lang == "ru"
@@ -155,7 +155,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
           // key={v.product_id}
           component={"div"}
         >
-          {productData.map((v, i) => (
+          {productData?.map((v, i) => (
             <Box
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
@@ -238,8 +238,66 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
               </Box>
             </Box>
           ))}
+
+          {productData?.length === 0 ? (
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "20px",
+                fontFamily: "Inter",
+              }}
+            >
+              No result
+            </Typography>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
+
+      <div
+        style={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "center",
+          marginLeft: "auto",
+        }}
+      >
+        <button
+          className="prev_btn add__btn"
+          onClick={() => setOffset(Number(offset) - 6)}
+          disabled={offset === 0 ? true : false}
+          style={{
+            background: offset === 0 ? "gray" : "#01466A",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Prev
+        </button>
+        <button
+          className="next_btn add__btn"
+          onClick={() => setOffset(Number(offset) + 6)}
+          disabled={productData?.length >= 6 ? false : true}
+          style={{
+            background: offset === 0 ? "#01466A" : "gray",
+            color: "white",
+
+            width: "90px",
+            padding: "5px",
+            border: "none",
+            cursor: "pointer",
+            marginLeft: "10px",
+          }}
+        >
+          Next
+        </button>
+      </div>
 
       {/* Category Product List End */}
     </>
