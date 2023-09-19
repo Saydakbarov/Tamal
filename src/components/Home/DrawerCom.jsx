@@ -63,7 +63,7 @@ export default function DrawerCom({ lang, setLang }) {
         </List>
 
         <Box sx={{ display: "flex", justifyContent: "space-between", p: 2 }}>
-          <BasketBox />
+          <BasketBox lang={lang} />
 
           <Box>
             <select
