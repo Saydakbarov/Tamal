@@ -18,7 +18,7 @@ import SearchBox from "./SearchBox";
 import content from "../../Locolization/content";
 import BasketBox from "./BasketBox";
 
-export default function DrawerCom({ lang, setLang }) {
+export default function DrawerCom({ lang, setLang, value, setValue }) {
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
@@ -47,7 +47,7 @@ export default function DrawerCom({ lang, setLang }) {
             alt=""
           />
 
-          <SearchBox />
+          <SearchBox value={value} setValue={setValue} />
         </Box>
 
         <List sx={{ width: "240px", p: 2 }}>

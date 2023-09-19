@@ -71,7 +71,12 @@ export default function HeaderMenu({ lang, setLang, value, setValue }) {
                   src={TamalLogo}
                   alt=""
                 />
-                <DrawerCom lang={lang} setLang={setLang} />
+                <DrawerCom
+                  lang={lang}
+                  setLang={setLang}
+                  value={value}
+                  setValue={setValue}
+                />
               </Box>
             </>
           ) : (
