@@ -29,8 +29,8 @@ export const MenuData = [
     path: "/about",
   },
   {
-    title: "Category",
-    path: "/category",
+    title: "Product",
+    path: "/product",
   },
   {
     title: "News",

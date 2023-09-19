@@ -49,7 +49,7 @@ function App() {
             }
           />
           <Route
-            path="/category"
+            path="/product"
             element={
               <Category
                 lang={lang}
@@ -62,7 +62,7 @@ function App() {
             }
           />
           <Route
-            path="/category/subcategory/:id"
+            path="/product/subcategory/:id"
             element={
               <SubCategory1
                 lang={lang}
@@ -75,7 +75,7 @@ function App() {
             }
           />
           <Route
-            path="/category/subcategory/sub/:id"
+            path="/product/subcategory/sub/:id"
             element={
               <SubCategory2
                 lang={lang}
@@ -88,7 +88,7 @@ function App() {
             }
           />
           <Route
-            path="/category/subcategory/sub/third/:id"
+            path="/product/subcategory/sub/third/:id"
             element={
               <SubCategory3
                 lang={lang}
@@ -101,7 +101,7 @@ function App() {
             }
           />
           <Route
-            path="/category/subcategory/sub/third/product/:id"
+            path="/product/subcategory/sub/third/product/:id"
             element={
               <ThirdProduct
                 lang={lang}

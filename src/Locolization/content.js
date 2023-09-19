@@ -11,8 +11,8 @@ const content = {
           path: "/about",
         },
         {
-          title: "Kategoriyalar",
-          path: "/category",
+          title: "Mahsulot",
+          path: "/product",
         },
         {
           title: "Yangiliklar",
@@ -78,8 +78,8 @@ const content = {
           path: "/about",
         },
         {
-          title: "Категория",
-          path: "/category",
+          title: "Продукт",
+          path: "/product",
         },
         {
           title: "Новости",
@@ -144,8 +144,8 @@ const content = {
           path: "/about",
         },
         {
-          title: "Category",
-          path: "/category",
+          title: "Product",
+          path: "/product",
         },
         {
           title: "News",
