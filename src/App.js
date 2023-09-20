@@ -10,6 +10,7 @@ import { useState } from "react";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import SubCategory3 from "./components/Category/SubCategory3";
 import ThirdProduct from "./components/Category/ThirdProduct";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [lang, setLang] = useState(
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div className="App globalContainer">
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route

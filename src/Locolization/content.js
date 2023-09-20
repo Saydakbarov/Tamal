@@ -31,6 +31,8 @@ const content = {
       title: "Asosiy",
       home_product_title: "Bizning Mahsulotlar",
       home_news_title: "Oxirgi Mahsulotlar",
+      home_product_button: "Batafsil",
+      home_toast: "Muvaffaqiyatli qo'shildi",
     },
     category: {
       title: "Kategoriya",
@@ -63,7 +65,7 @@ const content = {
       country_title: "Mamlakat",
       attention_title: "Diqqat",
       model_title: "Model",
-      information_title:"Ma'lumot"
+      information_title: "Ma'lumot",
     },
   },
   ru: {
@@ -98,6 +100,8 @@ const content = {
       title: "Главный",
       home_product_title: "Наши продукты",
       home_news_title: "Последние продукты",
+      home_product_button: "Подробный",
+      home_toast: "Добавлено успешно",
     },
     category: {
       title: "Категория",
@@ -128,8 +132,7 @@ const content = {
       country_title: "Страна",
       attention_title: "Внимание",
       model_title: "Модель",
-      information_title:"Информация"
-      
+      information_title: "Информация",
     },
   },
   en: {
@@ -164,6 +167,8 @@ const content = {
       title: "Home",
       home_product_title: "Our Products",
       home_news_title: "Latest News",
+      home_product_button: "Detailed",
+      home_toast: "Added successfully",
     },
     category: {
       title: "Category",
@@ -195,7 +200,7 @@ const content = {
       country_title: "Country",
       attention_title: "Attention",
       model_title: "Model",
-      information_title:"Information"
+      information_title: "Information",
     },
   },
 };

@@ -14,6 +14,10 @@ import CategoryButtonBox from "../Home/CategoryButtonBox";
 import CategoryPageButton from "./ResponsiveCategoryBox/CategoryPageButton";
 import content from "../../Locolization/content";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ShoppingBag } from "@mui/icons-material";
+
 export default function CategoryProduct({ lang, value, basket, setBasket }) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -24,7 +28,16 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
 
   const [categoryId, setCategoryId] = useState(1);
 
-  const [title, setTitle] = useState("");
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
+
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
 
   const [offset, setOffset] = useState(0);
 
@@ -227,13 +240,29 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
               >
                 <Button
                   variant="contained"
+                  sx={{ fontWeight: "bold" }}
                   onClick={() => {
                     setBasket((prevData) => [v, ...prevData]);
                     localStorage.setItem("data", JSON.stringify(basket));
+                    showToastMessage();
+                  }}
+                  startIcon={<ShoppingBag />}
+                >
+                  +
+                </Button>
+
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    fontSize: "12px !important",
+                    left: "53%",
+                  }}
+                  onClick={() => {
                     navigate("/singleproduct/" + v.product_id);
                   }}
                 >
-                  Add to Card
+                  {content[lang].home.home_product_button}
                 </Button>
               </Box>
             </Box>

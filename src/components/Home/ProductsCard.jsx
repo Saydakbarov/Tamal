@@ -1,9 +1,11 @@
 import {
+  Alert,
   Box,
   Button,
   Grid,
   IconButton,
   Rating,
+  Snackbar,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -12,18 +14,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "./styles/ProductCard.scss";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 import { Link, useNavigate } from "react-router-dom";
+import { ShoppingBag } from "@mui/icons-material";
+import content from "../../Locolization/content";
 
 export default function ProductsCard({ data, lang, basket, setBasket }) {
   // const [basketData, setBasketData] = useState([]);
   const navigate = useNavigate();
 
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
+
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
+
   return (
     <Box sx={{}}>
+      <ToastContainer />
       <Grid container justifyContent={"center"} gap={2} mt={8}>
         <Grid item lg={11} md={11} sm={11} xs={11}>
           <Swiper
@@ -124,19 +143,49 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                         : ""}
                     </Typography>
                   </Box>
-                  <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
+                  <Box
+                    sx={{
+                      mt: 4,
+                      pt: 5,
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          position: "absolute",
+                          top: "90%",
+                          fontWeight: "bold",
+                        }}
+                        onClick={() => {
+                          let a = v;
+                          a["count"] = 1;
+                          setBasket((prevData) => [a, ...prevData]);
+                          localStorage.setItem("data", JSON.stringify(basket));
+                          showToastMessage();
+                        }}
+                        startIcon={<ShoppingBag />}
+                      >
+                        +
+                      </Button>
+                    </>
                     <Button
                       variant="contained"
-                      sx={{ position: "absolute", top: "90%" }}
+                      sx={{
+                        position: "absolute",
+                        top: "90%",
+                        left: "53%",
+                        fontSize: "12px !important",
+                      }}
                       onClick={() => {
-                        let a = v;
-                        a["count"] = 1;
-                        setBasket((prevData) => [a, ...prevData]);
-                        localStorage.setItem("data", JSON.stringify(basket));
                         navigate("/singleproduct/" + v.product_id);
                       }}
                     >
-                      Add to Card
+                      {content[lang].home.home_product_button}
                     </Button>
                   </Box>
                 </Box>

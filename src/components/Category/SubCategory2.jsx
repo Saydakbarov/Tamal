@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { KeyboardArrowRight, ShoppingBag } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,6 +14,8 @@ import {
 import BASE_URL from "../../Server";
 import axios from "axios";
 import SecondCategoryButton from "./ResponsiveCategoryBox/SecondCategoryButtonBox";
+import { toast } from "react-toastify";
+import content from "../../Locolization/content";
 
 export default function SubCategory2({
   lang,
@@ -66,7 +68,16 @@ export default function SubCategory2({
     getData();
   }, [id, offset]);
 
-  console.log(secondSubCategoryId);
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
+
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
 
   return (
     <>
@@ -252,13 +263,29 @@ export default function SubCategory2({
               <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
                 <Button
                   variant="contained"
-                  sx={{ position: "absolute", top: "90%" }}
+                  sx={{ position: "absolute", top: "90%", fontWeight: "bold" }}
                   onClick={() => {
                     setBasket((prevData) => [v, ...prevData]);
                     localStorage.setItem("data", JSON.stringify(basket));
+                    showToastMessage();
+                  }}
+                  startIcon={<ShoppingBag />}
+                >
+                  +
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    fontSize: "12px !important",
+                    left: "53%",
+                    top: "90%",
+                  }}
+                  onClick={() => {
+                    navigate("/singleproduct/" + v.product_id);
                   }}
                 >
-                  Add to Card
+                  {content[lang].home.home_product_button}
                 </Button>
               </Box>
             </Box>

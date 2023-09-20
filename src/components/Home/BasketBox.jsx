@@ -56,21 +56,7 @@ export default function BasketBox({ lang }) {
 					)}
 
 					<Box sx={{ textAlign: 'end' }}>
-						{/* <Button
-              sx={{
-                background: "#01466A",
-                "&:hover": {
-                  backgroundColor: "#E2FF7F", // Yoki kerakli rangni qo'shishingiz mumkin
-                  color: "black",
-                },
-                display: "inline-block",
-                margin: "5px",
-                fontSize: "12px",
-                color: "white",
-              }}
-            >
-              send
-            </Button> */}
+				
 						<ShopButton data={data} />
 					</Box>
 				</Box>

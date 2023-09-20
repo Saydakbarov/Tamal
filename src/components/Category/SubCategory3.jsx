@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { KeyboardArrowRight, ShoppingBag } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,6 +14,8 @@ import {
 import BASE_URL from "../../Server";
 import axios from "axios";
 import ThirdCategoryButton from "./ResponsiveCategoryBox/ThirdCategoryButtonBox";
+import { toast } from "react-toastify";
+import content from "../../Locolization/content";
 
 export default function SubCategory3({
   lang,
@@ -68,7 +70,16 @@ export default function SubCategory3({
     getData();
   }, [id]);
 
-  console.log(thirdSubCategoryData);
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
+
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
 
   return (
     <>
@@ -258,9 +269,26 @@ export default function SubCategory3({
                   onClick={() => {
                     setBasket((prevData) => [v, ...prevData]);
                     localStorage.setItem("data", JSON.stringify(basket));
+                    showToastMessage();
+                  }}
+                  startIcon={<ShoppingBag />}
+                >
+                  +
+                </Button>
+
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    fontSize: "12px !important",
+                    left: "53%",
+                    top: "90%",
+                  }}
+                  onClick={() => {
+                    navigate("/singleproduct/" + v.product_id);
                   }}
                 >
-                  Add to Card
+                  {content[lang].home.home_product_button}
                 </Button>
               </Box>
             </Box>

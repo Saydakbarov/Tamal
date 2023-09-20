@@ -2,39 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { KeyboardArrowRight, ShoppingBag } from "@mui/icons-material";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import BASE_URL from "../../Server";
 import axios from "axios";
+import content from "../../Locolization/content";
+import { toast } from "react-toastify";
 
 export default function ThirdProduct({ lang, basket, setBasket }) {
-  const [title, setTitle] = useState("");
-  const [subCategory, setSubCategory] = useState([]);
-
-  const [secondSubCategoryId, setSecondSubCategoryId] = useState(1);
-
   const [thirdProductData, setThirdProductData] = useState([]);
 
   const [offset, setOffset] = useState(0);
   const { id } = useParams();
 
   const navigate = useNavigate();
-
-  console.log(id);
-
-  //   useEffect(() => {
-  //     async function getData() {
-  //       try {
-  //         const res = await axios.get(
-  //           `${BASE_URL}api/v1/thirdsubcategories/` + id
-  //         );
-  //         return setSubCategory(res.data.data);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //     getData();
-  //   }, [id]);
 
   useEffect(() => {
     async function getData() {
@@ -51,7 +32,16 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
     getData();
   }, [id]);
 
-  // console.log(thirdSubCategoryData);
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
+
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
 
   return (
     <>
@@ -165,13 +155,30 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
               <Box sx={{ mt: 4, pt: 5, width: "100%" }}>
                 <Button
                   variant="contained"
-                  sx={{ position: "absolute", top: "90%" }}
+                  sx={{ position: "absolute", top: "90%", fontWeight: "bold" }}
                   onClick={() => {
                     setBasket((prevData) => [v, ...prevData]);
                     localStorage.setItem("data", JSON.stringify(basket));
+                    showToastMessage();
+                  }}
+                  startIcon={<ShoppingBag />}
+                >
+                  +
+                </Button>
+
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    fontSize: "12px !important",
+                    left: "53%",
+                    top: "90%",
+                  }}
+                  onClick={() => {
+                    navigate("/singleproduct/" + v.product_id);
                   }}
                 >
-                  Add to Card
+                  {content[lang].home.home_product_button}
                 </Button>
               </Box>
             </Box>

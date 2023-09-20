@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { Grade, KeyboardArrowRight } from "@mui/icons-material";
+import { Grade, KeyboardArrowRight, ShoppingBag } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -15,6 +15,8 @@ import BASE_URL from "../../Server";
 import axios from "axios";
 import CategoryButtonBox from "../Home/CategoryButtonBox";
 import SubCategoryButton from "./ResponsiveCategoryBox/SubCategoryButtonBox";
+import content from "../../Locolization/content";
+import { toast } from "react-toastify";
 
 export default function SubCategory1({
   lang,
@@ -61,9 +63,16 @@ export default function SubCategory1({
     postId();
   }, [id, offset]);
 
-  console.log(id);
+  const message = content[lang].home.home_toast;
+  const basketData = JSON.parse(localStorage.getItem("data")) || [];
 
-  console.log(subCategory);
+  const showToastMessage = () => {
+    if (basketData.length !== 0) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
 
   return (
     <>
@@ -258,32 +267,51 @@ export default function SubCategory1({
                 >
                   <Button
                     variant="contained"
-                    sx={{ position: "absolute", top: "90%" }}
+                    sx={{
+                      position: "absolute",
+                      top: "90%",
+                      fontWeight: "bold",
+                    }}
                     onClick={() => {
                       setBasket((prevData) => [v, ...prevData]);
                       localStorage.setItem("data", JSON.stringify(basket));
+                      showToastMessage();
+                    }}
+                    startIcon={<ShoppingBag />}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      position: "absolute",
+                      fontSize: "12px !important",
+                      left: "53%",
+                    }}
+                    onClick={() => {
+                      navigate("/singleproduct/" + v.product_id);
                     }}
                   >
-                    Add to Card
+                    {content[lang].home.home_product_button}
                   </Button>
                 </Box>
               </Box>
             ))}
 
             {subproductData?.length === 0 ? (
-            <Typography
-              sx={{
-                textAlign: "center",
-                color: "red",
-                fontSize: "20px",
-                fontFamily: "Inter",
-              }}
-            >
-              No result
-            </Typography>
-          ) : (
-            ""
-          )}
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  color: "red",
+                  fontSize: "20px",
+                  fontFamily: "Inter",
+                }}
+              >
+                No result
+              </Typography>
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
 
