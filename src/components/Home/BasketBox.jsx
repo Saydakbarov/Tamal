@@ -17,6 +17,11 @@ const style = {
   background: "#f2f2f2",
   border: "none",
   borderRadius: "4px",
+  overflowX: "scroll",
+  height: "100vh",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
 };
 export default function BasketBox({ lang }) {
   const [open, setOpen] = React.useState(false);

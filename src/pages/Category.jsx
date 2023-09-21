@@ -11,7 +11,7 @@ export default function Category({ lang, setLang, value, setValue, basket, setBa
       <HeaderMenu lang={lang} setLang={setLang} value={value} setValue={setValue} />
       <CategoryMain lang={lang} />
       <CategoryProduct lang={lang} value={value} setBasket={setBasket} basket={basket} />
-      <Footer />
+      <Footer lang={lang} />
     </Box>
   );
 }

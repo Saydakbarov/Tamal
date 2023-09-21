@@ -61,7 +61,7 @@ export default function ThirdCategoryButton({ lang, data }) {
             onClick={() => {
               setCategoryId(v.third_sub_category_id);
               navigate(
-                "/category/subcategory/sub/third/product/" +
+                "/product/subcategory/sub/third/product/" +
                   v.third_sub_category_id
               );
             }}

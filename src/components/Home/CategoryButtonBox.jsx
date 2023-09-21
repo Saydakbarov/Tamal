@@ -1,22 +1,19 @@
+import { ExpandMore } from "@mui/icons-material";
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   Box,
   Button,
   Typography,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import BASE_URL from "../../Server";
-import { ExpandMore } from "@mui/icons-material";
+import React from "react";
 
-export default function CategoryButtonBox({ lang, data, setCategoryId, categoryId }) {
-  const [categoryButton, setCategoryButton] = useState([]);
-
-
-  
-
+export default function CategoryButtonBox({
+  lang,
+  data,
+  setCategoryId,
+  categoryId,
+}) {
   return (
     <Accordion>
       <AccordionSummary
@@ -29,10 +26,6 @@ export default function CategoryButtonBox({ lang, data, setCategoryId, categoryI
 
       <Box
         sx={{
-          // overflowX: "scroll",
-          // whiteSpace: "nowrap",
-          // scrollbarWidth: "none",
-          // mt: 2,
           display: "flex",
           flexDirection: "column",
           mt: 3,

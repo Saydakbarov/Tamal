@@ -245,7 +245,7 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
       </div>
 
       {/* Sub Category Product List End */}
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

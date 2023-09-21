@@ -60,7 +60,7 @@ export default function SubCategoryButton({ lang, data }) {
             }}
             onClick={() => {
               setCategoryId(v.sub_category_id);
-              navigate("/category/subcategory/sub/" + v.sub_category_id);
+              navigate("/product/subcategory/sub/" + v.sub_category_id);
             }}
           >
             {lang == "ru"

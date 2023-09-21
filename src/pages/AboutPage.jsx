@@ -27,7 +27,7 @@ export default function AboutPage({ lang, setLang, value, setValue }) {
       <AboutMain lang={lang} />
       <AboutCompany />
       <AboutProduct />
-      <Footer />
+      <Footer lang={lang} />
     </Box>
   );
 }

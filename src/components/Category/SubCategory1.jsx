@@ -360,7 +360,7 @@ export default function SubCategory1({
 
         {/* Sub Category Product List End */}
       </Box>
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

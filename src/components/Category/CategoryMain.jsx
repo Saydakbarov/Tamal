@@ -37,7 +37,7 @@ export default function CategoryMain({ lang }) {
             {content[lang].home.title}
           </Link>
           <KeyboardArrowRight />
-          <Link to="/category" style={{ color: "red", textDecoration: "none" }}>
+          <Link to="/product" style={{ color: "red", textDecoration: "none" }}>
             {content[lang].category.title}
           </Link>
         </Box>

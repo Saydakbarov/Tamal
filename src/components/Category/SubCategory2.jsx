@@ -352,7 +352,7 @@ export default function SubCategory2({
       </div>
 
       {/* Sub Category Product List End */}
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

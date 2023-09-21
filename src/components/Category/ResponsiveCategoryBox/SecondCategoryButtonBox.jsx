@@ -62,7 +62,7 @@ export default function SecondCategoryButton({ lang, data }) {
             onClick={() => {
               setCategoryId(v.second_sub_category_id);
               navigate(
-                "/category/subcategory/sub/third/" + v.second_sub_category_id
+                "/product/subcategory/sub/third/" + v.second_sub_category_id
               );
             }}
           >

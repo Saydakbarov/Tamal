@@ -66,6 +66,7 @@ const content = {
       attention_title: "Diqqat",
       model_title: "Model",
       information_title: "Ma'lumot",
+      price: "Narx",
     },
   },
   ru: {
@@ -133,6 +134,7 @@ const content = {
       attention_title: "Внимание",
       model_title: "Модель",
       information_title: "Информация",
+      price: "Цена",
     },
   },
   en: {
@@ -201,6 +203,7 @@ const content = {
       attention_title: "Attention",
       model_title: "Model",
       information_title: "Information",
+      price: "Price",
     },
   },
 };

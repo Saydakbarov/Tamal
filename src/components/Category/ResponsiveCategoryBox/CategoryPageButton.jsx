@@ -59,7 +59,7 @@ export default function CategoryPageButton({ lang, data }) {
             }}
             onClick={() => {
               setCategoryId(v.category_id);
-              navigate("/category/subcategory/" + v.category_id);
+              navigate("/product/subcategory/" + v.category_id);
             }}
           >
             {lang == "ru"

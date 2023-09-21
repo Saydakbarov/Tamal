@@ -52,7 +52,7 @@ export default function BasketCard({ data, lang }) {
   };
 
   return (
-    <Box sx={{ }}>
+    <Box sx={{}}>
       <Grid container justifyContent={"center"} gap={2} mt={8}>
         <Grid item lg={11} md={11} sm={11} xs={11}>
           <Swiper
@@ -87,7 +87,7 @@ export default function BasketCard({ data, lang }) {
             className="mySwiper"
             style={{ paddingBottom: "50px" }}
           >
-            {counters?.map((v, i) => (
+            {data?.map((v, i) => (
               <SwiperSlide key={i} className="swiperSlideBox">
                 <Box
                   sx={{

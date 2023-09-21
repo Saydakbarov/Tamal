@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { MenuData } from "../../data";
 
 import TamalLogo from "../../tamalLogo.png";
 import SearchBox from "./SearchBox";
