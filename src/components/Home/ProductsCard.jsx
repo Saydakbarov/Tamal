@@ -97,7 +97,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
             className="mySwiper"
             style={{ paddingBottom: "50px" }}
           >
-            {data.map((v, i) => (
+            {data?.map((v, i) => (
               <SwiperSlide className="swiperSlideBox">
                 <Box
                   sx={{
@@ -195,8 +195,8 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                         onClick={() => {
                           let a = v;
                           a["count"] = 1;
-                          setBasket((prevData) => [a, ...prevData]);
-                          localStorage.setItem("data", JSON.stringify(basket));
+                          // setBasket((prevData) => [a, ...prevData]);
+                          localStorage.setItem("data", JSON.stringify([a, ...basket]));
                           showToastMessage();
                         }}
                         startIcon={<ShoppingBag />}
