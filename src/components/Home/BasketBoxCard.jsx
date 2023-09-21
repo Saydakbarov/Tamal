@@ -17,7 +17,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Link, useNavigate } from "react-router-dom";
-import { Delete } from "@mui/icons-material";
+import { Add, Delete, Remove } from "@mui/icons-material";
 
 export default function BasketCard({ data, lang }) {
   // const [basketData, setBasketData] = useState([]);
@@ -31,8 +31,28 @@ export default function BasketCard({ data, lang }) {
     window.location.reload();
   };
 
+  const [counters, setCounters] = useState(data);
+
+  const handleIncrement = (id) => {
+    const updatedCounters = counters.map((counter) =>
+      counter.product_id === id
+        ? { ...counter, count: counter.count + 1 }
+        : counter
+    );
+    setCounters(updatedCounters);
+  };
+
+  const handleDeccrement = (id) => {
+    const updatedCounters = counters.map((counter) =>
+      counter.product_id === id
+        ? { ...counter, count: counter.count - 1 }
+        : counter
+    );
+    setCounters(updatedCounters);
+  };
+
   return (
-    <Box sx={{}}>
+    <Box sx={{ }}>
       <Grid container justifyContent={"center"} gap={2} mt={8}>
         <Grid item lg={11} md={11} sm={11} xs={11}>
           <Swiper
@@ -67,13 +87,14 @@ export default function BasketCard({ data, lang }) {
             className="mySwiper"
             style={{ paddingBottom: "50px" }}
           >
-            {data?.map((v, i) => (
+            {counters?.map((v, i) => (
               <SwiperSlide key={i} className="swiperSlideBox">
                 <Box
                   sx={{
                     boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                    height: "450px",
+                    height: "500px",
                     p: 2,
+                    position: "relative",
                   }}
                   component={"div"}
                 >
@@ -136,6 +157,32 @@ export default function BasketCard({ data, lang }) {
                           : v.product_information_en
                         : ""}
                     </Typography>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "10px",
+                      position: "absolute",
+                      bottom: "4%",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      onClick={() => handleIncrement(v.product_id)}
+                    >
+                      <Add />
+                    </Button>
+                    <Typography sx={{ fontSize: "20px" }}>
+                      Count: {v.count}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleDeccrement(v.product_id)}
+                      disabled={v.count >= 1 ? false : true}
+                    >
+                      <Remove />
+                    </Button>
                   </Box>
                 </Box>
               </SwiperSlide>

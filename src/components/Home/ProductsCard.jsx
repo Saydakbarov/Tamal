@@ -8,7 +8,7 @@ import {
   Snackbar,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -24,6 +24,7 @@ import "swiper/css/pagination";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBag } from "@mui/icons-material";
 import content from "../../Locolization/content";
+import axios from "axios";
 
 export default function ProductsCard({ data, lang, basket, setBasket }) {
   // const [basketData, setBasketData] = useState([]);
@@ -32,11 +33,30 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
   const message = content[lang].home.home_toast;
   const basketData = JSON.parse(localStorage.getItem("data")) || [];
 
+  const [value, setValue] = React.useState(0);
+
+  const [id, setId] = useState();
+
   const showToastMessage = () => {
     if (basketData.length !== 0) {
       toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
+    }
+  };
+
+  const RatingFunction = () => {
+    try {
+      const res = axios.put(
+        "https://front-api.tamal.pro/api/v1/product/update/rating",
+        {
+          id: id,
+          rating: value,
+        }
+      );
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -102,6 +122,17 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                     />
                   </Box>
                   <Box>
+                    <Box>
+                      <Rating
+                        name="simple-controlled"
+                        value={v.product_rating}
+                        onChange={(event, newValue) => {
+                          RatingFunction();
+                          setId(v.product_id);
+                          setValue(newValue);
+                        }}
+                      />
+                    </Box>
                     <Typography
                       sx={{
                         fontWeight: "600",

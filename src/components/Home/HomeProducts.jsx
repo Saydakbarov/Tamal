@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Grid,
+  Rating,
   Typography,
   useMediaQuery,
   useTheme,
@@ -33,7 +34,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [productTitle, setProductTitle] = useState("Decoration");
+  
 
   const [categoryButton, setCategoryButton] = useState([]);
 
@@ -70,12 +71,11 @@ export default function HomeProducts({ lang, basket, setBasket }) {
   return (
     <Box sx={{ mt: 10 }}>
       <Box sx={{ textAlign: "center" }}>
+
         <Typography
           sx={{ fontSize: "26px", fontWeight: "600", color: "#01466A" }}
         >
-          {
-            content[lang].home.home_product_title
-          }
+          {content[lang].home.home_product_title}
         </Typography>
         <Typography sx={{ fontSize: "15px", color: "gray" }}>
           Mirum est notare quam littera gothica, quam nunc putamus parum claram

@@ -10,9 +10,20 @@ import axios from "axios";
 import BASE_URL from "../../Server";
 import ShopButton from "./ShopButton";
 import content from "../../Locolization/content";
+import { Add, Remove } from "@mui/icons-material";
+import SingleAllData from "./SingleAllData";
 
-export default function SingleProduct({ lang, setLang, value, setValue }) {
+export default function SingleProduct({
+  lang,
+  setLang,
+  value,
+  setValue,
+  basket,
+  setBasket,
+}) {
   const [singleproductData, setSingleProductData] = useState({});
+
+  const [count, setCount] = useState(0);
   const { id } = useParams();
   useEffect(() => {
     async function getData() {
@@ -25,6 +36,22 @@ export default function SingleProduct({ lang, setLang, value, setValue }) {
     }
     getData();
   }, [id]);
+
+  const handleIncrement = (id) => {
+    if (singleproductData.product_id === id) {
+      return setCount(count + 1);
+    } else {
+      return count;
+    }
+  };
+
+  const handleDeccrement = (id) => {
+    if (singleproductData.product_id === id) {
+      return setCount(count - 1);
+    } else {
+      return count;
+    }
+  };
 
   console.log(singleproductData);
   return (
@@ -125,9 +152,34 @@ export default function SingleProduct({ lang, setLang, value, setValue }) {
             </Typography>
           </Box>
 
+          <Box sx={{ display: "flex", gap: "10px", mt: 5 }}>
+            <Button
+              variant="contained"
+              onClick={() => handleIncrement(singleproductData.product_id)}
+            >
+              <Add />
+            </Button>
+            <Typography sx={{ fontSize: "20px" }}>Count: {count}</Typography>
+            <Button
+              variant="contained"
+              onClick={() => handleDeccrement(singleproductData.product_id)}
+              disabled={count >= 1 ? false : true}
+            >
+              <Remove />
+            </Button>
+          </Box>
+
           <ShopButton data={[singleproductData]} />
         </Grid>
       </Grid>
+
+      <SingleAllData
+        id={singleproductData.category_id}
+        lang={lang}
+        setLang={setLang}
+        setBasket={setBasket}
+        basket={basket}
+      />
       <Footer />
     </Box>
   );

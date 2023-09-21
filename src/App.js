@@ -145,6 +145,8 @@ function App() {
                 setLang={setLang}
                 value={value}
                 setValue={setValue}
+                basket={basket}
+                setBasket={setBasket}
               />
             }
           />

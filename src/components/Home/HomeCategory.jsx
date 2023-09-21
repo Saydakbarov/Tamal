@@ -24,10 +24,10 @@ export default function HomeCategory() {
               borderRadius: "3px",
               backgroundPosition: "center",
               backgroundSize: "100%",
-              cursor:"pointer"
+              cursor: "pointer",
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600" }}>
               Бетонформирующие <br /> материалы
@@ -48,7 +48,7 @@ export default function HomeCategory() {
               cursor: "pointer",
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600", color: "white" }}>
               Окна рамы
@@ -68,7 +68,7 @@ export default function HomeCategory() {
               cursor: "pointer",
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600" }}>Электростанция</Typography>
           </Box>
@@ -87,7 +87,7 @@ export default function HomeCategory() {
               cursor: "pointer",
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600" }}>Генераторы</Typography>
           </Box>
@@ -106,7 +106,7 @@ export default function HomeCategory() {
               mt: 3,
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600" }}>Кровля</Typography>
           </Box>
@@ -126,7 +126,7 @@ export default function HomeCategory() {
               cursor: "pointer",
             }}
             component={"div"}
-            onClick={() => navigate("/category")}
+            onClick={() => navigate("/product")}
           >
             <Typography sx={{ fontWeight: "600" }}>Маталлопрокат</Typography>
           </Box>
