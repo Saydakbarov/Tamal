@@ -53,7 +53,7 @@ export default function SingleProduct({
     }
   };
 
-  console.log(singleproductData);
+  console.log(singleproductData.category_id);
   return (
     <Box>
       <HeaderMenu
@@ -174,7 +174,7 @@ export default function SingleProduct({
       </Grid>
 
       <SingleAllData
-        id={singleproductData.category_id}
+        id={singleproductData?.category_id}
         lang={lang}
         setLang={setLang}
         setBasket={setBasket}

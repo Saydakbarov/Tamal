@@ -15,16 +15,18 @@ export default function SingleAllData({
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=100&offset=0&category_id` +
+          `https://front-api.tamal.pro/api/v1/products?limit=100&offset=0&category_id=` +
             id
         );
-        return setData(res.data.data);
+        return console.log(res.data.data);
       } catch (error) {
         console.log(error);
       }
     }
     getData();
   }, [id]);
+
+  console.log(id);
   return (
     <div>
       <Grid
