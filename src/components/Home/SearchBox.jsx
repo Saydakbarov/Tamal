@@ -25,12 +25,11 @@ export default function SearchBox({ lang, value, setValue }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   const navigate = useNavigate();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      navigate("/category");
+      navigate("/product");
       handleClose();
     }
   };
