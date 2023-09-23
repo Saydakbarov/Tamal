@@ -1,6 +1,8 @@
 import {
   Box,
+  Checkbox,
   FormControlLabel,
+  FormGroup,
   Radio,
   RadioGroup,
   TextField,
@@ -28,7 +30,9 @@ export default function ShopButton({ data }) {
   const handleClose = () => setOpen(false);
 
   const [pay, setPay] = useState("");
-	
+
+  const [delivery, setDelivery] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, phone, address, time } = e.target.elements;
@@ -150,6 +154,13 @@ export default function ShopButton({ data }) {
               </Box>
             </RadioGroup>
 
+            <FormGroup onClick={() => setDelivery(!delivery)}>
+              <FormControlLabel
+                required
+                control={<Checkbox />}
+                label="Delivery"
+              />
+            </FormGroup>
             <Button
               type="submit"
               variant="contained"

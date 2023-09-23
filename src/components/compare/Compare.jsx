@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
 import React from "react";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Delete } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +35,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Compare({ lang, setLang, value, setValue }) {
   const compareData = JSON.parse(localStorage.getItem("compare" || []));
+
+  const deleteFunc = (id) => {
+    const updatedData = compareData.filter((item) => item.product_id !== id);
+
+    localStorage.setItem("compare", JSON.stringify(updatedData));
+
+    window.location.reload();
+  };
 
   return (
     <Box>
@@ -74,6 +83,11 @@ export default function Compare({ lang, setLang, value, setValue }) {
               }}
               component={"div"}
             >
+              <Box sx={{ textAlign: "end" }}>
+                <IconButton onClick={() => deleteFunc(v.product_id)}>
+                  <Delete />
+                </IconButton>
+              </Box>
               <Box
                 sx={{
                   width: "100%",
