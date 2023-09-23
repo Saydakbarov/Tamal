@@ -2,6 +2,8 @@ import {
   Alert,
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   Grid,
   IconButton,
   Rating,
@@ -22,7 +24,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag } from "@mui/icons-material";
+import { ArrowRight, ShoppingBag } from "@mui/icons-material";
 import content from "../../Locolization/content";
 import axios from "axios";
 
@@ -59,6 +61,46 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
       console.log(error);
     }
   };
+
+  const HandleBasket = (v) => {
+    let a = v;
+    a["count"] = 1;
+    const basketData = JSON.parse(localStorage.getItem("data")) || [];
+    const data = basketData?.filter((e) => e.product_id === v.product_id);
+
+    if (data?.length === 0) {
+      showToastMessage();
+      return localStorage.setItem("data", JSON.stringify([a, ...basketData]));
+    }
+  };
+
+  const [checked, SetChecked] = useState(false);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  if (isVisible) {
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+  }
+
+  const onchange = (e, v) => {
+    const compare = JSON.parse(localStorage.getItem("compare")) || [];
+    const checked = e.target.checked;
+
+    if (checked) {
+      const data = compare?.filter((e) => e.product_id === v?.product_id);
+
+      if (data?.length === 0) {
+        return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
+      }
+    } else {
+      const removeItem = compare?.filter((e) => e.product_id !== v.product_id);
+      localStorage.setItem("compare", JSON.stringify(removeItem));
+    }
+  };
+
+  const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
   return (
     <Box sx={{}}>
@@ -102,8 +144,9 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                 <Box
                   sx={{
                     boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                    height: "470px",
                     p: 2,
+                    maxHeight: "580px",
+                    minHeight: "550px",
                   }}
                   component={"div"}
                 >
@@ -121,7 +164,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                       alt=""
                     />
                   </Box>
-                  <Box>
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Box>
                       <Rating
                         name="simple-controlled"
@@ -132,7 +175,19 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                           setValue(newValue);
                         }}
                       />
+                      <Box>
+                        <FormControlLabel
+                          onClick={(e) => {
+                            SetChecked(!checked);
+                            setIsVisible(true);
+                            onchange(e, v);
+                          }}
+                          control={<Checkbox />}
+                          label="Сравныт"
+                        />
+                      </Box>
                     </Box>
+
                     <Typography
                       sx={{
                         fontWeight: "600",
@@ -174,6 +229,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                         : ""}
                     </Typography>
                   </Box>
+
                   <Box
                     sx={{
                       mt: 4,
@@ -193,11 +249,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                           fontWeight: "bold",
                         }}
                         onClick={() => {
-                          let a = v;
-                          a["count"] = 1;
-                          // setBasket((prevData) => [a, ...prevData]);
-                          localStorage.setItem("data", JSON.stringify([a, ...basket]));
-                          showToastMessage();
+                          HandleBasket(v);
                         }}
                         startIcon={<ShoppingBag />}
                       >
@@ -222,6 +274,53 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                 </Box>
               </SwiperSlide>
             ))}
+
+            {isVisible && (
+              <Box
+                sx={{
+                  background: "blue",
+                  borderRadius: "4px",
+                  height: "40px",
+                  width: "300px",
+                  margin: "0 auto",
+                  cursor: "pointer",
+                }}
+                component={"div"}
+                onClick={() => navigate("/compare")}
+              >
+                {checked == true ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "10px",
+                      justifyContent: "center",
+                      color: "white",
+                      minHeight: "40px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography>{compareData.length}</Typography>
+                    <Typography>Add Compare</Typography>
+                    <ArrowRight />
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "10px",
+                      justifyContent: "center",
+                      color: "white",
+                      minHeight: "40px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography>{compareData.length}</Typography>
+                    <Typography>Remove Compare</Typography>
+                    <ArrowRight />
+                  </Box>
+                )}
+              </Box>
+            )}
           </Swiper>
         </Grid>
       </Grid>

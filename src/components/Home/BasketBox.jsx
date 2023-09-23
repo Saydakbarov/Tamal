@@ -1,5 +1,5 @@
 import { Badge, Box, Button, IconButton, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Close, Shop } from "@mui/icons-material";
 import ProductsCard from "./ProductsCard";
@@ -27,6 +27,7 @@ export default function BasketBox({ lang }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [newData, setNewData] = useState([])
 
   const data = JSON.parse(localStorage.getItem("data")) || [];
 
@@ -61,11 +62,11 @@ export default function BasketBox({ lang }) {
               Ma'lumot Yo'q
             </Typography>
           ) : (
-            <BasketCard data={data} lang={lang} />
+            <BasketCard data={data} lang={lang} setNewData={setNewData} />
           )}
 
           <Box sx={{ textAlign: "end" }}>
-            <ShopButton data={data} />
+            <ShopButton data={newData} />
           </Box>
         </Box>
       </Modal>

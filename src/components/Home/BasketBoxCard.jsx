@@ -19,7 +19,7 @@ import "swiper/css/pagination";
 import { Link, useNavigate } from "react-router-dom";
 import { Add, Delete, Remove } from "@mui/icons-material";
 
-export default function BasketCard({ data, lang }) {
+export default function BasketCard({ data, lang, setNewData }) {
   // const [basketData, setBasketData] = useState([]);
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ export default function BasketCard({ data, lang }) {
         : counter
     );
     setCounters(updatedCounters);
+    setNewData(updatedCounters);
   };
 
   const handleDeccrement = (id) => {
@@ -49,6 +50,7 @@ export default function BasketCard({ data, lang }) {
         : counter
     );
     setCounters(updatedCounters);
+    setNewData(updatedCounters);
   };
 
   return (
@@ -87,7 +89,7 @@ export default function BasketCard({ data, lang }) {
             className="mySwiper"
             style={{ paddingBottom: "50px" }}
           >
-            {data?.map((v, i) => (
+            {counters?.map((v, i) => (
               <SwiperSlide key={i} className="swiperSlideBox">
                 <Box
                   sx={{

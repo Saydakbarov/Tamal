@@ -11,6 +11,7 @@ import SingleProduct from "./components/SingleProduct/SingleProduct";
 import SubCategory3 from "./components/Category/SubCategory3";
 import ThirdProduct from "./components/Category/ThirdProduct";
 import { ToastContainer } from "react-toastify";
+import Compare from "./components/compare/Compare";
 
 function App() {
   const [lang, setLang] = useState(
@@ -141,6 +142,20 @@ function App() {
             path="/singleproduct/:id"
             element={
               <SingleProduct
+                lang={lang}
+                setLang={setLang}
+                value={value}
+                setValue={setValue}
+                basket={basket}
+                setBasket={setBasket}
+              />
+            }
+          />
+
+          <Route
+            path="/compare"
+            element={
+              <Compare
                 lang={lang}
                 setLang={setLang}
                 value={value}

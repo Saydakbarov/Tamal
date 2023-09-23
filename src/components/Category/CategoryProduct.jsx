@@ -1,7 +1,10 @@
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   Grid,
+  Rating,
   Typography,
   useMediaQuery,
   useTheme,
@@ -16,7 +19,7 @@ import content from "../../Locolization/content";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ShoppingBag } from "@mui/icons-material";
+import { ArrowRight, ShoppingBag } from "@mui/icons-material";
 
 export default function CategoryProduct({ lang, value, basket, setBasket }) {
   const theme = useTheme();
@@ -69,11 +72,51 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
     getData();
   }, [value, lang, offset]);
 
+  const HandleBasket = (v) => {
+    let a = v;
+    a["count"] = 1;
+    const basketData = JSON.parse(localStorage.getItem("data")) || [];
+    const data = basketData?.filter((e) => e.product_id === v.product_id);
+
+    if (data?.length === 0) {
+      showToastMessage();
+      return localStorage.setItem("data", JSON.stringify([a, ...basketData]));
+    }
+  };
+
+  const [checked, SetChecked] = useState(false);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  if (isVisible) {
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+  }
+
+  const onchange = (e, v) => {
+    const compare = JSON.parse(localStorage.getItem("compare")) || [];
+    const checked = e.target.checked;
+
+    if (checked) {
+      const data = compare?.filter((e) => e.product_id === v?.product_id);
+
+      if (data?.length === 0) {
+        return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
+      }
+    } else {
+      const removeItem = compare?.filter((e) => e.product_id !== v.product_id);
+      localStorage.setItem("compare", JSON.stringify(removeItem));
+    }
+  };
+
+  const compareData = JSON.parse(localStorage.getItem("compare")) || [];
+
   console.log(productData);
 
   return (
     <>
-      <Box sx={{ textAlign: "center" }}>
+      <Box sx={{ textAlign: "center", position: "relative" }}>
         <Typography sx={{ fontSize: "26px", fontWeight: "600", mt: 4 }}>
           {content[lang].home.home_product_title}
         </Typography>
@@ -173,7 +216,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
                 position: "relative",
-                height: "580px",
+                minHeight: "510px",
                 p: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
@@ -187,7 +230,8 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                 <img
                   style={{
                     width: "100%",
-                    height: "300px",
+                    height: "240px",
+                    objectPosition: "100%",
                   }}
                   src={v.product_image_url}
                   alt=""
@@ -203,30 +247,59 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                     ? v.product_title_en
                     : ""}
                 </Typography>
-                <Typography sx={{ mt: 2, fontSize: "14px" }}>
-                  {lang == "ru"
-                    ? v.product_information_ru?.split(" ").length > 10
-                      ? v.product_information_ru
-                          ?.split(" ")
-                          .splice(0, 10)
-                          .join(" ") + "..."
-                      : v.product_information_ru
-                    : lang == "uz"
-                    ? v.product_information_uz?.split(" ").length > 10
-                      ? v.product_information_uz
-                          ?.split(" ")
-                          .splice(0, 10)
-                          .join(" ") + "..."
-                      : v.product_information_uz
-                    : lang == "en"
-                    ? v.product_information_en?.split(" ").length > 10
-                      ? v.product_information_en
-                          ?.split(" ")
-                          .splice(0, 10)
-                          .join(" ") + "..."
-                      : v.product_information_en
-                    : ""}
-                </Typography>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Box>
+                    <Rating
+                      name="simple-controlled"
+                      value={v.product_rating}
+                      sx={{ fontSize: "14px" }}
+                      // onChange={(event, newValue) => {
+                      //   RatingFunction();
+                      //   setId(v.product_id);
+                      //   setValue(newValue);
+                      // }}
+                    />
+                    <Box>
+                      <FormControlLabel
+                        onClick={(e) => {
+                          SetChecked(!checked);
+                          setIsVisible(true);
+                          onchange(e, v);
+                        }}
+                        sx={{ fontSize: "12px !important" }}
+                        control={
+                          <Checkbox sx={{ fontSize: "12px !important" }} />
+                        }
+                        label="Сравныт"
+                      />
+                    </Box>
+                  </Box>
+
+                  <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
+                    {lang == "ru"
+                      ? v.product_information_ru?.split(" ").length > 10
+                        ? v.product_information_ru
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_ru
+                      : lang == "uz"
+                      ? v.product_information_uz?.split(" ").length > 10
+                        ? v.product_information_uz
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_uz
+                      : lang == "en"
+                      ? v.product_information_en?.split(" ").length > 10
+                        ? v.product_information_en
+                            ?.split(" ")
+                            .splice(0, 10)
+                            .join(" ") + "..."
+                        : v.product_information_en
+                      : ""}
+                  </Typography>
+                </Box>
               </Box>
 
               <Box
@@ -242,9 +315,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                   variant="contained"
                   sx={{ fontWeight: "bold" }}
                   onClick={() => {
-                    setBasket((prevData) => [v, ...prevData]);
-                    localStorage.setItem("data", JSON.stringify(basket));
-                    showToastMessage();
+                    HandleBasket(v);
                   }}
                   startIcon={<ShoppingBag />}
                 >
@@ -284,6 +355,55 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
           )}
         </Grid>
       </Grid>
+
+      {isVisible && (
+        <Box
+          sx={{
+            background: "blue",
+            borderRadius: "4px",
+            height: "40px",
+            width: "300px",
+            position: "fixed",
+            cursor: "pointer",
+            top: "50%",
+            left: "50%",
+          }}
+          component={"div"}
+          onClick={() => navigate("/compare")}
+        >
+          {checked === true ? (
+            <Box
+              sx={{
+                gap: "10px",
+                color: "white",
+                minHeight: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography>{compareData.length}</Typography>
+              <Typography>Add Compare</Typography>
+              <ArrowRight />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "center",
+                color: "white",
+                minHeight: "40px",
+                alignItems: "center",
+              }}
+            >
+              <Typography>{compareData.length}</Typography>
+              <Typography>Remove Compare</Typography>
+              <ArrowRight />
+            </Box>
+          )}
+        </Box>
+      )}
 
       <div
         style={{

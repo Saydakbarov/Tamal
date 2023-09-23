@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
-import { KeyboardArrowRight, ShoppingBag } from "@mui/icons-material";
+import {
+  ArrowRight,
+  KeyboardArrowRight,
+  ShoppingBag,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   Grid,
+  Rating,
   Typography,
   useMediaQuery,
   useTheme,
@@ -80,6 +87,46 @@ export default function SubCategory3({
       });
     }
   };
+
+  const HandleBasket = (v) => {
+    let a = v;
+    a["count"] = 1;
+    const basketData = JSON.parse(localStorage.getItem("data")) || [];
+    const data = basketData?.filter((e) => e.product_id === v.product_id);
+
+    if (data?.length === 0) {
+      showToastMessage();
+      return localStorage.setItem("data", JSON.stringify([a, ...basketData]));
+    }
+  };
+
+  const [checked, SetChecked] = useState(false);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  if (isVisible) {
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+  }
+
+  const onchange = (e, v) => {
+    const compare = JSON.parse(localStorage.getItem("compare")) || [];
+    const checked = e.target.checked;
+
+    if (checked) {
+      const data = compare?.filter((e) => e.product_id === v?.product_id);
+
+      if (data?.length === 0) {
+        return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
+      }
+    } else {
+      const removeItem = compare?.filter((e) => e.product_id !== v.product_id);
+      localStorage.setItem("compare", JSON.stringify(removeItem));
+    }
+  };
+
+  const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
   return (
     <>
@@ -207,7 +254,7 @@ export default function SubCategory3({
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
                 position: "relative",
-                height: "580px",
+                height: "510px",
                 p: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
@@ -220,7 +267,8 @@ export default function SubCategory3({
                 <img
                   style={{
                     width: "100%",
-                    height: "300px",
+                    height: "250px",
+                    objectPosition: "center",
                   }}
                   src={v.product_image_url}
                   alt=""
@@ -236,6 +284,35 @@ export default function SubCategory3({
                     ? v.product_title_en
                     : ""}
                 </Typography>
+
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Box>
+                    <Rating
+                      name="simple-controlled"
+                      value={v.product_rating}
+                      sx={{ fontSize: "14px" }}
+                      // onChange={(event, newValue) => {
+                      //   RatingFunction();
+                      //   setId(v.product_id);
+                      //   setValue(newValue);
+                      // }}
+                    />
+                    <Box>
+                      <FormControlLabel
+                        onClick={(e) => {
+                          SetChecked(!checked);
+                          setIsVisible(true);
+                          onchange(e, v);
+                        }}
+                        sx={{ fontSize: "12px !important" }}
+                        control={
+                          <Checkbox sx={{ fontSize: "12px !important" }} />
+                        }
+                        label="Сравныт"
+                      />
+                    </Box>
+                  </Box>
+                </Box>
                 <Typography sx={{ mt: 2, fontSize: "14px" }}>
                   {lang == "ru"
                     ? v.product_information_ru?.split(" ").length > 10
@@ -267,8 +344,7 @@ export default function SubCategory3({
                   variant="contained"
                   sx={{ position: "absolute", top: "90%" }}
                   onClick={() => {
-                    setBasket((prevData) => [v, ...prevData]);
-                    localStorage.setItem("data", JSON.stringify(basket));
+                    HandleBasket(v);
                     showToastMessage();
                   }}
                   startIcon={<ShoppingBag />}
@@ -310,6 +386,55 @@ export default function SubCategory3({
           )}
         </Grid>
       </Grid>
+
+      {isVisible && (
+        <Box
+          sx={{
+            background: "blue",
+            borderRadius: "4px",
+            height: "40px",
+            width: "300px",
+            position: "fixed",
+            cursor: "pointer",
+            top: "50%",
+            left: "50%",
+          }}
+          component={"div"}
+          onClick={() => navigate("/compare")}
+        >
+          {checked === true ? (
+            <Box
+              sx={{
+                gap: "10px",
+                color: "white",
+                minHeight: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography>{compareData.length}</Typography>
+              <Typography>Add Compare</Typography>
+              <ArrowRight />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "center",
+                color: "white",
+                minHeight: "40px",
+                alignItems: "center",
+              }}
+            >
+              <Typography>{compareData.length}</Typography>
+              <Typography>Remove Compare</Typography>
+              <ArrowRight />
+            </Box>
+          )}
+        </Box>
+      )}
 
       <div
         style={{
