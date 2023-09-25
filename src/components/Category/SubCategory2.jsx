@@ -289,11 +289,7 @@ export default function SubCategory2({
                       name="simple-controlled"
                       value={v.product_rating}
                       sx={{ fontSize: "14px" }}
-                      // onChange={(event, newValue) => {
-                      //   RatingFunction();
-                      //   setId(v.product_id);
-                      //   setValue(newValue);
-                      // }}
+                      disabled
                     />
                     <Box>
                       <FormControlLabel

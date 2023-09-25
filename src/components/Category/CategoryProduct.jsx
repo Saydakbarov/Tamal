@@ -216,7 +216,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
                 position: "relative",
-                minHeight: "510px",
+                height: "510px",
                 p: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
@@ -253,11 +253,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
                       name="simple-controlled"
                       value={v.product_rating}
                       sx={{ fontSize: "14px" }}
-                      // onChange={(event, newValue) => {
-                      //   RatingFunction();
-                      //   setId(v.product_id);
-                      //   setValue(newValue);
-                      // }}
+                      disabled
                     />
                     <Box>
                       <FormControlLabel

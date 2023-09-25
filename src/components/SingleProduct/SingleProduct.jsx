@@ -169,12 +169,8 @@ export default function SingleProduct({
             </Typography>
 
             <Typography sx={{ fontSize: "18px" }}>
-              {lang == "ru"
-                ? singleproductData.product_price
-                : lang == "en"
-                ? singleproductData.product_price
-                : singleproductData.product_price}{" "}
-              $
+              {singleproductData.product_price}{" "}
+              {singleproductData.product_dollar === true ? "$" : "so'm"}
             </Typography>
           </Box>
 
