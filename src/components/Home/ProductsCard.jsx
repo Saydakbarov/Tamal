@@ -62,7 +62,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
   if (isVisible) {
     setTimeout(() => {
       setIsVisible(false);
-    }, 3000);
+    }, 4000);
   }
 
   console.log(data);
@@ -78,6 +78,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
         return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
       }
     } else {
+      SetChecked(false);
       const removeItem = compare?.filter((e) => e.product_id !== v.product_id);
       localStorage.setItem("compare", JSON.stringify(removeItem));
     }
@@ -158,7 +159,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                       <Box>
                         <FormControlLabel
                           onClick={(e) => {
-                            SetChecked(!checked);
+                            SetChecked(true);
                             setIsVisible(true);
                             onchange(e, v);
                           }}
