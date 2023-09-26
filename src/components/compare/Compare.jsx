@@ -96,7 +96,7 @@ export default function Compare({ lang, setLang, value, setValue }) {
                 <img
                   style={{
                     width: "100%",
-                    height: "300px",
+                    height: "250px",
                   }}
                   src={v.product_image_url}
                   alt=""

@@ -35,30 +35,11 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
   const message = content[lang].home.home_toast;
   const basketData = JSON.parse(localStorage.getItem("data")) || [];
 
-  const [value, setValue] = React.useState(0);
-
-  const [id, setId] = useState();
-
   const showToastMessage = () => {
     if (basketData.length !== 0) {
       toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
-    }
-  };
-
-  const RatingFunction = () => {
-    try {
-      const res = axios.put(
-        "https://front-api.tamal.pro/api/v1/product/update/rating",
-        {
-          id: id,
-          rating: value,
-        }
-      );
-      return res.data;
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -81,8 +62,10 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
   if (isVisible) {
     setTimeout(() => {
       setIsVisible(false);
-    }, 3000);
+    }, 4000);
   }
+
+  console.log(data);
 
   const onchange = (e, v) => {
     const compare = JSON.parse(localStorage.getItem("compare")) || [];
@@ -95,6 +78,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
         return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
       }
     } else {
+      SetChecked(false);
       const removeItem = compare?.filter((e) => e.product_id !== v.product_id);
       localStorage.setItem("compare", JSON.stringify(removeItem));
     }
@@ -145,8 +129,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                   sx={{
                     boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
                     p: 2,
-                    maxHeight: "580px",
-                    minHeight: "550px",
+                    height: "490px",
                   }}
                   component={"div"}
                 >
@@ -158,7 +141,8 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                     <img
                       style={{
                         width: "100%",
-                        height: "240px",
+                        height: "220px",
+                        objectPosition: "100%",
                       }}
                       src={v.product_image_url}
                       alt=""
@@ -167,18 +151,15 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Box>
                       <Rating
+                        sx={{ fontSize: "15px !important" }}
                         name="simple-controlled"
                         value={v.product_rating}
-                        onChange={(event, newValue) => {
-                          RatingFunction();
-                          setId(v.product_id);
-                          setValue(newValue);
-                        }}
+                        disabled
                       />
                       <Box>
                         <FormControlLabel
                           onClick={(e) => {
-                            SetChecked(!checked);
+                            SetChecked(true);
                             setIsVisible(true);
                             onchange(e, v);
                           }}

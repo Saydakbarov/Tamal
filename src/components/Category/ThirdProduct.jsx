@@ -155,7 +155,7 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
           >
             <Box
               sx={{
-                minHeight: "510px",
+                height: "510px",
               }}
             >
               <Box
@@ -190,11 +190,7 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
                       name="simple-controlled"
                       value={v.product_rating}
                       sx={{ fontSize: "14px" }}
-                      // onChange={(event, newValue) => {
-                      //   RatingFunction();
-                      //   setId(v.product_id);
-                      //   setValue(newValue);
-                      // }}
+                      disabled
                     />
                     <Box>
                       <FormControlLabel
