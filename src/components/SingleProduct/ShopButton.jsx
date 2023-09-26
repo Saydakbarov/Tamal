@@ -42,6 +42,8 @@ export default function ShopButton({ data }) {
 		const chat_id = -1001844075757;
 		let text = '';
 
+		console.log(data);
+
 		data?.forEach((e) => {
 			text =
 				text +
@@ -71,7 +73,7 @@ export default function ShopButton({ data }) {
 					products: data,
 				},
 			);
-			console.log(res.data);
+			handleClose();
 			return res.data;
 		} catch (error) {
 			console.log(error);
