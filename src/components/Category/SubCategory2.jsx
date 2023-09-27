@@ -30,6 +30,7 @@ export default function SubCategory2({
   setBasket,
   value,
   setValue,
+  setLang
 }) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -128,7 +129,7 @@ export default function SubCategory2({
 
   return (
     <>
-      <HeaderMenu lang={lang} value={value} setValue={setValue} />
+      <HeaderMenu lang={lang} value={value} setValue={setValue} setLang={setLang} />
       <Box
         sx={{
           backgroundImage:

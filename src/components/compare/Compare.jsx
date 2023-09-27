@@ -1,5 +1,12 @@
-import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
 import HeaderMenu from "../Home/HeaderMenu";
 import Footer from "../Footer";
 import content from "../../Locolization/content";
@@ -35,6 +42,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Compare({ lang, setLang, value, setValue }) {
   const compareData = JSON.parse(localStorage.getItem("compare" || []));
+  const [data, setData] = useState([]);
+  const [city, setCity] = useState(false);
+  const [brand, setBrand] = useState(false);
+
+  const handleFilter = () => {
+    const b = compareData.reverse();
+
+    for (let i = 0; i < compareData.length; i++) {
+      for (let a = 0; a < b.length; a++) {
+        if (compareData[i]?.product_country_en !== b[a]?.product_country_en) {
+          setCity(true);
+        }
+
+        if (compareData[i]?.brand_name !== b[a]?.brand_name) {
+          setBrand(true);
+        }
+      }
+    }
+  };
+
+  console.log(brand, city);
 
   const deleteFunc = (id) => {
     const updatedData = compareData.filter((item) => item.product_id !== id);
@@ -45,7 +73,7 @@ export default function Compare({ lang, setLang, value, setValue }) {
   };
 
   return (
-    <Box>
+    <Box sx={{ p: 2 }}>
       <HeaderMenu
         lang={lang}
         setLang={setLang}
@@ -157,7 +185,7 @@ export default function Compare({ lang, setLang, value, setValue }) {
         </Grid>
       </Grid>
 
-      <Container>
+      {/* <Container>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -188,7 +216,94 @@ export default function Compare({ lang, setLang, value, setValue }) {
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
+      </Container> */}
+      <Box sx={{ display: "flex", gap: "20px" }}>
+        <Button onClick={handleFilter}>Deference</Button>
+        <Button
+          onClick={() => {
+            setBrand(false);
+            setCity(false);
+          }}
+        >
+          All data
+        </Button>
+      </Box>
+
+      <Grid container sx={{ p: 2 }}>
+        <Grid item lg={12}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "40px",
+              alignItems: "center",
+              background: "#e6e3e3",
+              p: 2,
+            }}
+          >
+            <Typography
+              sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+            >
+              Proizvoditel
+            </Typography>
+            {compareData.map((v) => (
+              <Typography>{v.brand_name}</Typography>
+            ))}
+          </Box>
+          {city === true ? (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "40px",
+                alignItems: "center",
+                mt: 2,
+                background: "#e6e3e3",
+                p: 2,
+              }}
+            >
+              <Typography
+                sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+              >
+                country
+              </Typography>
+              {compareData.map((v) => (
+                <Typography>
+                  {content[lang] === "en"
+                    ? v.product_country_en
+                    : content[lang] === "ru"
+                    ? v.product_country_ru
+                    : v.product_country_uz}
+                </Typography>
+              ))}
+            </Box>
+          ) : (
+            ""
+          )}
+
+          {brand === true ? (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "40px",
+                alignItems: "center",
+                mt: 2,
+                background: "#e6e3e3",
+                p: 2,
+              }}
+            >
+              <Typography
+                sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+              >
+                Brand
+              </Typography>
+              {compareData.map((v) => (
+                <Typography>{v.brand_name}</Typography>
+              ))}
+            </Box>
+          ) : (
+            ""
+          )}
+        </Grid>
+      </Grid>
 
       <Footer lang={lang} />
     </Box>

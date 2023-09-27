@@ -4,16 +4,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import content from "../../Locolization/content";
 
+import NewsMainImg from "../../images/PageMain/news.jpg";
+
 export default function NewsMain({ lang }) {
   return (
     <Box
       sx={{
-        backgroundImage:
-          "url('https://htmldemo.net/eposi/eposi/assets/img/backgrounds/category-image-1820x400.webp')",
+        backgroundImage: `url(${NewsMainImg})`,
         height: "400px",
         pt: 10,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        backgroundSize: { xs: "none", sm: "none", md: "100%" },
+
       }}
     >
       <Box

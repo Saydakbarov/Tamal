@@ -45,12 +45,12 @@ export default function ShopButton({ data }) {
     data?.forEach((e) => {
       text =
         text +
-        `{ %0A protuct name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
+        `{ %0A product name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
     });
 
     text =
       text +
-      `client name: ${name.value} %0A client number: ${phone.value} %0A client address: ${address.value} %0A paymentv: ${pay} %0A delivery: ${delivery} %0A delivery time: ${time.value}`;
+      `client name: ${name.value} %0A client number: ${phone.value} %0A client address: ${address.value} %0A payment: ${pay} %0A delivery: ${delivery} %0A delivery time: ${time.value}`;
 
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`;
 
@@ -72,7 +72,11 @@ export default function ShopButton({ data }) {
         }
       );
       console.log(res.data);
-      handleClose();
+      
+      if(res.data.status === 200) {
+        localStorage.removeItem('data')
+        handleClose();
+      }
 	  
       return res.data;
     } catch (error) {

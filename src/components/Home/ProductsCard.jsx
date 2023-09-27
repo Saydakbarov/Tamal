@@ -72,10 +72,17 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
     const checked = e.target.checked;
 
     if (checked) {
-      const data = compare?.filter((e) => e.product_id === v?.product_id);
+      if (compare.length <= 7) {
+        const data = compare?.filter((e) => e.product_id === v?.product_id);
 
-      if (data?.length === 0) {
-        return localStorage.setItem("compare", JSON.stringify([v, ...compare]));
+        if (data?.length === 0) {
+          return localStorage.setItem(
+            "compare",
+            JSON.stringify([v, ...compare])
+          );
+        }
+      } else {
+        alert("8 ta dan boshqa qoshma tvar jala");
       }
     } else {
       SetChecked(false);

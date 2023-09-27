@@ -30,6 +30,7 @@ export default function SubCategory3({
   setBasket,
   value,
   setValue,
+  setLang,
 }) {
   const theme = useTheme();
 
@@ -130,7 +131,12 @@ export default function SubCategory3({
 
   return (
     <>
-      <HeaderMenu lang={lang} value={value} setValue={setValue} />
+      <HeaderMenu
+        lang={lang}
+        value={value}
+        setValue={setValue}
+        setLang={setLang}
+      />
       <Box
         sx={{
           backgroundImage:

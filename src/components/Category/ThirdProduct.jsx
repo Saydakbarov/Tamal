@@ -21,7 +21,7 @@ import axios from "axios";
 import content from "../../Locolization/content";
 import { toast } from "react-toastify";
 
-export default function ThirdProduct({ lang, basket, setBasket }) {
+export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
   const [thirdProductData, setThirdProductData] = useState([]);
 
   const [offset, setOffset] = useState(0);
@@ -97,7 +97,7 @@ export default function ThirdProduct({ lang, basket, setBasket }) {
 
   return (
     <>
-      <HeaderMenu lang={lang} />
+      <HeaderMenu lang={lang} setLang={setLang} />
       <Box
         sx={{
           backgroundImage:
