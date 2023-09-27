@@ -65,8 +65,6 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
     }, 4000);
   }
 
-  console.log(data);
-
   const onchange = (e, v) => {
     const compare = JSON.parse(localStorage.getItem("compare")) || [];
     const checked = e.target.checked;
@@ -90,7 +88,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
       localStorage.setItem("compare", JSON.stringify(removeItem));
     }
   };
-
+  
   const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
   return (
