@@ -42,12 +42,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Compare({ lang, setLang, value, setValue }) {
   const compareData = JSON.parse(localStorage.getItem("compare" || []));
-  const [data, setData] = useState([]);
+  const [status, setStatus] = useState(true);
   const [city, setCity] = useState(false);
   const [brand, setBrand] = useState(false);
 
   const handleFilter = () => {
     const b = compareData.reverse();
+
+    setStatus(false);
 
     for (let i = 0; i < compareData.length; i++) {
       for (let a = 0; a < b.length; a++) {
@@ -164,6 +166,10 @@ export default function Compare({ lang, setLang, value, setValue }) {
                       : v.product_information_en
                     : ""}
                 </Typography>
+
+                <Typography sx={{ mt: 2, fontSize: "18px", color: "blue" }}>
+                  {v.product_manufacturer}
+                </Typography>
               </Box>
             </Box>
           ))}
@@ -218,11 +224,13 @@ export default function Compare({ lang, setLang, value, setValue }) {
         </TableContainer>
       </Container> */}
       <Box sx={{ display: "flex", gap: "20px" }}>
-        <Button onClick={handleFilter}>Deference</Button>
+        <Button variant="contained" onClick={handleFilter}>
+          Deference
+        </Button>
         <Button
+          variant="contained"
           onClick={() => {
-            setBrand(false);
-            setCity(false);
+            setStatus(true);
           }}
         >
           All data
@@ -230,26 +238,100 @@ export default function Compare({ lang, setLang, value, setValue }) {
       </Box>
 
       <Grid container sx={{ p: 2 }}>
-        <Grid item lg={12}>
-          <Box
-            sx={{
-              display: "flex",
-              gap: "40px",
-              alignItems: "center",
-              background: "#e6e3e3",
-              p: 2,
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+        {status === false ? (
+          <Grid item lg={12}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: "40px",
+                alignItems: "center",
+                background: "#e6e3e3",
+                p: 2,
+              }}
             >
-              Proizvoditel
-            </Typography>
-            {compareData.map((v) => (
-              <Typography>{v.brand_name}</Typography>
-            ))}
-          </Box>
-          {city === true ? (
+              <Typography
+                sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+              >
+                Proizvoditel
+              </Typography>
+              {compareData.map((v) => (
+                <Typography>{v.product_manufacturer}</Typography>
+              ))}
+            </Box>
+            {city === true ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "40px",
+                  alignItems: "center",
+                  mt: 2,
+                  background: "#e6e3e3",
+                  p: 2,
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+                >
+                  country
+                </Typography>
+                {compareData.map((v) => (
+                  <Typography>
+                    {content[lang] === "en"
+                      ? v.product_country_en
+                      : content[lang] === "ru"
+                      ? v.product_country_ru
+                      : v.product_country_uz}
+                  </Typography>
+                ))}
+              </Box>
+            ) : (
+              ""
+            )}
+
+            {brand === true ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "40px",
+                  alignItems: "center",
+                  mt: 2,
+                  background: "#e6e3e3",
+                  p: 2,
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+                >
+                  Brand
+                </Typography>
+                {compareData.map((v) => (
+                  <Typography>{v.brand_name}</Typography>
+                ))}
+              </Box>
+            ) : (
+              ""
+            )}
+          </Grid>
+        ) : (
+          <Grid item lg={12}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: "40px",
+                alignItems: "center",
+                background: "#e6e3e3",
+                p: 2,
+              }}
+            >
+              <Typography
+                sx={{ fontSize: "20px", fontWeight: "bold", width: "120px" }}
+              >
+                Proizvoditel
+              </Typography>
+              {compareData.map((v) => (
+                <Typography>{v.product_manufacturer}</Typography>
+              ))}
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -275,11 +357,7 @@ export default function Compare({ lang, setLang, value, setValue }) {
                 </Typography>
               ))}
             </Box>
-          ) : (
-            ""
-          )}
 
-          {brand === true ? (
             <Box
               sx={{
                 display: "flex",
@@ -299,10 +377,8 @@ export default function Compare({ lang, setLang, value, setValue }) {
                 <Typography>{v.brand_name}</Typography>
               ))}
             </Box>
-          ) : (
-            ""
-          )}
-        </Grid>
+          </Grid>
+        )}
       </Grid>
 
       <Footer lang={lang} />
