@@ -42,13 +42,6 @@ export default function ShopButton({ data }) {
     const chat_id = -1001844075757;
     let text = "";
 
-<<<<<<< HEAD
-    data?.forEach((e) => {
-      text =
-        text +
-        `{ %0A product name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
-    });
-=======
 		console.log(data);
 
 		data?.forEach((e) => {
@@ -56,7 +49,6 @@ export default function ShopButton({ data }) {
 				text +
 				`{ %0A protuct name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
 		});
->>>>>>> 1083cb5ea52073b058287f3710efef4f0846a500
 
     text =
       text +
