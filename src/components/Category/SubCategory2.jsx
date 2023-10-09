@@ -30,7 +30,7 @@ export default function SubCategory2({
   setBasket,
   value,
   setValue,
-  setLang
+  setLang,
 }) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -129,7 +129,12 @@ export default function SubCategory2({
 
   return (
     <>
-      <HeaderMenu lang={lang} value={value} setValue={setValue} setLang={setLang} />
+      <HeaderMenu
+        lang={lang}
+        value={value}
+        setValue={setValue}
+        setLang={setLang}
+      />
       <Box
         sx={{
           backgroundImage:
@@ -253,7 +258,7 @@ export default function SubCategory2({
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
                 position: "relative",
-                height: "510px",
+                height: "540px",
                 p: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
@@ -308,6 +313,21 @@ export default function SubCategory2({
                     </Box>
                   </Box>
                 </Box>
+
+                <Typography
+                  sx={{
+                    mt: 2,
+                    fontSize: "14px",
+                    color: "gray",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold", color: "black" }}>
+                    Brand
+                  </span>
+                  {v.brand_name}
+                </Typography>
                 <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
                   {lang == "ru"
                     ? v.product_information_ru?.split(" ").length > 10

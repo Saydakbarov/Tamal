@@ -28,8 +28,7 @@ export default function BasketBox({ lang }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const data = JSON.parse(localStorage.getItem("data")) || [];
-  const [newData, setNewData] = useState(data)
-
+  const [newData, setNewData] = useState(data);
 
   return (
     <Box>

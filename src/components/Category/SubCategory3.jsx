@@ -260,7 +260,7 @@ export default function SubCategory3({
               sx={{
                 width: { xs: "430px", sm: "350px", md: "300px" },
                 position: "relative",
-                height: "510px",
+                height: "540px",
                 p: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               }}
@@ -315,6 +315,21 @@ export default function SubCategory3({
                     </Box>
                   </Box>
                 </Box>
+
+                <Typography
+                  sx={{
+                    mt: 2,
+                    fontSize: "14px",
+                    color: "gray",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold", color: "black" }}>
+                    Brand
+                  </span>
+                  {v.brand_name}
+                </Typography>
                 <Typography sx={{ mt: 2, fontSize: "14px" }}>
                   {lang == "ru"
                     ? v.product_information_ru?.split(" ").length > 10
