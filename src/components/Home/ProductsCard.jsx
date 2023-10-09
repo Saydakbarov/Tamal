@@ -88,7 +88,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
       localStorage.setItem("compare", JSON.stringify(removeItem));
     }
   };
-  
+
   const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
   return (
@@ -178,7 +178,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                       sx={{
                         fontWeight: "600",
                         fontSize: "18px",
-                        mt: 2,
+                        mt: 1,
                         color: "#01466A",
                       }}
                     >
@@ -190,29 +190,43 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                         ? v.product_title_en
                         : ""}
                     </Typography>
-                    <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
+                    <Typography sx={{ mt: 1, fontSize: "14px", color: "gray" }}>
                       {lang == "ru"
-                        ? v.product_information_ru?.split(" ").length > 10
+                        ? v.product_information_ru?.split(" ").length > 5
                           ? v.product_information_ru
                               ?.split(" ")
-                              .splice(0, 10)
+                              .splice(0, 5)
                               .join(" ") + "..."
                           : v.product_information_ru
                         : lang == "uz"
-                        ? v.product_information_uz?.split(" ").length > 10
+                        ? v.product_information_uz?.split(" ").length > 5
                           ? v.product_information_uz
                               ?.split(" ")
-                              .splice(0, 10)
+                              .splice(0, 5)
                               .join(" ") + "..."
                           : v.product_information_uz
                         : lang == "en"
-                        ? v.product_information_en?.split(" ").length > 10
+                        ? v.product_information_en?.split(" ").length > 5
                           ? v.product_information_en
                               ?.split(" ")
-                              .splice(0, 10)
+                              .splice(0, 5)
                               .join(" ") + "..."
                           : v.product_information_en
                         : ""}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        mt: 1,
+                        fontSize: "14px",
+                        color: "gray",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span style={{ fontWeight: "bold", color: "black" }}>
+                        Brand
+                      </span>
+                      {v.brand_name}
                     </Typography>
                   </Box>
 
