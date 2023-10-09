@@ -80,7 +80,6 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
           );
         }
       } else {
-        alert("8 ta dan boshqa qoshma tvar jala");
       }
     } else {
       SetChecked(false);
