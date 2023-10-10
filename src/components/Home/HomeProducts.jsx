@@ -56,7 +56,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=10&offset=0&category_id=${categoryId}`
+          `https://front-api.tamal.pro/api/v1/products?limit=20&offset=0&category_id=${categoryId}`
         );
         return setData(res.data.data);
       } catch (error) {
@@ -66,7 +66,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
     getData();
   }, [categoryId]);
 
-  console.log(categoryButton);
+  console.log(data);
 
   return (
     <Box sx={{ mt: 10 }}>

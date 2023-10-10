@@ -445,7 +445,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
           onClick={() => setOffset(Number(offset) + 6)}
           disabled={productData?.length >= 6 ? false : true}
           style={{
-            background: offset === 0 ? "#01466A" : "gray",
+            background: offset <= 0 ? "#01466A" : "gray",
             color: "white",
 
             width: "90px",

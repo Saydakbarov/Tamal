@@ -52,7 +52,7 @@ export default function Compare({ lang, setLang, value, setValue }) {
     setStatus(false);
 
     for (let i = 0; i < compareData.length; i++) {
-      for (let a = 0; a < b.length; a++) {
+      for (let a = 0; a < b.length; a++)   {
         if (compareData[i]?.product_country_en !== b[a]?.product_country_en) {
           setCity(true);
         }
