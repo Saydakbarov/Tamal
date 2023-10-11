@@ -177,17 +177,19 @@ export default function SingleProduct({
           <Box sx={{ display: "flex", gap: "10px", mt: 5 }}>
             <Button
               variant="contained"
-              onClick={() => handleIncrement(singleproductData.product_id)}
-            >
-              <Add />
-            </Button>
-            <Typography sx={{ fontSize: "20px" }}>Count: {count}</Typography>
-            <Button
-              variant="contained"
               onClick={() => handleDeccrement(singleproductData.product_id)}
               disabled={count >= 1 ? false : true}
             >
               <Remove />
+            </Button>
+
+            <Typography sx={{ fontSize: "20px" }}>Count: {count}</Typography>
+
+            <Button
+              variant="contained"
+              onClick={() => handleIncrement(singleproductData.product_id)}
+            >
+              <Add />
             </Button>
           </Box>
 

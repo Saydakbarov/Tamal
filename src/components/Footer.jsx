@@ -55,13 +55,13 @@ export default function Footer({ lang }) {
                 key={v}
                 sx={{
                   color: "black",
-                  fontFamily: "Barlow",
                   fontWeight: "500",
                   ml: 2,
-                  fontSize: "18px",
+                  fontSize: "16px",
                   display: "block",
                   width: "130px",
                   margin: "0 auto",
+                  fontFamily: "'Jost' !important",
                 }}
                 onClick={() => navigate(v.path)}
               >

@@ -55,7 +55,7 @@ export default function BasketCard({ data, lang, setNewData }) {
 
   return (
     <Box sx={{}}>
-      <Grid container justifyContent={"center"} gap={2} mt={8}>
+      <Grid container justifyContent={"center"} gap={2} mt={2}>
         <Grid item lg={11} md={11} sm={11} xs={11}>
           <Swiper
             slidesPerView={1}
@@ -73,7 +73,7 @@ export default function BasketCard({ data, lang, setNewData }) {
                 spaceBetween: 20,
               },
               768: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 40,
               },
               1024: {
@@ -167,23 +167,43 @@ export default function BasketCard({ data, lang, setNewData }) {
                       gap: "10px",
                       position: "absolute",
                       bottom: "4%",
+                      border: "2px solid gray",
+                      borderRadius: "4px",
+                      left: "20%",
                     }}
                   >
                     <Button
                       variant="contained"
-                      onClick={() => handleIncrement(v.product_id)}
-                    >
-                      <Add />
-                    </Button>
-                    <Typography sx={{ fontSize: "20px" }}>
-                      Count: {v.count}
-                    </Typography>
-                    <Button
-                      variant="contained"
                       onClick={() => handleDeccrement(v.product_id)}
                       disabled={v.count >= 1 ? false : true}
+                      sx={{
+                        background: "white",
+                        boxShadow: "none",
+                        color: "black",
+                        "&:hover": {
+                          background: "white",
+                          boxShadow: "none",
+                        },
+                      }}
                     >
                       <Remove />
+                    </Button>
+
+                    <Typography sx={{ fontSize: "20px" }}>{v.count}</Typography>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleIncrement(v.product_id)}
+                      sx={{
+                        background: "white",
+                        boxShadow: "none",
+                        color: "black",
+                        "&:hover": {
+                          background: "white",
+                          boxShadow: "none",
+                        },
+                      }}
+                    >
+                      <Add />
                     </Button>
                   </Box>
                 </Box>

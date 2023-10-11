@@ -42,13 +42,13 @@ export default function ShopButton({ data }) {
     const chat_id = -1001844075757;
     let text = "";
 
-		console.log(data);
+    console.log(data);
 
-		data?.forEach((e) => {
-			text =
-				text +
-				`{ %0A protuct name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
-		});
+    data?.forEach((e) => {
+      text =
+        text +
+        `{ %0A protuct name: ${e.product_title_ru}; %0A category name: ${e.category_name_ru} %0A count: ${e.count} %0A }, %0A `;
+    });
 
     text =
       text +
@@ -60,38 +60,42 @@ export default function ShopButton({ data }) {
     api.open("GET", url, true);
     api.send();
 
-		try {
-			const res = await axios.post(
-				'https://front-api.tamal.pro/api/v1/order/add',
-				{
-					order_name: name.value,
-					order_phone: phone.value,
-					order_payment_type: pay,
-					order_delivery: delivery,
-					order_address: address.value,
-					order_time: time.value,
-					products: data,
-				},
-			);
-			handleClose();
-			return res.data;
-		} catch (error) {
-			console.log(error);
-		}
-	};
+    try {
+      const res = await axios.post(
+        "https://front-api.tamal.pro/api/v1/order/add",
+        {
+          order_name: name.value,
+          order_phone: phone.value,
+          order_payment_type: pay,
+          order_delivery: delivery,
+          order_address: address.value,
+          order_time: time.value,
+          products: data,
+        }
+      );
+      handleClose();
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box sx={{ mt: 2 }}>
       <Button
+        fullWidth
         sx={{
-          background: "#E2FF7F",
-          color: "black",
+          background: "none",
+          color: "#01476B",
           "&:hover": {
-            backgroundColor: "#01466A",
+            backgroundColor: "#01476B",
             color: "white", // Yoki kerakli rangni qo'shishingiz mumkin
           },
           display: "inline-block",
           margin: "5px",
+          p: 1,
+          border: "2px solid #01476B",
+          fontSize: "18px",
         }}
         onClick={handleOpen}
       >

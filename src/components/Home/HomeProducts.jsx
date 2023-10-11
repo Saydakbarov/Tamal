@@ -117,10 +117,6 @@ export default function HomeProducts({ lang, basket, setBasket }) {
               <Typography sx={{ fontSize: "22px" }}>Category</Typography>
               <Box
                 sx={{
-                  // overflowX: "scroll",
-                  // whiteSpace: "nowrap",
-                  // scrollbarWidth: "none",
-                  // mt: 2,
                   display: "flex",
                   flexDirection: "column",
                   mt: 3,
@@ -142,6 +138,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
                       margin: "5px",
                       fontSize: "12px",
                       color: v.category_id === categoryId ? "black" : "white",
+                      fontFamily: "'Jost' !important",
                     }}
                     onClick={() => {
                       setCategoryId(v.category_id);

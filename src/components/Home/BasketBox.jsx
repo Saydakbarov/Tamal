@@ -14,7 +14,7 @@ const style = {
   width: "95%",
   boxShadow: 24,
   p: 2,
-  background: "#f2f2f2",
+  background: "white",
   border: "none",
   borderRadius: "4px",
   overflowX: "scroll",
@@ -49,11 +49,26 @@ export default function BasketBox({ lang }) {
       >
         <Box sx={style}>
           <Box
-            sx={{ textAlign: "end", cursor: "pointer" }}
-            component={"div"}
-            onClick={handleClose}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            <Close />
+            <Typography
+              sx={{
+                fontSize: "30px",
+              }}
+            >
+              Card
+            </Typography>
+            <Box
+              sx={{ textAlign: "end", cursor: "pointer" }}
+              component={"div"}
+              onClick={handleClose}
+            >
+              <Close />
+            </Box>
           </Box>
 
           {data.length === 0 ? (

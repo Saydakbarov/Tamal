@@ -95,9 +95,8 @@ export default function HeaderMenu({ lang, setLang, value, setValue }) {
                       key={item}
                       sx={{
                         color: "black",
-                        fontFamily: "Barlow",
-                        fontWeight: "500",
                         ml: 2,
+                        fontFamily: "'Jost' !important",
                       }}
                       onClick={() => navigate(item.path)}
                     >
