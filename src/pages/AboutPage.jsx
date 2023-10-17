@@ -8,16 +8,7 @@ import AboutProduct from "../components/About/AboutProduct";
 
 export default function AboutPage({ lang, setLang, value, setValue }) {
   return (
-    <Box
-      sx={{
-        padding: {
-          xs: "0px 5px",
-          sm: "0px 10px",
-          md: "0px 30px",
-          lg: "0px 40px",
-        },
-      }}
-    >
+    <Box sx={{}}>
       <HeaderMenu
         lang={lang}
         setLang={setLang}

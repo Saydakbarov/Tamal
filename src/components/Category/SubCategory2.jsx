@@ -182,7 +182,7 @@ export default function SubCategory2({
         <Grid
           item
           lg={2.4}
-          md={8}
+          md={2.4}
           sm={11}
           xs={11}
           sx={{
@@ -243,8 +243,9 @@ export default function SubCategory2({
 
         <Grid
           item
-          lg={8}
-          md={8}
+          xl={8}
+          lg={9}
+          md={9}
           sm={8}
           xs={11}
           sx={{
@@ -272,7 +273,7 @@ export default function SubCategory2({
             sx={{
               borderRadius: "6px",
               display: "flex",
-              gap: "15px",
+              gap: "10px",
               justifyContent: "center",
               flexWrap: "wrap ",
             }}

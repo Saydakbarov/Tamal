@@ -150,7 +150,7 @@ export default function CategoryProduct({
         <Grid
           item
           lg={2.4}
-          md={3}
+          md={2.5}
           sm={10}
           xs={10}
           sx={{
@@ -205,13 +205,14 @@ export default function CategoryProduct({
             </>
           )}
         </Grid>
-        <Grid item lg={8} md={8} sm={11} xs={11} sx={{}} component={"div"}>
+        <Grid item xl={8} lg={9} md={9} sm={11} xs={11} sx={{}} component={"div"}>
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
               gap: "20px",
               alignItems: "center",
+              flexWrap:"wrap"
             }}
           >
             <BrandBox

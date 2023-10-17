@@ -40,7 +40,7 @@ export default function HomeProducts({
   setValue,
 }) {
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const isMatch = useMediaQuery(theme.breakpoints.down("lg"));
 
   const [categoryButton, setCategoryButton] = useState([]);
 
@@ -105,7 +105,7 @@ export default function HomeProducts({
         <Grid
           item
           lg={2.4}
-          md={2.8}
+          md={10}
           sm={11}
           xs={11}
           sx={{
@@ -166,7 +166,7 @@ export default function HomeProducts({
           )}
         </Grid>
 
-        <Grid item lg={8} md={8} sm={10} xs={10}>
+        <Grid item lg={8} md={11} sm={11} xs={11}>
           <Box
             sx={{
               display: "flex",

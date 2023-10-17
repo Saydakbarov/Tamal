@@ -177,11 +177,11 @@ export default function SubCategory1({
 
       <Box>
         {/* Sub Category Product List Start */}
-        <Grid container justifyContent={"center"} gap={4} mt={8}>
+        <Grid container justifyContent={"center"} gap={3} mt={8}>
           <Grid
             item
             lg={2.4}
-            md={3}
+            md={2.4}
             sm={10}
             xs={10}
             sx={{
@@ -240,8 +240,9 @@ export default function SubCategory1({
           </Grid>
           <Grid
             item
-            lg={8}
-            md={8}
+            xl={8}
+            lg={9}
+            md={9}
             sm={8}
             xs={11}
             sx={{
@@ -270,7 +271,7 @@ export default function SubCategory1({
                 borderRadius: "6px",
                 display: "flex",
                 flexWrap: "wrap",
-                gap: "15px",
+                gap: "10px",
                 justifyContent: "center",
                 mt: 3,
               }}

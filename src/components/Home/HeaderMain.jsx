@@ -18,7 +18,7 @@ export default function HeaderMain() {
         container
         justifyContent={{ xs: "center", sm: "center", md: "flex-end" }}
       >
-        <Grid item lg={11} md={12} sm={11} xs={11}>
+        <Grid item lg={12} md={12} sm={11} xs={11}>
           <Swiper
             navigation={true}
             loop={true}
@@ -90,7 +90,7 @@ export default function HeaderMain() {
 
                   <Box
                     sx={{
-                      width: { xs: "100%", sm: "100%", md: "55%", lg: "55%" },
+                      width: { xs: "100%", sm: "100%", md: "50%", lg: "55%" },
                       textAlign: "start",
                     }}
                   >

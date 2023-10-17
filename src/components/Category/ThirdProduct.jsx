@@ -173,7 +173,7 @@ export default function ThirdProduct({
           <Grid
             item
             lg={2.6}
-            md={5}
+            md={2.8}
             sm={8}
             xs={11}
             sx={{

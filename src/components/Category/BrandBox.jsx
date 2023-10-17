@@ -3,6 +3,22 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  overflowX: "scroll",
+  height: "100vh",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+};
+
 export default function BrandBox({ setBrand_id }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -25,20 +41,12 @@ export default function BrandBox({ setBrand_id }) {
   }, []);
 
   console.log(productData);
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "90%",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
-  };
+
   return (
     <Box>
       <Button
         variant="contained"
+        fullWidth
         sx={{
           background: "#01466A",
           "&:hover": {
@@ -72,7 +80,7 @@ export default function BrandBox({ setBrand_id }) {
             {productData.map((v) => (
               <Box
                 key={v.brand_id}
-                sx={{ width: "200px", textAlign: "center", cursor: "pointer" }}
+                sx={{ width: {xs:"120px", sm:"140px", md:"180px", lg:"200px"}, textAlign: "center", cursor: "pointer" }}
                 component={"div"}
                 onClick={() => {
                   setBrand_id(v.brand_id);

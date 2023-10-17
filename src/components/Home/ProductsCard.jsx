@@ -55,8 +55,6 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
     }
   };
 
- 
-
   const [checked, SetChecked] = useState(false);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -92,211 +90,208 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
 
   const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
-
   return (
-    <Box sx={{}}>
+    <Box sx={{mt:3}}>
       <ToastContainer />
-      <Grid container justifyContent={"center"} gap={2} mt={4}>
-        <Grid item lg={11} md={11} sm={11} xs={11}>
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={10}
-            pagination={{
-              clickable: true,
-            }}
-            breakpoints={{
-              300: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-              },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 40,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 50,
-              },
-              1500: {
-                slidesPerView: 3,
-                spaceBetween: 50,
-              },
-            }}
-            modules={[Pagination]}
-            className="mySwiper"
-            style={{ paddingBottom: "50px" }}
-          >
-            {data?.map((v, i) => (
-              <SwiperSlide className="swiperSlideBox">
-                <Box
-                  sx={{
-                    boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                    p: 2,
-                    height: "490px",
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        breakpoints={{
+          300: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          1500: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+        style={{ paddingBottom: "50px" }}
+      >
+        {data?.map((v, i) => (
+          <SwiperSlide className="swiperSlideBox">
+            <Box
+              sx={{
+                boxShadow: " rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                p: 2,
+                height: "490px",
+              }}
+              component={"div"}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <img
+                  style={{
+                    width: "100%",
+                    height: "220px",
+                    objectPosition: "100%",
                   }}
-                  component={"div"}
-                >
+                  src={v.product_image_url}
+                  alt=""
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Box>
                   <Box
                     sx={{
-                      width: "100%",
-                    }}
-                  >
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "220px",
-                        objectPosition: "100%",
-                      }}
-                      src={v.product_image_url}
-                      alt=""
-                    />
-                  </Box>
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: "10px",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Rating
-                          sx={{ fontSize: "15px !important" }}
-                          name="simple-controlled"
-                          value={v.product_rating}
-                          disabled
-                        />
-                        <Box
-                          sx={{
-                            width: "25px",
-                            height: "20px",
-                            background: "orange",
-                            textAlign: "center",
-                            lineHeight: "20px",
-                            borderRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          {v.product_rating}
-                        </Box>
-                      </Box>
-
-                      <Box>
-                        <FormControlLabel
-                          onClick={(e) => {
-                            SetChecked(true);
-                            setIsVisible(true);
-                            onchange(e, v);
-                          }}
-                          control={<Checkbox />}
-                          label="Сравнить"
-                        />
-                      </Box>
-                    </Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight: "600",
-                        fontSize: "18px",
-                        mt: 1,
-                        color: "#01466A",
-                      }}
-                    >
-                      {lang == "ru"
-                        ? v.product_title_ru
-                        : lang == "uz"
-                        ? v.product_title_uz
-                        : lang == "en"
-                        ? v.product_title_en
-                        : ""}
-                    </Typography>
-                    <Typography sx={{ mt: 1, fontSize: "14px", color: "gray" }}>
-                      {lang == "ru"
-                        ? v.product_information_ru?.split(" ").length > 5
-                          ? v.product_information_ru
-                              ?.split(" ")
-                              .splice(0, 5)
-                              .join(" ") + "..."
-                          : v.product_information_ru
-                        : lang == "uz"
-                        ? v.product_information_uz?.split(" ").length > 5
-                          ? v.product_information_uz
-                              ?.split(" ")
-                              .splice(0, 5)
-                              .join(" ") + "..."
-                          : v.product_information_uz
-                        : lang == "en"
-                        ? v.product_information_en?.split(" ").length > 5
-                          ? v.product_information_en
-                              ?.split(" ")
-                              .splice(0, 5)
-                              .join(" ") + "..."
-                          : v.product_information_en
-                        : ""}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        mt: 1,
-                        fontSize: "14px",
-                        color: "gray",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Brand
-                      </span>
-                      {v.brand_name}
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      mt: 4,
-                      pt: 5,
-                      width: "100%",
                       display: "flex",
-                      justifyContent: "space-between",
+                      gap: "10px",
                       alignItems: "center",
                     }}
                   >
-                    <>
-                      <Button
-                        variant="contained"
-                        sx={{
-                          position: "absolute",
-                          top: "90%",
-                          fontWeight: "bold",
-                        }}
-                        onClick={() => {
-                          HandleBasket(v);
-                        }}
-                        startIcon={<ShoppingBag />}
-                      >
-                        +
-                      </Button>
-                    </>
-                    <Button
-                      variant="contained"
+                    <Rating
+                      sx={{ fontSize: "15px !important" }}
+                      name="simple-controlled"
+                      value={v.product_rating}
+                      disabled
+                    />
+                    <Box
                       sx={{
-                        position: "absolute",
-                        top: "90%",
-                        left: "53%",
-                        fontSize: "12px !important",
-                      }}
-                      onClick={() => {
-                        navigate("/singleproduct/" + v.product_id);
+                        width: "25px",
+                        height: "20px",
+                        background: "orange",
+                        textAlign: "center",
+                        lineHeight: "20px",
+                        borderRadius: "10px",
+                        color: "white",
                       }}
                     >
-                      {content[lang].home.home_product_button}
-                    </Button>
+                      {v.product_rating}
+                    </Box>
                   </Box>
 
-                  {/* <Box
+                  <Box>
+                    <FormControlLabel
+                      onClick={(e) => {
+                        SetChecked(true);
+                        setIsVisible(true);
+                        onchange(e, v);
+                      }}
+                      control={<Checkbox />}
+                      label="Сравнить"
+                    />
+                  </Box>
+                </Box>
+
+                <Typography
+                  sx={{
+                    fontWeight: "600",
+                    fontSize: "18px",
+                    mt: 1,
+                    color: "#01466A",
+                  }}
+                >
+                  {lang == "ru"
+                    ? v.product_title_ru
+                    : lang == "uz"
+                    ? v.product_title_uz
+                    : lang == "en"
+                    ? v.product_title_en
+                    : ""}
+                </Typography>
+                <Typography sx={{ mt: 1, fontSize: "14px", color: "gray" }}>
+                  {lang == "ru"
+                    ? v.product_information_ru?.split(" ").length > 5
+                      ? v.product_information_ru
+                          ?.split(" ")
+                          .splice(0, 5)
+                          .join(" ") + "..."
+                      : v.product_information_ru
+                    : lang == "uz"
+                    ? v.product_information_uz?.split(" ").length > 5
+                      ? v.product_information_uz
+                          ?.split(" ")
+                          .splice(0, 5)
+                          .join(" ") + "..."
+                      : v.product_information_uz
+                    : lang == "en"
+                    ? v.product_information_en?.split(" ").length > 5
+                      ? v.product_information_en
+                          ?.split(" ")
+                          .splice(0, 5)
+                          .join(" ") + "..."
+                      : v.product_information_en
+                    : ""}
+                </Typography>
+                <Typography
+                  sx={{
+                    mt: 1,
+                    fontSize: "14px",
+                    color: "gray",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold", color: "black" }}>
+                    Brand
+                  </span>
+                  {v.brand_name}
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  mt: 4,
+                  pt: 2,
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      position: "absolute",
+                      top: "90%",
+                      fontWeight: "bold",
+                    }}
+                    onClick={() => {
+                      HandleBasket(v);
+                    }}
+                    startIcon={<ShoppingBag />}
+                  >
+                    +
+                  </Button>
+                </>
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    top: "90%",
+                    left: "53%",
+                    fontSize: "12px !important",
+                  }}
+                  onClick={() => {
+                    navigate("/singleproduct/" + v.product_id);
+                  }}
+                >
+                  {content[lang].home.home_product_button}
+                </Button>
+              </Box>
+
+              {/* <Box
                     sx={{
                       display: "flex",
                       gap: "10px",
@@ -341,59 +336,57 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                       <Add />
                     </Button>
                   </Box> */}
-                </Box>
-              </SwiperSlide>
-            ))}
+            </Box>
+          </SwiperSlide>
+        ))}
 
-            {isVisible && (
+        {isVisible && (
+          <Box
+            sx={{
+              background: "blue",
+              borderRadius: "4px",
+              height: "40px",
+              width: "300px",
+              margin: "0 auto",
+              cursor: "pointer",
+            }}
+            component={"div"}
+            onClick={() => navigate("/compare")}
+          >
+            {checked == true ? (
               <Box
                 sx={{
-                  background: "blue",
-                  borderRadius: "4px",
-                  height: "40px",
-                  width: "300px",
-                  margin: "0 auto",
-                  cursor: "pointer",
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  color: "white",
+                  minHeight: "40px",
+                  alignItems: "center",
                 }}
-                component={"div"}
-                onClick={() => navigate("/compare")}
               >
-                {checked == true ? (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: "10px",
-                      justifyContent: "center",
-                      color: "white",
-                      minHeight: "40px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography>{compareData.length}</Typography>
-                    <Typography>Add Compare</Typography>
-                    <ArrowRight />
-                  </Box>
-                ) : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: "10px",
-                      justifyContent: "center",
-                      color: "white",
-                      minHeight: "40px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography>{compareData.length}</Typography>
-                    <Typography>Remove Compare</Typography>
-                    <ArrowRight />
-                  </Box>
-                )}
+                <Typography>{compareData.length}</Typography>
+                <Typography>Add Compare</Typography>
+                <ArrowRight />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  color: "white",
+                  minHeight: "40px",
+                  alignItems: "center",
+                }}
+              >
+                <Typography>{compareData.length}</Typography>
+                <Typography>Remove Compare</Typography>
+                <ArrowRight />
               </Box>
             )}
-          </Swiper>
-        </Grid>
-      </Grid>
+          </Box>
+        )}
+      </Swiper>
     </Box>
   );
 }

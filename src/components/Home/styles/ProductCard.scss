@@ -4,30 +4,4 @@
 
 .swiperSlideBox {
   cursor: pointer;
-  position: relative;
-
-  .changeCard {
-    opacity: 0;
-    background-color: white;
-    width: 30%;
-    position: absolute;
-    top: 50%;
-    left: 35%;
-    transition: all 0.7s ease-in-out;
-    border-radius: 10px;
-
-    .productCardIconsHome {
-      color: black;
-      :hover {
-        color: red;
-      }
-    }
-  }
-
-  :hover {
-    .changeCard {
-      transform: translateY(-10px);
-      opacity: 1;
-    }
-  }
 }
