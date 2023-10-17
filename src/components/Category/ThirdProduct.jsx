@@ -21,7 +21,18 @@ import axios from "axios";
 import content from "../../Locolization/content";
 import { toast } from "react-toastify";
 
-export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
+import CategoryMainImg from "../../images/PageMain/product.jpg";
+import BrandBox from "./BrandBox";
+import SearchCategory from "./SearchCategory";
+
+export default function ThirdProduct({
+  lang,
+  basket,
+  setBasket,
+  setLang,
+  value,
+  setValue,
+}) {
   const [thirdProductData, setThirdProductData] = useState([]);
 
   const [offset, setOffset] = useState(0);
@@ -29,12 +40,13 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
 
   const navigate = useNavigate();
 
+  const [brand_id, setBrand_id] = useState("");
+
   useEffect(() => {
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&thirdsubcategory_id=` +
-            id
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&brand_id=${brand_id}&thirdsubcategory_id=${id}&search_${lang}=${value}`
         );
         return setThirdProductData(res.data.data);
       } catch (error) {
@@ -42,7 +54,7 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
       }
     }
     getData();
-  }, [id]);
+  }, [id, offset, lang, brand_id, value]);
 
   const message = content[lang].home.home_toast;
   const basketData = JSON.parse(localStorage.getItem("data")) || [];
@@ -100,9 +112,8 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
       <HeaderMenu lang={lang} setLang={setLang} />
       <Box
         sx={{
-          backgroundImage:
-            "url('https://htmldemo.net/eposi/eposi/assets/img/backgrounds/category-image-1820x400.webp')",
           height: "400px",
+          backgroundImage: `url(${CategoryMainImg})`,
           pt: 10,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -135,6 +146,25 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
             </Link>
           </Box>
         </Box>
+      </Box>
+
+      <Box
+        sx={{
+          width: "90%",
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
+        <BrandBox
+          lang={lang}
+          value={value}
+          brand_id={brand_id}
+          setBrand_id={setBrand_id}
+        />
+        <SearchCategory lang={lang} value={value} setValue={setValue} />
       </Box>
 
       {/* Sub Category Product List Start */}
@@ -186,12 +216,34 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
 
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Box>
-                    <Rating
-                      name="simple-controlled"
-                      value={v.product_rating}
-                      sx={{ fontSize: "14px" }}
-                      disabled
-                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Rating
+                        name="simple-controlled"
+                        value={v.product_rating}
+                        sx={{ fontSize: "14px" }}
+                        disabled
+                      />
+                      <Box
+                        sx={{
+                          width: "25px",
+                          height: "20px",
+                          background: "orange",
+                          textAlign: "center",
+                          lineHeight: "20px",
+                          borderRadius: "10px",
+                          color: "white",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {v.product_rating}
+                      </Box>
+                    </Box>
                     <Box>
                       <FormControlLabel
                         onClick={(e) => {
@@ -203,7 +255,7 @@ export default function ThirdProduct({ lang, basket, setBasket, setLang }) {
                         control={
                           <Checkbox sx={{ fontSize: "12px !important" }} />
                         }
-                        label="Сравныт"
+                        label="Сравнить"
                       />
                     </Box>
                   </Box>

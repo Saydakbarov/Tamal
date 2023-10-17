@@ -15,7 +15,7 @@ export default function CategoryMain({ lang }) {
         pt: 10,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundSize: { xs: "none", sm: "none", md: "100%" },
+        backgroundSize: "cover",
       }}
     >
       <Box
@@ -47,4 +47,3 @@ export default function CategoryMain({ lang }) {
     </Box>
   );
 }
-

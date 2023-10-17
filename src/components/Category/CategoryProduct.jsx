@@ -17,11 +17,21 @@ import CategoryButtonBox from "../Home/CategoryButtonBox";
 import CategoryPageButton from "./ResponsiveCategoryBox/CategoryPageButton";
 import content from "../../Locolization/content";
 
+import CategoryMainImg from "../../images/PageMain/product.jpg";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ArrowRight, ShoppingBag } from "@mui/icons-material";
+import BrandBox from "./BrandBox";
+import SearchCategory from "./SearchCategory";
 
-export default function CategoryProduct({ lang, value, basket, setBasket }) {
+export default function CategoryProduct({
+  lang,
+  value,
+  basket,
+  setBasket,
+  setValue,
+}) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -44,6 +54,8 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
 
   const [offset, setOffset] = useState(0);
 
+  const [brand_id, setBrand_id] = useState("");
+
   const navigate = useNavigate();
 
   console.log(value);
@@ -62,7 +74,7 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&search_${lang}=${value}`
+          `https://front-api.tamal.pro/api/v1/products?limit=6&offset=${offset}&brand_id=${brand_id}&search_${lang}=${value}`
         );
         return setProductData(res.data.data);
       } catch (error) {
@@ -70,7 +82,9 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
       }
     }
     getData();
-  }, [value, lang, offset]);
+  }, [value, lang, offset, brand_id]);
+
+  console.log(brand_id);
 
   const HandleBasket = (v) => {
     let a = v;
@@ -111,8 +125,6 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
   };
 
   const compareData = JSON.parse(localStorage.getItem("compare")) || [];
-
-  console.log(productData);
 
   return (
     <>
@@ -193,162 +205,199 @@ export default function CategoryProduct({ lang, value, basket, setBasket }) {
             </>
           )}
         </Grid>
-        <Grid
-          item
-          lg={8}
-          md={8}
-          sm={11}
-          xs={11}
-          sx={{
-            borderRadius: "6px",
-            cursor: "pointer",
-            display: "flex",
-            gap: "10px",
-            flexWrap: "wrap",
-            p: 2,
-            justifyContent: "center",
-          }}
-          // key={v.product_id}
-          component={"div"}
-        >
-          {productData?.map((v, i) => (
-            <Box
-              sx={{
-                width: { xs: "430px", sm: "350px", md: "300px" },
-                position: "relative",
-                height: "540px",
-                p: 2,
-                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              }}
-              component={"div"}
-            >
+        <Grid item lg={8} md={8} sm={11} xs={11} sx={{}} component={"div"}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              alignItems: "center",
+            }}
+          >
+            <BrandBox
+              lang={lang}
+              value={value}
+              brand_id={brand_id}
+              setBrand_id={setBrand_id}
+            />
+            <SearchCategory lang={lang} value={value} setValue={setValue} />
+          </Box>
+          <Box
+            sx={{
+              borderRadius: "6px",
+              cursor: "pointer",
+              display: "flex",
+              gap: "10px",
+              flexWrap: "wrap",
+              p: 2,
+              justifyContent: "center",
+            }}
+          >
+            {productData?.map((v, i) => (
               <Box
                 sx={{
-                  width: "100%",
+                  width: { xs: "430px", sm: "350px", md: "300px" },
+                  position: "relative",
+                  height: "540px",
+                  p: 2,
+                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                 }}
+                component={"div"}
+                key={v.product_id}
               >
-                <img
-                  style={{
+                <Box
+                  sx={{
                     width: "100%",
-                    height: "240px",
-                    objectPosition: "100%",
                   }}
-                  src={v.product_image_url}
-                  alt=""
-                />
-              </Box>
-              <Box>
-                <Typography sx={{ fontWeight: "600", fontSize: "18px", mt: 2 }}>
-                  {lang == "ru"
-                    ? v.product_title_ru
-                    : lang == "uz"
-                    ? v.product_title_uz
-                    : lang == "en"
-                    ? v.product_title_en
-                    : ""}
-                </Typography>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Box>
-                    <Rating
-                      name="simple-controlled"
-                      value={v.product_rating}
-                      sx={{ fontSize: "14px" }}
-                      disabled
-                    />
-                    <Box>
-                      <FormControlLabel
-                        onClick={(e) => {
-                          SetChecked(!checked);
-                          setIsVisible(true);
-                          onchange(e, v);
-                        }}
-                        sx={{ fontSize: "12px !important" }}
-                        control={
-                          <Checkbox sx={{ fontSize: "12px !important" }} />
-                        }
-                        label="Сравныт"
-                      />
-                    </Box>
-                  </Box>
-
-                  <Typography
-                    sx={{
-                      mt: 2,
-                      fontSize: "14px",
-                      color: "gray",
-                      display: "flex",
-                      justifyContent: "space-between",
+                >
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "240px",
+                      objectPosition: "100%",
                     }}
+                    src={v.product_image_url}
+                    alt=""
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ fontWeight: "600", fontSize: "18px", mt: 2 }}
                   >
-                    <span style={{ fontWeight: "bold", color: "black" }}>
-                      Brand
-                    </span>
-                    {v.brand_name}
-                  </Typography>
-
-                  <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
                     {lang == "ru"
-                      ? v.product_information_ru?.split(" ").length > 10
-                        ? v.product_information_ru
-                            ?.split(" ")
-                            .splice(0, 10)
-                            .join(" ") + "..."
-                        : v.product_information_ru
+                      ? v.product_title_ru
                       : lang == "uz"
-                      ? v.product_information_uz?.split(" ").length > 10
-                        ? v.product_information_uz
-                            ?.split(" ")
-                            .splice(0, 10)
-                            .join(" ") + "..."
-                        : v.product_information_uz
+                      ? v.product_title_uz
                       : lang == "en"
-                      ? v.product_information_en?.split(" ").length > 10
-                        ? v.product_information_en
-                            ?.split(" ")
-                            .splice(0, 10)
-                            .join(" ") + "..."
-                        : v.product_information_en
+                      ? v.product_title_en
                       : ""}
                   </Typography>
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: "10px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Rating
+                          name="simple-controlled"
+                          value={v.product_rating}
+                          sx={{ fontSize: "14px" }}
+                          disabled
+                        />
+                        <Box
+                          sx={{
+                            width: "25px",
+                            height: "20px",
+                            background: "orange",
+                            textAlign: "center",
+                            lineHeight: "20px",
+                            borderRadius: "10px",
+                            color: "white",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {v.product_rating}
+                        </Box>
+                      </Box>
+
+                      <Box>
+                        <FormControlLabel
+                          onClick={(e) => {
+                            SetChecked(!checked);
+                            setIsVisible(true);
+                            onchange(e, v);
+                          }}
+                          sx={{ fontSize: "12px !important" }}
+                          control={
+                            <Checkbox sx={{ fontSize: "12px !important" }} />
+                          }
+                          label="Сравнить"
+                        />
+                      </Box>
+                    </Box>
+
+                    <Typography
+                      sx={{
+                        mt: 2,
+                        fontSize: "14px",
+                        color: "gray",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span style={{ fontWeight: "bold", color: "black" }}>
+                        Brand
+                      </span>
+                      {v.brand_name}
+                    </Typography>
+
+                    <Typography sx={{ mt: 2, fontSize: "14px", color: "gray" }}>
+                      {lang == "ru"
+                        ? v.product_information_ru?.split(" ").length > 10
+                          ? v.product_information_ru
+                              ?.split(" ")
+                              .splice(0, 10)
+                              .join(" ") + "..."
+                          : v.product_information_ru
+                        : lang == "uz"
+                        ? v.product_information_uz?.split(" ").length > 10
+                          ? v.product_information_uz
+                              ?.split(" ")
+                              .splice(0, 10)
+                              .join(" ") + "..."
+                          : v.product_information_uz
+                        : lang == "en"
+                        ? v.product_information_en?.split(" ").length > 10
+                          ? v.product_information_en
+                              ?.split(" ")
+                              .splice(0, 10)
+                              .join(" ") + "..."
+                          : v.product_information_en
+                        : ""}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Box
+                  sx={{
+                    mt: 4,
+                    pt: 5,
+                    width: "100%",
+                    position: "absolute",
+                    bottom: "4%",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    sx={{ fontWeight: "bold" }}
+                    onClick={() => {
+                      HandleBasket(v);
+                    }}
+                    startIcon={<ShoppingBag />}
+                  >
+                    +
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    sx={{
+                      position: "absolute",
+                      fontSize: "12px !important",
+                      left: "53%",
+                    }}
+                    onClick={() => {
+                      navigate("/singleproduct/" + v.product_id);
+                    }}
+                  >
+                    {content[lang].home.home_product_button}
+                  </Button>
                 </Box>
               </Box>
-
-              <Box
-                sx={{
-                  mt: 4,
-                  pt: 5,
-                  width: "100%",
-                  position: "absolute",
-                  bottom: "4%",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  sx={{ fontWeight: "bold" }}
-                  onClick={() => {
-                    HandleBasket(v);
-                  }}
-                  startIcon={<ShoppingBag />}
-                >
-                  +
-                </Button>
-
-                <Button
-                  variant="contained"
-                  sx={{
-                    position: "absolute",
-                    fontSize: "12px !important",
-                    left: "53%",
-                  }}
-                  onClick={() => {
-                    navigate("/singleproduct/" + v.product_id);
-                  }}
-                >
-                  {content[lang].home.home_product_button}
-                </Button>
-              </Box>
-            </Box>
-          ))}
+            ))}
+          </Box>
 
           {productData?.length === 0 ? (
             <Typography

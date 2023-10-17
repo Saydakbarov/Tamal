@@ -14,6 +14,8 @@ import axios from "axios";
 import BASE_URL from "../../Server";
 import CategoryButtonBox from "./CategoryButtonBox";
 import content from "../../Locolization/content";
+import BrandBox from "../Category/BrandBox";
+import SearchCategory from "../Category/SearchCategory";
 
 const ProductCategory = [
   {
@@ -30,7 +32,13 @@ const ProductCategory = [
   },
 ];
 
-export default function HomeProducts({ lang, basket, setBasket }) {
+export default function HomeProducts({
+  lang,
+  basket,
+  setBasket,
+  value,
+  setValue,
+}) {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -39,6 +47,8 @@ export default function HomeProducts({ lang, basket, setBasket }) {
   const [categoryId, setCategoryId] = useState(3);
 
   const [data, setData] = useState([]);
+
+  const [brand_id, setBrand_id] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -56,7 +66,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
     async function getData() {
       try {
         const res = await axios.get(
-          `https://front-api.tamal.pro/api/v1/products?limit=20&offset=0&category_id=${categoryId}`
+          `https://front-api.tamal.pro/api/v1/products?limit=20&offset=0&brand_id=${brand_id}&category_id=${categoryId}&search_${lang}=${value}`
         );
         return setData(res.data.data);
       } catch (error) {
@@ -64,9 +74,7 @@ export default function HomeProducts({ lang, basket, setBasket }) {
       }
     }
     getData();
-  }, [categoryId]);
-
-  console.log(data);
+  }, [categoryId, brand_id, value, lang]);
 
   return (
     <Box sx={{ mt: 10 }}>
@@ -159,6 +167,23 @@ export default function HomeProducts({ lang, basket, setBasket }) {
         </Grid>
 
         <Grid item lg={8} md={8} sm={10} xs={10}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              alignItems: "center",
+              mt: 3,
+            }}
+          >
+            <BrandBox
+              lang={lang}
+              value={value}
+              brand_id={brand_id}
+              setBrand_id={setBrand_id}
+            />
+            <SearchCategory lang={lang} value={value} setValue={setValue} />
+          </Box>
           <ProductsCard
             data={data}
             lang={lang}

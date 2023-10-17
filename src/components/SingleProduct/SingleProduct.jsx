@@ -23,7 +23,7 @@ export default function SingleProduct({
 }) {
   const [singleproductData, setSingleProductData] = useState({});
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const { id } = useParams();
   useEffect(() => {
     async function getData() {
@@ -173,12 +173,29 @@ export default function SingleProduct({
               {singleproductData.product_dollar === true ? "$" : "so'm"}
             </Typography>
           </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mt: 2,
+            }}
+          >
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+              Итого:
+            </Typography>
+
+            <Typography sx={{ fontSize: "18px" }}>
+              {singleproductData.product_price * count}{" "}
+              {singleproductData.product_dollar === true ? "$" : "so'm" * count}
+            </Typography>
+          </Box>
 
           <Box sx={{ display: "flex", gap: "10px", mt: 5 }}>
             <Button
               variant="contained"
               onClick={() => handleDeccrement(singleproductData.product_id)}
-              disabled={count >= 1 ? false : true}
+              disabled={count >= 2 ? false : true}
             >
               <Remove />
             </Button>

@@ -18,7 +18,13 @@ export default function Home({
     <div>
       <Header lang={lang} setLang={setLang} value={value} setValue={setValue} />
       <HomeCategory lang={lang} />
-      <HomeProducts lang={lang} basket={basket} setBasket={setBasket} />
+      <HomeProducts
+        lang={lang}
+        basket={basket}
+        setBasket={setBasket}
+        value={value}
+        setValue={setValue}
+      />
       <BlogPosts lang={lang} />
       <HomeContact lang={lang} />
       <Footer lang={lang} />

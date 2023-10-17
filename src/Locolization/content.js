@@ -73,7 +73,7 @@ const content = {
     header: {
       links: [
         {
-          title: "Главный",
+          title: "Главная",
           path: "/",
         },
         {
@@ -81,7 +81,7 @@ const content = {
           path: "/about",
         },
         {
-          title: "Продукт",
+          title: "Товары ",
           path: "/product",
         },
         {
@@ -89,7 +89,7 @@ const content = {
           path: "/news",
         },
         {
-          title: "Контакт",
+          title: "Контакты",
           path: "/contact",
         },
       ],

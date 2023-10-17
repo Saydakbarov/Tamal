@@ -24,7 +24,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, ShoppingBag } from "@mui/icons-material";
+import { Add, ArrowRight, Remove, ShoppingBag } from "@mui/icons-material";
 import content from "../../Locolization/content";
 import axios from "axios";
 
@@ -54,6 +54,8 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
       return localStorage.setItem("data", JSON.stringify([a, ...basketData]));
     }
   };
+
+ 
 
   const [checked, SetChecked] = useState(false);
 
@@ -90,10 +92,11 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
 
   const compareData = JSON.parse(localStorage.getItem("compare")) || [];
 
+
   return (
     <Box sx={{}}>
       <ToastContainer />
-      <Grid container justifyContent={"center"} gap={2} mt={8}>
+      <Grid container justifyContent={"center"} gap={2} mt={4}>
         <Grid item lg={11} md={11} sm={11} xs={11}>
           <Swiper
             slidesPerView={1}
@@ -154,12 +157,34 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                   </Box>
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Box>
-                      <Rating
-                        sx={{ fontSize: "15px !important" }}
-                        name="simple-controlled"
-                        value={v.product_rating}
-                        disabled
-                      />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: "10px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Rating
+                          sx={{ fontSize: "15px !important" }}
+                          name="simple-controlled"
+                          value={v.product_rating}
+                          disabled
+                        />
+                        <Box
+                          sx={{
+                            width: "25px",
+                            height: "20px",
+                            background: "orange",
+                            textAlign: "center",
+                            lineHeight: "20px",
+                            borderRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          {v.product_rating}
+                        </Box>
+                      </Box>
+
                       <Box>
                         <FormControlLabel
                           onClick={(e) => {
@@ -168,7 +193,7 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                             onchange(e, v);
                           }}
                           control={<Checkbox />}
-                          label="Сравныт"
+                          label="Сравнить"
                         />
                       </Box>
                     </Box>
@@ -270,6 +295,52 @@ export default function ProductsCard({ data, lang, basket, setBasket }) {
                       {content[lang].home.home_product_button}
                     </Button>
                   </Box>
+
+                  {/* <Box
+                    sx={{
+                      display: "flex",
+                      gap: "10px",
+                      position: "absolute",
+                      bottom: "4%",
+                      border: "2px solid gray",
+                      borderRadius: "4px",
+                      left: "20%",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      onClick={() => handleDeccrement(v.product_id)}
+                      disabled={v.count >= 1 ? false : true}
+                      sx={{
+                        background: "white",
+                        boxShadow: "none",
+                        color: "black",
+                        "&:hover": {
+                          background: "white",
+                          boxShadow: "none",
+                        },
+                      }}
+                    >
+                      <Remove />
+                    </Button>
+
+                    <Typography sx={{ fontSize: "20px" }}>{v.count}</Typography>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleIncrement(v.product_id)}
+                      sx={{
+                        background: "white",
+                        boxShadow: "none",
+                        color: "black",
+                        "&:hover": {
+                          background: "white",
+                          boxShadow: "none",
+                        },
+                      }}
+                    >
+                      <Add />
+                    </Button>
+                  </Box> */}
                 </Box>
               </SwiperSlide>
             ))}

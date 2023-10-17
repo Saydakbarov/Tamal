@@ -16,7 +16,6 @@ import content from "../Locolization/content";
 export default function Footer({ lang }) {
   const navigate = useNavigate();
 
-  console.log(content[lang].header.links);
   return (
     <Box sx={{ mt: 8, background: "#EFF1F3" }}>
       <Grid
@@ -35,9 +34,7 @@ export default function Footer({ lang }) {
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d23974.287870720098!2d69.25198194999999!3d41.3135192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2s!4v1692882380923!5m2!1sru!2s"
             width="100%"
             height="450"
-            allowfullscreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </Grid>
 

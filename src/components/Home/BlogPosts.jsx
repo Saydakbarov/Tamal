@@ -31,7 +31,6 @@ export default function BlogPosts({ lang }) {
     getData();
   }, []);
 
-  console.log(newsData);
   return (
     <Box>
       {/* <Grid container justifyContent={"center"} gap={5} mt={16}>
